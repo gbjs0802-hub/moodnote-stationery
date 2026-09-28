@@ -2,7 +2,7 @@
 
 취향을 기록하고 만드는 시간을 위한 반응형 문구·취미 편집숍 웹사이트입니다.
 
-**Live:** https://moodnote-stationery.gbjs0802.chatgpt.site
+**Live:** https://moodnote-stationery.pages.dev
 
 ## 주요 기능
 
