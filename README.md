@@ -2,7 +2,7 @@
 
 취향을 기록하고 만드는 시간을 위한 반응형 문구·취미 편집숍 웹사이트입니다.
 
-**Live:** https://moodnote-stationery.pages.dev
+**Live:** https://moodnote-stationery.web.app
 
 ## 주요 기능
 
@@ -11,6 +11,7 @@
 - 반려동물 사진과 이름을 받는 커스텀 스티커 주문 화면
 - 검색, 카테고리·가격·분위기 필터, 정렬, 찜과 장바구니
 - 배송지와 결제수단을 선택하는 데모 주문·결제 및 완료 화면
+- Firebase Authentication 기반 Google 로그인과 프로필·로그아웃 메뉴
 - 데스크톱과 모바일에 맞춘 반응형 레이아웃
 
 ## 로컬 실행

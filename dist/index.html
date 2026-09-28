@@ -10,9 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Gowun+Dodum&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=4" />
-  <link rel="stylesheet" href="season.css?v=4" />
-  <script src="app.js?v=4" defer></script>
+  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="season.css?v=5" />
+  <script src="app.js?v=5" defer></script>
+  <script type="module" src="firebase-auth.js?v=1"></script>
 </head>
 <body>
   <div class="promo-bar"><span>첫 구매 10% 쿠폰</span><span>·</span><span>30,000원 이상 무료배송</span><a href="#catalog" data-home>혜택 보기 →</a></div>
@@ -21,7 +22,19 @@
     <div class="masthead container">
       <a href="#home" class="brand" data-home><span class="brand-mark">m<span>✳</span></span><span>moodnote<small>MOOD & STATIONERY</small></span></a>
       <form id="header-search" class="search-box"><input id="search-input" type="search" placeholder="찾고 싶은 문구를 검색해 보세요" aria-label="상품 검색" /><button aria-label="검색">⌕</button></form>
-      <div class="mast-actions"><button data-action="favorites" aria-label="취향 보관함">♡</button><button data-action="cart" aria-label="장바구니">▱</button></div>
+      <div class="mast-actions">
+        <div class="auth-area" id="auth-area">
+          <button class="auth-button" id="auth-button" type="button" aria-haspopup="true" aria-expanded="false">
+            <span class="google-mark" id="auth-avatar">G</span><span id="auth-label">Google 로그인</span>
+          </button>
+          <div class="auth-popover" id="auth-popover" hidden>
+            <div class="auth-profile"><img id="auth-photo" alt="" hidden/><div><strong id="auth-name"></strong><small id="auth-email"></small></div></div>
+            <button id="auth-logout" type="button">로그아웃</button>
+          </div>
+        </div>
+        <button class="round-action" data-action="favorites" aria-label="취향 보관함">♡</button>
+        <button class="round-action" data-action="cart" aria-label="장바구니">▱</button>
+      </div>
     </div>
     <nav class="main-nav container" aria-label="주요 메뉴"><a href="#catalog" data-filter="all"><strong>전체상품</strong></a><a href="#autumn" data-home>가을 컬렉션</a><a href="#hobby" data-home>취미·DIY</a><a href="#product/diary-2027" data-product="diary-2027">2027 DIARY</a><a href="#catalog" data-filter="record">다이어리·노트</a><a href="#catalog" data-filter="deco">스티커·마테</a><a href="#catalog" data-filter="write">펜·필기</a><a href="#steady" data-home>스테디셀러</a><a href="#product/custom-pet-sticker" data-product="custom-pet-sticker">마이펫 스티커</a></nav>
   </header>
