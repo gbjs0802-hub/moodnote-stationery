@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fffaf4" />
+  <meta name="description" content="오늘의 취향을 기록하고 모으는 문구 편집숍 무드노트. 다이어리, 스티커, 펜과 파우치를 취향별로 만나보세요." />
+  <title>무드노트 | 취향을 기록하는 문구 편집숍</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23b93635'/%3E%3Cpath d='M17 20h30v28H17z' fill='%23fff9ef'/%3E%3Cpath d='M25 18v32M23 30c8-6 11 8 18 1' fill='none' stroke='%23b93635' stroke-width='3'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Gowun+Dodum&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="season.css?v=4" />
+  <script src="app.js?v=4" defer></script>
+</head>
+<body>
+  <div class="promo-bar"><span>첫 구매 10% 쿠폰</span><span>·</span><span>30,000원 이상 무료배송</span><a href="#catalog" data-home>혜택 보기 →</a></div>
+  <header class="site-header">
+    <div class="utility container"><span>오늘의 취향을 기록하는 문구 편집숍</span><nav><a href="#creator" data-home>브랜드</a><a href="#footer" data-home>고객센터</a><button data-action="favorites">찜 <b id="favorite-count">0</b></button><button data-action="cart">장바구니 <b id="cart-count">0</b></button></nav></div>
+    <div class="masthead container">
+      <a href="#home" class="brand" data-home><span class="brand-mark">m<span>✳</span></span><span>moodnote<small>MOOD & STATIONERY</small></span></a>
+      <form id="header-search" class="search-box"><input id="search-input" type="search" placeholder="찾고 싶은 문구를 검색해 보세요" aria-label="상품 검색" /><button aria-label="검색">⌕</button></form>
+      <div class="mast-actions"><button data-action="favorites" aria-label="취향 보관함">♡</button><button data-action="cart" aria-label="장바구니">▱</button></div>
+    </div>
+    <nav class="main-nav container" aria-label="주요 메뉴"><a href="#catalog" data-filter="all"><strong>전체상품</strong></a><a href="#autumn" data-home>가을 컬렉션</a><a href="#hobby" data-home>취미·DIY</a><a href="#product/diary-2027" data-product="diary-2027">2027 DIARY</a><a href="#catalog" data-filter="record">다이어리·노트</a><a href="#catalog" data-filter="deco">스티커·마테</a><a href="#catalog" data-filter="write">펜·필기</a><a href="#steady" data-home>스테디셀러</a><a href="#product/custom-pet-sticker" data-product="custom-pet-sticker">마이펫 스티커</a></nav>
+  </header>
+
+  <main id="home-page">
+    <section class="hero-shell" id="home"><div class="hero container"><img src="assets/cherry-hero.png" alt="체리 문구로 꾸민 다이어리와 체크 파우치가 놓인 책상" /><div class="hero-shade"></div><div class="hero-copy"><span class="eyebrow">SEPTEMBER EDIT · CHERRY PICNIC</span><h1>쓰는 순간까지<br/>설레는 문구</h1><p>체리빛 펜과 스티커로<br/>오늘의 한 페이지를 채워보세요.</p><a href="#catalog" class="solid-button" data-mood="cherry">컬렉션 쇼핑하기 <span>→</span></a></div><div class="hero-index"><strong>01</strong><span></span><em>03</em></div></div></section>
+
+    <section class="category-strip container" aria-label="카테고리 바로가기"><a href="#catalog" data-filter="record"><span>01</span><b>다이어리 · 노트</b><small>매일의 기록</small></a><a href="#catalog" data-filter="deco"><span>02</span><b>스티커 · 마테</b><small>한 장의 취향</small></a><a href="#catalog" data-filter="write"><span>03</span><b>펜 · 필기</b><small>손끝의 색</small></a><a href="#catalog" data-filter="hobby"><span>04</span><b>취미 · DIY</b><small>손으로 만드는 시간</small></a><a href="#catalog" data-filter="gift"><span>05</span><b>랜덤박스</b><small>오픈 기념</small></a></section>
+
+    <section class="season-launch container" aria-label="2027 다이어리 출시"><div class="season-copy"><span class="eyebrow">2027 PLANNER COLLECTION</span><h2>새해의 첫 문장을<br/>미리 준비하세요</h2><p>한 달의 큰 흐름과 매주의 작은 기록을 함께 담는 날짜형 다이어리. 버건디 패브릭 커버와 편안하게 펼쳐지는 100g 내지로 만들었습니다.</p><strong>19,500원 <del>22,000원</del></strong><a href="#product/diary-2027" class="solid-button" data-product="diary-2027">2027 다이어리 자세히 보기 <span>→</span></a></div><img src="assets/product-2027-diary.png" alt="버건디 패브릭 커버의 2027 위클리 다이어리" /></section>
+
+    <section class="weekly container section" id="new"><div class="section-title"><div><span class="eyebrow">NEW & CURATED</span><h2>이번 주에 새로 담긴 문구</h2></div><p>무드노트가 직접 고른, 오래 곁에 두고 싶은 여섯 가지입니다.</p></div><div id="featured-grid" class="featured-grid"></div></section>
+
+    <section class="autumn-showcase section" id="autumn"><div class="container"><div class="autumn-lead"><div><span class="eyebrow">AUTUMN SLOW MOMENTS</span><h2>책상 위에 내려앉은<br/>가을의 색과 촉감</h2><p>단풍빛 슬라임부터 숲속 스티커, 밤색 독서 저널까지. 길어진 저녁을 천천히 즐기는 여섯 가지를 모았습니다.</p><button class="outline-button" data-mood="autumn">가을 상품 모아보기 →</button></div><img src="assets/product-reading-journal.png" alt="밤색 패브릭 커버의 가을 독서 저널"/></div><div id="autumn-grid" class="product-grid autumn-grid"></div></div></section>
+
+    <section class="hobby-showcase container section" id="hobby"><div class="section-title"><div><span class="eyebrow">PLAY & MAKE</span><h2>손으로 만지고 만드는 취미</h2></div><p>말랑한 촉감부터 작은 키링을 완성하는 시간까지 준비했습니다.</p></div><div id="hobby-grid" class="hobby-grid"></div></section>
+
+    <section class="steady-showcase section" id="steady"><div class="container"><div class="section-title"><div><span class="eyebrow">FOREVER FAVORITES</span><h2>오래 사랑받은 브랜드 문구</h2></div><p>필기감과 쓰임으로 이미 검증된 시판 스테디셀러를 모았습니다.</p></div><div id="steady-grid" class="product-grid steady-grid"></div></div></section>
+
+    <section class="catalog-section section" id="catalog"><div class="container catalog-heading"><div><span class="eyebrow">ALL STATIONERY & HOBBY</span><h2>취향대로 천천히 골라보세요</h2></div><div class="catalog-tools"><span id="result-count"></span><select id="sort-select" aria-label="상품 정렬"><option value="featured">추천순</option><option value="low">낮은 가격순</option><option value="high">높은 가격순</option><option value="new">신상품순</option></select></div></div><div class="container catalog-layout"><aside class="filters"><div><h3>카테고리</h3><button class="active" data-filter="all">전체상품 <span>21</span></button><button data-filter="record">다이어리·노트 <span>4</span></button><button data-filter="deco">스티커·마테 <span>6</span></button><button data-filter="write">펜·필기 <span>6</span></button><button data-filter="hobby">취미·DIY <span>3</span></button><button data-filter="pouch">파우치·소품 <span>1</span></button><button data-filter="gift">랜덤박스 <span>1</span></button></div><div><h3>가격</h3><label><input type="radio" name="price" value="all" checked /> 전체 가격</label><label><input type="radio" name="price" value="5000" /> 5,000원 이하</label><label><input type="radio" name="price" value="10000" /> 10,000원 이하</label><label><input type="radio" name="price" value="20000" /> 20,000원 이하</label></div><div><h3>분위기</h3><label><input type="checkbox" name="mood" value="cherry" /> 체리 레드</label><label><input type="checkbox" name="mood" value="natural" /> 내추럴</label><label><input type="checkbox" name="mood" value="autumn" /> 가을 브라운</label></div></aside><div><div id="active-filter" class="active-filter">전체상품</div><div id="product-grid" class="product-grid"></div><p id="empty-products" class="empty-state" hidden>조건에 맞는 상품이 없어요.</p></div></div></section>
+
+    <section class="editorial section" id="recipe"><div class="container editorial-grid"><div class="editorial-photo"><img src="assets/cherry-hero.png" alt="체리 문구로 완성한 다꾸 페이지" /></div><div class="editorial-copy"><span class="eyebrow">DECO RECIPE 01</span><h2>한 페이지를 채우는<br/>체리빛 오후</h2><p>좋아하는 색 하나를 정하고 스티커와 마스킹테이프를 겹쳐 붙여보세요. 펜은 같은 계열의 짙은 색을 골라 기록에 리듬을 줍니다.</p><ul><li><span>01</span>체리 데이 스티커</li><li><span>02</span>레드 체크 마스킹테이프</li><li><span>03</span>소프트 젤펜 3색 세트</li></ul><div><strong>세트 구성가 12,600원</strong><button class="outline-button" data-action="add-recipe">레시피 한 번에 담기 →</button></div></div></div></section>
+
+    <section class="gift container section" id="gift"><div class="section-title"><div><span class="eyebrow">OPENING SPECIAL</span><h2>오픈 기념 문구 랜덤박스</h2></div><a href="#product/random-box" data-product="random-box">구성 자세히 보기 →</a></div><div class="gift-banner"><div><span>LIMITED · 100 BOXES</span><h3>열어보는 순간까지<br/>설레는 문구 상자</h3><p>스티커, 마스킹테이프, 펜과 메모지를 기본으로<br/>8–12종, 35,000원 상당의 문구를 담았습니다.</p><button class="solid-button" data-action="add-gift">19,900원 · 장바구니 담기</button></div><div class="gift-products single"><img src="assets/product-opening-box.png" alt="다양한 문구가 담긴 무드노트 오픈 기념 랜덤박스" /></div></div></section>
+
+    <section class="creator section" id="creator"><div class="container creator-grid"><div><span class="eyebrow">CREATOR OF THE MONTH</span><h2>평범한 하루를<br/>작게 그리는 사람</h2><p>이달의 작가 ‘소소한 하루’는 책상 위 꽃과 산책길의 강아지처럼 지나치기 쉬운 장면을 종이 위에 남깁니다.</p><a href="#catalog" data-filter="deco" class="text-link">작가의 문구 구경하기 →</a></div><img src="assets/product-cherry-sticker.png" alt="소소한 하루 체리 데이 스티커" /><div class="creator-note"><small>MONTHLY CREATOR · 09</small><strong>소소한 하루</strong><span>Sticker & Paper Artist</span></div></div></section>
+  </main>
+
+  <main id="product-page" class="product-page" hidden><div class="container" id="product-detail"></div></main>
+  <main id="checkout-page" class="checkout-page" hidden><div class="container" id="checkout-content"></div></main>
+  <footer id="footer"><div class="container footer-main"><div><a href="#home" class="brand" data-home><span class="brand-mark">m<span>✳</span></span><span>moodnote</span></a><p>취향을 발견하고 기록하는 문구 편집숍</p></div><div><b>SHOP</b><a href="#catalog" data-home>전체상품</a><a href="#new" data-home>신상품</a><a href="#hobby" data-home>취미·DIY</a></div><div><b>HELP</b><span>평일 10:00–17:00</span><span>주말·공휴일 휴무</span><a href="#footer" data-home>배송·교환 안내</a></div><div><b>NOTICE</b><span>상품 및 가격은 쇼핑몰 포트폴리오용 예시입니다.</span><span>결제 화면은 데모이며 실제 승인과 배송은 진행되지 않습니다.</span></div></div><div class="container footer-bottom">© 2026 MOODNOTE <span>Instagram · Pinterest</span></div></footer>
+  <div id="overlay" class="overlay" hidden></div><aside id="drawer" class="drawer" aria-hidden="true"><div id="drawer-content"></div></aside><div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
