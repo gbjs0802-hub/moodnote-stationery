@@ -91,6 +91,27 @@ const optionCatalog={
  'cute-stamp':['고양이 · 1개','강아지 · 1개','작은 꽃 · 1개','하트 · 1개','별 · 1개','체크 · 1개']
 };
 products.forEach(product=>{product.options=optionCatalog[product.id]||product.options||[product.option]});
+const visualCatalog={
+ 'diary-2027':{variant:'assets/variant-diary-2027.png',variantLabel:'버건디·딥그린·크림 표지 색상',pages:'assets/pages-diary-2027.png',pagesLabel:'월간 캘린더와 주간 타임라인 내지'},
+ 'sage-diary':{variant:'assets/variant-sage-diary.png',variantLabel:'세이지·크림·브라운 표지 색상',pages:'assets/pages-sage-diary.png',pagesLabel:'만년 월간·그리드·인덱스 내지'},
+ 'pastel-highlighter':{variant:'assets/variant-pastel-highlighter.png',variantLabel:'다섯 가지 낱색 비교'},
+ 'check-tape':{variant:'assets/variant-check-tape.png',variantLabel:'레드·브라운·세이지 체크 비교'},
+ 'gel-pen-set':{variant:'assets/variant-gel-pen.png',variantLabel:'체리 레드·밀크 핑크·웜 그레이 낱색 비교'},
+ 'smooth-pen':{variant:'assets/variant-smooth-pen.png',variantLabel:'네이비·아이보리·세이지 바디 색상'},
+ 'gingham-pouch':{variant:'assets/variant-gingham-pouch.png',variantLabel:'레드·네이비·브라운 깅엄 비교'},
+ 'jetstream-3color':{variant:'assets/variant-jetstream.png',variantLabel:'화이트·네이비·베이지 바디 색상'},
+ 'zebra-mildliner':{variant:'assets/variant-mildliner.png',variantLabel:'마일드 컬러 다섯 가지 비교'},
+ 'pilot-juice-up':{variant:'assets/variant-juice-up.png',variantLabel:'파스텔·메탈릭·블랙 잉크 색상'},
+ 'kuru-toga-ks':{variant:'assets/variant-kuru-toga.png',variantLabel:'세이지·아이보리·네이비 바디 색상'},
+ 'frixion-zone':{variant:'assets/variant-frixion-zone.png',variantLabel:'블랙·네이비·버건디 바디 색상'},
+ 'monami-153':{variant:'assets/variant-monami-153.png',variantLabel:'잉크 색상과 심 굵기 비교'},
+ 'maple-slime':{variant:'assets/variant-maple-slime.png',variantLabel:'앰버·올리브·밀크티 텍스처 비교'},
+ 'date-stamp':{variant:'assets/variant-date-stamp.png',variantLabel:'버건디·아이보리·블랙 바디 색상'},
+ 'midori-md-a5':{pages:'assets/pages-midori-md-a5.png',pagesLabel:'무지·유선·방안 내지 비교'},
+ 'reading-journal':{variant:'assets/variant-reading-journal.png',variantLabel:'체스트넛·포레스트 올리브·딥 버건디 표지',pages:'assets/pages-reading-journal.png',pagesLabel:'목차·인용문·별점·감상 기록 내지'},
+ 'resin-keyring-kit':{completed:'assets/completed-resin-keyring.png',completedLabel:'압화 레진 키링 완성 예시'}
+};
+let activeGallery=[],activeGalleryIndex=0;
 const won=n=>new Intl.NumberFormat('ko-KR').format(n)+'원';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const load=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
@@ -116,6 +137,26 @@ function renderCheckout(){
 }
 function startCheckout(){setDrawer(false);document.getElementById('home-page').hidden=true;document.getElementById('product-page').hidden=true;document.getElementById('checkout-page').hidden=false;history.pushState({},'','#checkout');renderCheckout();window.scrollTo({top:0,behavior:'instant'})}
 function completeOrder(){const orderNo=`MN${new Date().toISOString().slice(2,10).replaceAll('-','')}-${String(Date.now()).slice(-5)}`;cart={};selections={};save();document.getElementById('checkout-content').innerHTML=`<div class="order-complete"><span class="complete-mark">✓</span><span class="eyebrow">ORDER COMPLETE</span><h1>주문이 완료되었습니다</h1><p>주문번호 <b>${orderNo}</b></p><p>데모 주문으로 실제 결제와 배송은 진행되지 않습니다.<br/>무드노트의 새로운 상품을 체험해 주셔서 감사합니다.</p><a href="#home" class="solid-button" data-home>홈으로 돌아가기</a></div>`;window.scrollTo({top:0,behavior:'smooth'})}
+function ensureLightbox(){
+ if(document.getElementById('image-lightbox'))return;
+ document.body.insertAdjacentHTML('beforeend',`<div id="image-lightbox" class="image-lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="상품 이미지 확대 보기"><button class="lightbox-close" data-lightbox-close aria-label="확대 이미지 닫기">×</button><button class="lightbox-arrow prev" data-lightbox-prev aria-label="이전 이미지">←</button><figure><img id="lightbox-image" alt=""/><figcaption id="lightbox-caption"></figcaption></figure><button class="lightbox-arrow next" data-lightbox-next aria-label="다음 이미지">→</button></div>`);
+}
+function setDetailGallery(index){
+ if(!activeGallery.length)return;
+ activeGalleryIndex=(index+activeGallery.length)%activeGallery.length;
+ const item=activeGallery[activeGalleryIndex];
+ const photo=document.getElementById('detail-main-photo');
+ if(photo){photo.src=item.src;photo.alt=item.label;}
+ const caption=document.getElementById('detail-main-caption');if(caption)caption.textContent=item.label;
+ document.querySelectorAll('[data-gallery-index]').forEach(button=>button.classList.toggle('active',Number(button.dataset.galleryIndex)===activeGalleryIndex));
+}
+function openLightbox(index=activeGalleryIndex){
+ ensureLightbox();setDetailGallery(index);
+ const box=document.getElementById('image-lightbox');const item=activeGallery[activeGalleryIndex];
+ document.getElementById('lightbox-image').src=item.src;document.getElementById('lightbox-image').alt=item.label;document.getElementById('lightbox-caption').textContent=`${activeGalleryIndex+1} / ${activeGallery.length} · ${item.label}`;
+ box.hidden=false;box.setAttribute('aria-hidden','false');document.body.classList.add('locked');
+}
+function closeLightbox(){const box=document.getElementById('image-lightbox');if(!box)return;box.hidden=true;box.setAttribute('aria-hidden','true');document.body.classList.remove('locked')}
 function renderDetail(p){
  document.getElementById('home-page').hidden=true;
  document.getElementById('checkout-page').hidden=true;
@@ -126,23 +167,33 @@ function renderDetail(p){
  const productIndex=Math.max(0,products.findIndex(item=>item.id===p.id));
  const reviewCount=46+productIndex*7;
  const rating=(4.7+(productIndex%3)*.1).toFixed(1);
- const options=(p.options||[p.option]).map(option=>`<option>${esc(option)}</option>`).join('');
- const altImage=p.usageImage||p.image;
- const altClass=p.usageImage?'':'detail-alt-view';
+ const selectedOption=selections[p.id]||(p.options||[p.option])[0];
+ const options=(p.options||[p.option]).map(option=>`<option${option===selectedOption?' selected':''}>${esc(option)}</option>`).join('');
+ const visual=visualCatalog[p.id]||{};
+ activeGallery=[{src:p.image,label:`${p.name} 제품 전체 모습`}];
+ if(p.usageImage)activeGallery.push({src:p.usageImage,label:`${p.name} 실제 사용 예시`});
+ if(visual.variant)activeGallery.push({src:visual.variant,label:visual.variantLabel});
+ if(visual.pages)activeGallery.push({src:visual.pages,label:visual.pagesLabel});
+ if(visual.completed)activeGallery.push({src:visual.completed,label:visual.completedLabel});
+ activeGalleryIndex=0;
+ const variantGalleryIndex=activeGallery.findIndex(item=>item.src===visual.variant);
+ const galleryThumbs=activeGallery.map((item,index)=>`<button type="button" class="${index===0?'active':''}" data-gallery-index="${index}" aria-label="${esc(item.label)} 확대"><img src="${item.src}" alt=""/><span>${esc(item.label)}</span></button>`).join('');
+ const variantCards=visual.variant?`<div class="option-visuals"><div><strong>사진으로 옵션 비교</strong><small>색상을 누르면 큰 사진에서 함께 비교할 수 있어요.</small></div><div class="option-photo-grid">${(p.options||[]).map((option,index)=>{const pos=(p.options.length===1?50:index/(p.options.length-1)*100).toFixed(1);const size=Math.max(190,p.options.length*78);return `<button type="button" class="option-photo ${option===selectedOption?'active':''}" data-variant-choice="${esc(option)}" data-variant-gallery="${variantGalleryIndex}"><span style="background-image:url('${visual.variant}');background-position:${pos}% 50%;background-size:${size}% auto"></span><b>${esc(option)}</b></button>`}).join('')}</div></div>`:'';
+ const detailFigures=activeGallery.slice(1).map(item=>`<figure class="detail-story-photo"><button type="button" data-gallery-story="${activeGallery.findIndex(g=>g.src===item.src)}" aria-label="${esc(item.label)} 확대"><img src="${item.src}" alt="${esc(item.label)}"/></button><figcaption>${esc(item.label)} · 이미지를 누르면 크게 볼 수 있습니다.</figcaption></figure>`).join('');
  const customOrder=p.customizable?`<div class="custom-order"><span class="custom-step">ORDER 01</span><label for="pet-photo">반려동물 사진 선택</label><div class="pet-upload"><img id="pet-preview" alt="선택한 반려동물 사진 미리보기" hidden/><label class="upload-button" for="pet-photo">사진 1–3장 선택하기</label><input id="pet-photo" data-pet-photo type="file" accept="image/jpeg,image/png,image/webp" multiple/><small id="pet-photo-status">정면과 전신이 선명한 사진을 권장합니다.</small></div><span class="custom-step">ORDER 02</span><label for="pet-name">스티커에 넣을 이름</label><input id="pet-name" data-pet-name type="text" maxlength="12" placeholder="예: 몽이"/><p>선택한 사진은 주문 시안 미리보기에만 사용됩니다.</p></div>`:'';
  document.getElementById('product-detail').innerHTML=`
   <a href="#catalog" class="back-link" data-home>← 상품 목록으로</a>
   <div class="breadcrumb">HOME / ${categoryName} / ${esc(p.name)}</div>
   <section class="detail-top">
-   <div class="detail-gallery"><div class="detail-thumbs"><button><img src="${p.image}" alt="${esc(p.name)} 정면" /></button><button><img class="${altClass}" src="${altImage}" alt="${p.usageImage?`${esc(p.name)} 사용 예시`:`${esc(p.name)} 소재와 형태를 확대해 본 디테일 컷`}" /></button></div><div class="detail-main-image"><img src="${p.image}" alt="${esc(p.name)} 제품 사진" /></div></div>
-   <div class="detail-info"><span class="detail-brand">${esc(p.maker)} · ${p.badge||'MOODNOTE SELECT'}</span><h1 class="detail-title">${esc(p.name)}</h1><p class="detail-tagline">${esc(extra.tagline)}</p><div class="rating">★★★★★ <span>${rating} · 후기 ${reviewCount}</span></div><div class="detail-price">${won(p.price)} ${p.original?`<del>${won(p.original)}</del>`:''}</div><div class="benefits"><p><span>구매 적립</span><b>${won(Math.floor(p.price*.02))} · 2%</b></p><p><span>배송비</span><b>3,000원 · 30,000원 이상 무료</b></p><p><span>출고 안내</span><b>${p.customizable?'시안 확정 후 5–7일':'평일 오전 11시 이전 주문 시 당일 출고'}</b></p></div><div class="option-box"><label for="product-option">옵션 선택</label><select id="product-option">${options}</select></div>${customOrder}<div class="detail-total"><span>상품 금액</span><strong>${won(p.price)}</strong></div><div class="purchase-row"><button class="save-detail ${favorites.includes(p.id)?'saved':''}" data-heart="${p.id}" aria-label="찜하기">${favorites.includes(p.id)?'♥':'♡'}</button><button class="solid-button" data-add="${p.id}">장바구니 담기</button></div></div>
+   <div class="detail-gallery"><div class="detail-thumbs">${galleryThumbs}</div><div class="detail-main-image"><button type="button" class="detail-zoom" data-detail-zoom aria-label="현재 상품 이미지 확대"><img id="detail-main-photo" src="${p.image}" alt="${esc(p.name)} 제품 전체 모습"/><span>⌕ 크게 보기</span></button><p id="detail-main-caption">${esc(p.name)} 제품 전체 모습</p></div></div>
+   <div class="detail-info"><span class="detail-brand">${esc(p.maker)} · ${p.badge||'MOODNOTE SELECT'}</span><h1 class="detail-title">${esc(p.name)}</h1><p class="detail-tagline">${esc(extra.tagline)}</p><div class="rating">★★★★★ <span>${rating} · 후기 ${reviewCount}</span></div><div class="detail-price">${won(p.price)} ${p.original?`<del>${won(p.original)}</del>`:''}</div><div class="benefits"><p><span>구매 적립</span><b>${won(Math.floor(p.price*.02))} · 2%</b></p><p><span>배송비</span><b>3,000원 · 30,000원 이상 무료</b></p><p><span>출고 안내</span><b>${p.customizable?'시안 확정 후 5–7일':'평일 오전 11시 이전 주문 시 당일 출고'}</b></p></div><div class="option-box"><label for="product-option">옵션 선택</label><select id="product-option" data-option-product="${p.id}">${options}</select></div>${variantCards}${customOrder}<div class="detail-total"><span>상품 금액</span><strong>${won(p.price)}</strong></div><div class="purchase-row"><button class="save-detail ${favorites.includes(p.id)?'saved':''}" data-heart="${p.id}" aria-label="찜하기">${favorites.includes(p.id)?'♥':'♡'}</button><button class="solid-button" data-add="${p.id}">장바구니 담기</button></div></div>
   </section>
   <nav class="detail-tabs"><span>상품 설명</span><span>상세 정보</span><span>배송·교환</span></nav>
   <section class="detail-description">
    <span class="eyebrow">WHY WE PICKED IT</span><h2>${esc(p.name)}</h2><p>${esc(p.detail)}</p>
    <div class="detail-highlights">${extra.highlights.map((point,index)=>`<article class="detail-highlight"><span>POINT 0${index+1}</span><strong>${esc(point[0])}</strong><p>${esc(point[1])}</p></article>`).join('')}</div>
-   <img src="${p.image}" alt="${esc(p.name)} 상세 이미지"/>
-   ${p.usageImage?`<figure class="detail-usage-photo"><img src="${p.usageImage}" alt="${esc(p.name)}를 다이어리, 노트북, 휴대폰 케이스에 붙인 사용 예시"/><figcaption>다이어리, 노트북, 휴대폰 케이스에 붙여 본 실제 활용 예시</figcaption></figure>`:''}
+   <figure class="detail-story-photo"><button type="button" data-gallery-story="0" aria-label="${esc(p.name)} 제품 사진 확대"><img src="${p.image}" alt="${esc(p.name)} 상세 이미지"/></button><figcaption>제품 전체 모습 · 이미지를 누르면 크게 볼 수 있습니다.</figcaption></figure>
+   ${detailFigures}
    <p>${esc(p.description)}</p>
    <div class="detail-guide"><div><span class="eyebrow">HOW TO USE</span><h3>이렇게 사용해보세요</h3></div><div class="guide-steps">${extra.steps.map((step,index)=>`<article class="guide-step"><b>${index+1}</b><div><strong>${esc(step[0])}</strong><p>${esc(step[1])}</p></div></article>`).join('')}</div></div>
    <table class="spec-table"><tbody>${Object.entries(p.spec).map(([k,v])=>`<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}<tr><th>상품 안내</th><td>모니터 환경과 제작 시기에 따라 실제 색상과 세부 사양에 차이가 있을 수 있습니다.</td></tr></tbody></table>
@@ -154,6 +205,16 @@ function renderDetail(p){
 function openProduct(id){const p=byId(id);if(!p||p.id==='gift-record')return;history.pushState({product:id},'',`#product/${id}`);renderDetail(p)}
 function showHome(anchor='catalog'){document.getElementById('product-page').hidden=true;document.getElementById('checkout-page').hidden=true;document.getElementById('home-page').hidden=false;setTimeout(()=>document.getElementById(anchor)?.scrollIntoView(),0)}
 document.addEventListener('click',e=>{
+ const galleryThumb=e.target.closest('[data-gallery-index]');
+ if(galleryThumb){setDetailGallery(Number(galleryThumb.dataset.galleryIndex));openLightbox(Number(galleryThumb.dataset.galleryIndex));return}
+ const galleryStory=e.target.closest('[data-gallery-story]');
+ if(galleryStory){openLightbox(Number(galleryStory.dataset.galleryStory));return}
+ if(e.target.closest('[data-detail-zoom]')){openLightbox(activeGalleryIndex);return}
+ if(e.target.closest('[data-lightbox-close]')||e.target.id==='image-lightbox'){closeLightbox();return}
+ if(e.target.closest('[data-lightbox-prev]')){openLightbox(activeGalleryIndex-1);return}
+ if(e.target.closest('[data-lightbox-next]')){openLightbox(activeGalleryIndex+1);return}
+ const variantChoice=e.target.closest('[data-variant-choice]');
+ if(variantChoice){const select=document.getElementById('product-option');select.value=variantChoice.dataset.variantChoice;document.querySelectorAll('[data-variant-choice]').forEach(button=>button.classList.toggle('active',button===variantChoice));setDetailGallery(Number(variantChoice.dataset.variantGallery));return}
  const heart=e.target.closest('[data-heart]');
  if(heart){e.preventDefault();e.stopPropagation();toggleFavorite(heart.dataset.heart);if(!document.getElementById('product-page').hidden){const p=byId(location.hash.split('/')[1]);if(p)renderDetail(p)}return}
  const addButton=e.target.closest('[data-add]');
@@ -175,11 +236,11 @@ document.getElementById('header-search').addEventListener('submit',e=>{e.prevent
 document.getElementById('sort-select').addEventListener('change',e=>{sort=e.target.value;render()});
 document.querySelectorAll('input[name="price"]').forEach(el=>el.addEventListener('change',e=>{maxPrice=e.target.value==='all'?Infinity:Number(e.target.value);render()}));
 document.querySelectorAll('input[name="mood"]').forEach(el=>el.addEventListener('change',()=>{moods=new Set([...document.querySelectorAll('input[name="mood"]:checked')].map(x=>x.value));render()}));
-document.addEventListener('change',e=>{if(e.target.matches('[data-pet-photo]')){const files=[...e.target.files];const status=document.getElementById('pet-photo-status');const preview=document.getElementById('pet-preview');if(!files.length){status.textContent='정면과 전신이 선명한 사진을 권장합니다.';preview.hidden=true;return}status.textContent=`${files.length}장 선택됨 · ${files.map(file=>file.name).join(', ')}`;const reader=new FileReader();reader.onload=()=>{preview.src=reader.result;preview.hidden=false};reader.readAsDataURL(files[0])}});
+document.addEventListener('change',e=>{if(e.target.matches('[data-pet-photo]')){const files=[...e.target.files];const status=document.getElementById('pet-photo-status');const preview=document.getElementById('pet-preview');if(!files.length){status.textContent='정면과 전신이 선명한 사진을 권장합니다.';preview.hidden=true;return}status.textContent=`${files.length}장 선택됨 · ${files.map(file=>file.name).join(', ')}`;const reader=new FileReader();reader.onload=()=>{preview.src=reader.result;preview.hidden=false};reader.readAsDataURL(files[0])}if(e.target.matches('[data-option-product]')){document.querySelectorAll('[data-variant-choice]').forEach(button=>button.classList.toggle('active',button.dataset.variantChoice===e.target.value));const variantButton=[...document.querySelectorAll('[data-variant-choice]')].find(button=>button.dataset.variantChoice===e.target.value);if(variantButton)setDetailGallery(Number(variantButton.dataset.variantGallery))}});
 document.addEventListener('submit',e=>{if(e.target.id==='checkout-form'){e.preventDefault();if(!e.target.reportValidity())return;completeOrder()}});
 document.querySelectorAll('[data-action="cart"]').forEach(el=>el.addEventListener('click',()=>openDrawer('cart')));
 document.querySelectorAll('[data-action="favorites"]').forEach(el=>el.addEventListener('click',()=>openDrawer('favorites')));
-document.getElementById('overlay').addEventListener('click',()=>setDrawer(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setDrawer(false)});window.addEventListener('popstate',()=>{const match=location.hash.match(/^#product\/(.+)$/);if(match&&byId(match[1]))renderDetail(byId(match[1]));else if(location.hash==='#checkout'){document.getElementById('home-page').hidden=true;document.getElementById('product-page').hidden=true;document.getElementById('checkout-page').hidden=false;renderCheckout()}else showHome((location.hash||'#home').slice(1))});
+document.getElementById('overlay').addEventListener('click',()=>setDrawer(false));document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLightbox();setDrawer(false)}if(!document.getElementById('image-lightbox')?.hidden&&e.key==='ArrowLeft')openLightbox(activeGalleryIndex-1);if(!document.getElementById('image-lightbox')?.hidden&&e.key==='ArrowRight')openLightbox(activeGalleryIndex+1)});window.addEventListener('popstate',()=>{const match=location.hash.match(/^#product\/(.+)$/);if(match&&byId(match[1]))renderDetail(byId(match[1]));else if(location.hash==='#checkout'){document.getElementById('home-page').hidden=true;document.getElementById('product-page').hidden=true;document.getElementById('checkout-page').hidden=false;renderCheckout()}else showHome((location.hash||'#home').slice(1))});
 const heroSlides=[...document.querySelectorAll('[data-hero-slide]')];
 const hero=document.querySelector('.hero');
 const heroCurrent=document.getElementById('hero-current');
