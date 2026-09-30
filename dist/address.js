@@ -7,11 +7,42 @@ function validateDelivery(form){for(const key of ['recipient','recipientPhone','
 function checkoutAddressSection(){return `<section id="checkout-delivery"><h2>배송지 정보</h2><div class="delivery-tools"><button type="button" class="outline-button" data-load-address>저장한 배송지 불러오기</button><label><input type="checkbox" data-same-buyer/> 주문자와 동일</label></div>${addressFields()}<label class="wide delivery-memo">배송 메모<select name="memo"><option>배송 전 연락 부탁드립니다.</option><option>문 앞에 놓아주세요.</option><option>경비실에 맡겨주세요.</option></select></label><label class="delivery-save"><input type="checkbox" name="saveDelivery"/> 이 브라우저에 기본 배송지 저장</label><p class="delivery-note">받는 분·연락처·우편번호·기본 주소는 필수입니다. 상세 주소가 없는 경우 비워두세요. 저장을 선택한 배송지는 현재 로그인 계정별로 이 기기에만 보관됩니다. 주소 검색은 카카오 우편번호 서비스를 사용합니다.</p></section>`}
 function renderAddressBook(){const host=document.getElementById('mypage-content');const address=savedAddress();const block=`<section class="account-section" id="my-address"><div class="account-section-head"><h2>기본 배송지</h2><span>이 브라우저에 저장</span></div>${address?`<div class="saved-delivery"><strong>${esc(address.recipient)}</strong><p>${esc(address.recipientPhone)}</p><p>[${esc(address.zip)}] ${esc(address.address)} ${esc(address.address2||'')}</p><button class="outline-button" type="button" data-edit-address>배송지 수정</button><button class="text-link" type="button" data-remove-address>삭제</button></div>`:`<p class="delivery-note">다음 주문에 사용할 배송지를 등록해두세요.</p>`}<form id="address-book-form" ${address?'hidden':''}>${addressFields()}<p class="delivery-note">저장한 배송지는 이 기기의 브라우저에만 보관되며, 다른 기기와 동기화되지 않습니다.</p><button type="submit" class="solid-button">기본 배송지 저장</button></form></section>`;host.querySelector('#my-orders').insertAdjacentHTML('beforebegin',block);fillDelivery(document.getElementById('address-book-form'),address)}
 let postcodePromise;
-function loadPostcode(){if(window.kakao?.Postcode||window.daum?.Postcode)return Promise.resolve();if(!postcodePromise)postcodePromise=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://t1.kakaocdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';script.onload=resolve;script.onerror=()=>{postcodePromise=null;script.remove();reject(new Error('postcode unavailable'))};document.head.append(script)});return postcodePromise}
+function loadPostcode(){
+ if(window.kakao?.Postcode||window.daum?.Postcode)return Promise.resolve();
+ if(!postcodePromise)postcodePromise=new Promise((resolve,reject)=>{
+  const script=document.createElement('script');
+  const fail=()=>{clearTimeout(timeout);postcodePromise=null;script.remove();reject(new Error('postcode unavailable'))};
+  const timeout=setTimeout(fail,15000);
+  script.src='https://t1.kakaocdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+  script.onload=()=>{if(window.kakao?.Postcode||window.daum?.Postcode){clearTimeout(timeout);resolve()}else fail()};
+  script.onerror=fail;document.head.append(script);
+ });
+ return postcodePromise;
+}
+function selectedPostcodeAddress(data){
+ const road=data.userSelectedType==='R';
+ const base=road?data.roadAddress:data.jibunAddress;
+ const extras=[];
+ if(road&&data.bname&&/[동로가]$/.test(data.bname))extras.push(data.bname);
+ if(road&&data.buildingName&&data.apartment==='Y')extras.push(data.buildingName);
+ return base+(extras.length?` (${extras.join(', ')})`:'');
+}
 async function searchDeliveryAddress(form){
  const opener=document.activeElement;let modal=document.getElementById('postcode-dialog');if(!modal){modal=document.createElement('dialog');modal.id='postcode-dialog';modal.innerHTML='<header><h2>배송지 주소 검색</h2><button type="button" data-postcode-close aria-label="주소 검색 닫기">×</button></header><div id="postcode-embed"></div>';document.body.append(modal)}
  modal.showModal();document.getElementById('postcode-embed').textContent='주소 검색을 불러오고 있어요…';
- try{await loadPostcode();if(!modal.open)return;const Postcode=window.kakao?.Postcode||window.daum?.Postcode;document.getElementById('postcode-embed').textContent='';new Postcode({width:'100%',height:'100%',oncomplete:data=>{if(!form.isConnected)return;form.elements.zip.value=data.zonecode;form.elements.address.value=data.userSelectedType==='R'?data.roadAddress:data.jibunAddress;form.elements.zip.setCustomValidity('');form.elements.address.setCustomValidity('');modal.close();form.elements.address2.focus()}}).embed(document.getElementById('postcode-embed'))}catch{modal.close();toast('주소 검색을 불러오지 못했어요. 우편번호와 주소를 직접 입력해주세요.');opener?.focus()}
+ try{
+  await loadPostcode();if(!modal.open||!form.isConnected)return;
+  const Postcode=window.kakao?.Postcode||window.daum?.Postcode;
+  document.getElementById('postcode-embed').textContent='';
+  new Postcode({width:'100%',height:'100%',oncomplete:data=>{
+   if(!form.isConnected){modal.close();return}
+   const address=selectedPostcodeAddress(data);
+   if(form.elements.address.value!==address)form.elements.address2.value='';
+   form.elements.zip.value=data.zonecode;form.elements.address.value=address;
+   form.elements.zip.setCustomValidity('');form.elements.address.setCustomValidity('');
+   modal.close();form.elements.address2.focus();
+  }}).embed(document.getElementById('postcode-embed'));
+ }catch{modal.close();toast('주소 검색을 불러오지 못했어요. 우편번호와 주소를 직접 입력해주세요.');opener?.focus()}
 }
 document.addEventListener('click',event=>{
  const search=event.target.closest('[data-address-search]');if(search){searchDeliveryAddress(search.closest('form'));return}

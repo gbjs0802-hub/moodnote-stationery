@@ -146,14 +146,45 @@ const visualCatalog={
  'reading-journal':{variant:'assets/variant-reading-journal.png',variantLabel:'체스트넛·포레스트 올리브·딥 버건디 표지',pages:'assets/pages-reading-journal.png',pagesLabel:'목차·인용문·별점·감상 기록 내지'},
  'resin-keyring-kit':{completed:'assets/completed-resin-keyring.png',completedLabel:'압화 레진 키링 완성 예시'}
 };
-const usageCatalog={
- write:{src:'assets/usage-writing.png',label:'노트에 직접 필기하고 표시한 활용 예시'},
- deco:{src:'assets/usage-deco.png',label:'스티커·마스킹테이프로 꾸민 다이어리 활용 예시'},
- record:{src:'assets/usage-record.png',label:'월간·주간 다이어리를 작성하는 활용 예시'},
- hobby:{src:'assets/usage-hobby.png',label:'가을 취미 문구로 작업하는 활용 예시'},
- custom:{src:'assets/usage-custom-stickers.png',label:'네컷·폴라로이드 미니 스티커 활용 예시'}
+// Usage images belong to a single product; there is no shared category fallback.
+const productUsageCatalog={
+ 'diary-2027':{src:'assets/usage-diary-2027-v2.png',label:'월간 캘린더에 약속과 일정을 적은 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'pastel-highlighter':{src:'assets/usage-pastel-highlighter-v2.png',label:'공부 노트의 중요한 문장을 강조한 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'smooth-pen':{src:'assets/usage-smooth-pen-v2.png',label:'작은 글씨로 일상 기록을 적는 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'random-box':{src:'assets/usage-random-box-v2.png',label:'박스를 열어 구성 문구를 펼쳐 본 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'fourcut-sticker':{src:'assets/usage-fourcut-sticker-v2.png',label:'다이어리에 네컷 미니 스티커를 붙인 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'polaroid-sticker':{src:'assets/usage-polaroid-sticker-v2.png',label:'여행 기록에 폴라로이드 미니 스티커를 붙인 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'cherry-sticker':{src:'assets/usage-cherry-sticker-v2.png',label:'체리와 체크 리본으로 꾸민 다이어리',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'check-tape':{src:'assets/usage-check-tape-v2.png',label:'체크 테이프로 엽서를 고정한 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'gel-pen-set':{src:'assets/usage-gel-pen-set-v2.png',label:'핑크 젤 잉크로 짧은 메모를 적는 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'sage-diary':{src:'assets/usage-sage-diary-v2.png',label:'그리드 내지에 하루 기록을 남긴 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'gingham-pouch':{src:'assets/usage-gingham-pouch-v2.png',label:'펜을 수납하고 꺼내는 파우치 사용 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'flower-memo':{src:'assets/usage-flower-memo-v2.png',label:'들꽃 메모에 마음을 적어 선물에 붙인 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'jetstream-3color':{src:'assets/usage-jetstream-3color-v2.png',label:'검정·빨강·파랑으로 내용을 구분한 필기',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'zebra-mildliner':{src:'assets/usage-zebra-mildliner-v2.png',label:'굵은 촉으로 문장을 은은하게 강조한 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'pilot-juice-up':{src:'assets/usage-pilot-juice-up-v2.png',label:'어두운 종이에 파스텔 색으로 그린 작은 그림',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'midori-md-a5':{src:'assets/usage-midori-md-a5-v2.png',label:'무지 내지에 식물 드로잉을 남긴 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'maple-slime':{src:'assets/usage-maple-slime-v2.png',label:'단풍 파츠가 섞인 꿀빛 슬라임을 늘리는 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'resin-keyring-kit':{src:'assets/usage-resin-keyring-kit-v2.png',label:'완성한 압화 레진 키링을 가방에 단 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'autumn-sticker-pack':{src:'assets/usage-autumn-sticker-pack-v2.png',label:'다람쥐와 은행잎으로 꾸민 가을 기록',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'autumn-tape-set':{src:'assets/usage-autumn-tape-set-v2.png',label:'네 가지 가을 테이프를 겹쳐 붙인 다이어리',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'reading-journal':{src:'assets/usage-reading-journal-v2.png',label:'읽은 책의 감상과 문장을 채운 독서 기록',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'kuru-toga-ks':{src:'assets/usage-kuru-toga-ks-v2.png',label:'샤프로 도형과 풀이를 정리하는 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'frixion-zone':{src:'assets/usage-frixion-zone-v2.png',label:'펜 뒷부분으로 플래너의 글씨를 지우는 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'monami-153':{src:'assets/usage-monami-153-v2.png',label:'모나미 153으로 일상 메모를 적는 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'ticket-memo':{src:'assets/usage-ticket-memo-v2.png',label:'영화 감상을 티켓 메모에 적어 보관한 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'mini-punch':{src:'assets/usage-mini-punch-v2.png',label:'종이에 작은 원을 펀칭한 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'craft-tweezers':{src:'assets/usage-craft-tweezers-v2.png',label:'핀셋으로 작은 스티커를 정교하게 붙이는 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'pocket-scissors':{src:'assets/usage-pocket-scissors-v2.png',label:'휴대용 가위로 마스킹테이프를 자르는 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'date-stamp':{src:'assets/usage-date-stamp-v2.png',label:'다이어리에 날짜를 찍은 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'cute-stamp':{src:'assets/usage-cute-stamp-v2.png',label:'고양이 도장으로 기록에 표정을 더한 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'bear-tulip-sticker':{src:'assets/usage-bear-tulip-sticker-v2.png',label:'곰돌이·튤립·토끼 스티커로 꾸민 다이어리',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'cottage-sticker':{src:'assets/usage-cottage-sticker-v2.png',label:'작은 집과 고양이로 꾸민 다이어리',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'country-postcard':{src:'assets/usage-country-postcard-v2.png',label:'엽서를 책상에 세우고 뒷면에 편지를 적은 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'cherry-garden-tape':{src:'assets/usage-cherry-garden-tape-v2.png',label:'체리·체크·튤립 테이프로 사진을 고정한 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'picnic-memo-set':{src:'assets/usage-picnic-memo-set-v2.png',label:'다양한 모양의 피크닉 메모를 기록에 붙인 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'},
+ 'floral-slim-pen':{src:'assets/usage-floral-slim-pen-v2.png',label:'꽃무늬 슬림 펜으로 짧은 편지를 쓰는 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'}
 };
-const toolUsageIds=new Set(['mini-punch','date-stamp','cute-stamp','craft-tweezers','pocket-scissors','ticket-memo']);
 let activeGallery=[],activeGalleryIndex=0;
 const won=n=>new Intl.NumberFormat('ko-KR').format(n)+'원';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -219,7 +250,7 @@ function renderDetail(p){
  const selectedOption=selections[p.id]||(p.options||[p.option])[0];
  const options=(p.options||[p.option]).map(option=>`<option${option===selectedOption?' selected':''}>${esc(option)}</option>`).join('');
  const visual=visualCatalog[p.id]||{};
- const usage=p.usageImage?{src:p.usageImage,label:`${p.name} 실제 사용 예시`}:p.id==='squishy-set'?null:toolUsageIds.has(p.id)?{src:'assets/usage-tools.png',label:'다꾸 도구를 직접 사용하는 활용 예시'}:usageCatalog[p.category];
+ const usage=productUsageCatalog[p.id]||(p.usageImage?{src:p.usageImage,label:'반려동물 스티커를 다이어리와 휴대폰에 붙인 모습',note:'AI로 제작한 상품별 활용 연출 예시입니다.'}:null);
  activeGallery=[{src:p.image,label:`${p.name} 제품 전체 모습`}];
  if(usage)activeGallery.push(usage);
  if(p.id==='squishy-set')activeGallery.push({src:'assets/usage-squishy-rest.png',label:'말랑이 복원 상태 활용 예시'},{src:'assets/usage-squishy-squeeze.png',label:'말랑이를 눌렀을 때의 쫀득한 촉감 예시'});
@@ -230,7 +261,7 @@ function renderDetail(p){
  const variantGalleryIndex=activeGallery.findIndex(item=>item.src===visual.variant);
  const galleryThumbs=activeGallery.map((item,index)=>`<button type="button" class="${index===0?'active':''}" data-gallery-index="${index}" aria-label="${esc(item.label)} 확대"><img src="${item.src}" alt=""/><span>${esc(item.label)}</span></button>`).join('');
  const variantCards=visual.variant?`<div class="option-visuals"><div><strong>사진으로 옵션 비교</strong><small>색상을 누르면 큰 사진에서 함께 비교할 수 있어요.</small></div><div class="option-photo-grid">${(p.options||[]).map((option,index)=>{const pos=(p.options.length===1?50:index/(p.options.length-1)*100).toFixed(1);const size=Math.max(190,p.options.length*78);return `<button type="button" class="option-photo ${option===selectedOption?'active':''}" data-variant-choice="${esc(option)}" data-variant-gallery="${variantGalleryIndex}"><span style="background-image:url('${visual.variant}');background-position:${pos}% 50%;background-size:${size}% auto"></span><b>${esc(option)}</b></button>`}).join('')}</div></div>`:'';
- const detailFigures=activeGallery.slice(1).map(item=>`<figure class="detail-story-photo"><h3>${item.src===visual.pages?'안쪽 페이지도 살펴보세요':item.src===visual.variant?'나란히 놓고 옵션 비교하기':item.src===visual.completed?'완성하면 이런 모습이에요':'내 책상에서는 이렇게'}</h3><p>${esc(item.label)}</p><button type="button" data-gallery-story="${activeGallery.findIndex(g=>g.src===item.src)}" aria-label="${esc(item.label)} 확대"><img src="${item.src}" alt="${esc(item.label)}"/></button><figcaption>${esc(item.label)} · 이미지를 누르면 크게 볼 수 있습니다.</figcaption></figure>`).join('');
+ const detailFigures=activeGallery.slice(1).map(item=>`<figure class="detail-story-photo"><h3>${item.src===visual.pages?'안쪽 페이지도 살펴보세요':item.src===visual.variant?'나란히 놓고 옵션 비교하기':item.src===visual.completed?'완성하면 이런 모습이에요':'내 책상에서는 이렇게'}</h3><p>${esc(item.label)}</p><button type="button" data-gallery-story="${activeGallery.findIndex(g=>g.src===item.src)}" aria-label="${esc(item.label)} 확대"><img src="${item.src}" alt="${esc(item.label)}" loading="lazy"/></button><figcaption>${esc(item.label)} · 이미지를 누르면 크게 볼 수 있습니다.${item.note?`<br/>${esc(item.note)}`:''}</figcaption></figure>`).join('');
  const isPetCustom=p.customType==='pet';
  const uploadTitle=isPetCustom?'반려동물 사진 선택':'스티커로 만들 사진 선택';
  const uploadButton=isPetCustom?'사진 1–3장 선택하기':`${p.photoCount} 선택하기`;

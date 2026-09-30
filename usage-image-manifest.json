@@ -1,0 +1,223 @@
+{
+  "tool": "Built-in ImageGen",
+  "date": "2026-09-30",
+  "sharedPrompt": "One square realistic ecommerce usage demonstration. Preserve exact reference product identity, motifs, colors, shapes and scale. Warm natural light and calm cream desk. Show identifiable product and usage result. No collages, overlays, reviews or invented product designs.",
+  "products": [
+    {
+      "id": "diary-2027",
+      "reference": "assets/product-2027-diary.png",
+      "scene": "Open burgundy diary on weekly dated spread with a hand entering a small appointment. Burgundy cover edge and ribbon visible.",
+      "output": "assets/usage-diary-2027-v2.png"
+    },
+    {
+      "id": "pastel-highlighter",
+      "reference": "assets/product-pastel-highlighter.png",
+      "scene": "Butter yellow slim highlighter held by hand drawing one translucent stroke across handwritten study notes; correct full length elongated marker.",
+      "output": "assets/usage-pastel-highlighter-v2.png"
+    },
+    {
+      "id": "smooth-pen",
+      "reference": "assets/product-smooth-pen.png",
+      "scene": "Navy matte fine ballpoint held by hand writing small black journal notes; ivory companion next to notebook.",
+      "output": "assets/usage-smooth-pen-v2.png"
+    },
+    {
+      "id": "random-box",
+      "reference": "assets/product-opening-box.png",
+      "scene": "Unboxing the reference stationery gift box, with burgundy diary open, actual reference sticker sheets, floral pens and memo pads organized outside the box.",
+      "output": "assets/usage-random-box-v2.png"
+    },
+    {
+      "id": "fourcut-sticker",
+      "reference": "assets/product-fourcut-sticker.png",
+      "scene": "Reference four-photo vertical miniature strips adhered inside diary, with fingers applying one strip. Preserve four stacked photos per strip.",
+      "output": "assets/usage-fourcut-sticker-v2.png"
+    },
+    {
+      "id": "polaroid-sticker",
+      "reference": "assets/product-polaroid-sticker.png",
+      "scene": "Reference miniature white framed instant photo stickers adhered on travel journal beside handwritten date. Hand peeling a miniature sticker from sheet.",
+      "output": "assets/usage-polaroid-sticker-v2.png"
+    },
+    {
+      "id": "cherry-sticker",
+      "reference": "assets/product-cherry-sticker.png",
+      "scene": "Reference cherry, ribbon and dog stickers visibly adhered to journal margins, with reference sticker sheet at side and hand applying cherry.",
+      "output": "assets/usage-cherry-sticker-v2.png"
+    },
+    {
+      "id": "check-tape",
+      "reference": "assets/product-check-tape.png",
+      "scene": "Red gingham washi from reference securing two edges of a postcard in a journal. Roll near taped page; hand tearing strip.",
+      "output": "assets/usage-check-tape-v2.png"
+    },
+    {
+      "id": "gel-pen-set",
+      "reference": "assets/product-gel-pen.png",
+      "scene": "Transparent pink gel pen writing fine pink annotation in small notebook; full transparent barrel visible.",
+      "output": "assets/usage-gel-pen-set-v2.png"
+    },
+    {
+      "id": "sage-diary",
+      "reference": "assets/product-sage-diary.png",
+      "scene": "Sage fabric diary open at cream grid spread, hand writing a short daily journal with black pen, recognizable sage cover showing around edges.",
+      "output": "assets/usage-sage-diary-v2.png"
+    },
+    {
+      "id": "gingham-pouch",
+      "reference": "assets/product-gingham-pouch.png",
+      "scene": "Red gingham brass zip flower charm pouch unzipped, filled realistically with full length pens, hand taking out a pen.",
+      "output": "assets/usage-gingham-pouch-v2.png"
+    },
+    {
+      "id": "flower-memo",
+      "reference": "assets/product-flower-memo.png",
+      "scene": "Reference floral square memo pad sheet used for handwritten thank you note attached to small kraft gift, remaining matching pads alongside.",
+      "output": "assets/usage-flower-memo-v2.png"
+    },
+    {
+      "id": "jetstream-3color",
+      "reference": "assets/product-jetstream-3color.png",
+      "scene": "Reference white uni three-color click ballpoint held by hand annotating notes in black red blue lines; preserve 3 selector levers.",
+      "output": "assets/usage-jetstream-3color-v2.png"
+    },
+    {
+      "id": "zebra-mildliner",
+      "reference": "assets/product-mildliner-5color.png",
+      "scene": "Reference white barrel twin-ended Zebra Mildliner uncapped broad tip highlighting printed paragraph in soft beige with hand. Fine cap beside.",
+      "output": "assets/usage-zebra-mildliner-v2.png"
+    },
+    {
+      "id": "pilot-juice-up",
+      "reference": "assets/product-juice-up-pastel.png",
+      "scene": "Reference pastel Pilot Juice Up slim click gel pen held by hand drawing small pink fine-line star doodles on dark journal page.",
+      "output": "assets/usage-pilot-juice-up-v2.png"
+    },
+    {
+      "id": "midori-md-a5",
+      "reference": "assets/product-md-notebook.png",
+      "scene": "Reference minimal cream MD A5 blank notebook open flat, hand sketching a botanical pencil drawing on blank ivory pages, plain cover edge exposed.",
+      "output": "assets/usage-midori-md-a5-v2.png"
+    },
+    {
+      "id": "maple-slime",
+      "reference": "assets/product-maple-slime.png",
+      "scene": "Two adult hands gently stretching translucent amber slime with visible maple leaf confetti and cream foam beads. Reference jar open nearby.",
+      "output": "assets/usage-maple-slime-v2.png"
+    },
+    {
+      "id": "resin-keyring-kit",
+      "reference": "assets/product-resin-kit.png",
+      "scene": "Completed clear pressed-flower acorn and maple-leaf resin charms from reference kit attached with gold rings to canvas tote handle; molds and kit partially beside.",
+      "output": "assets/usage-resin-keyring-kit-v2.png"
+    },
+    {
+      "id": "autumn-sticker-pack",
+      "reference": "assets/product-autumn-sticker.png",
+      "scene": "Reference squirrel acorn ginkgo knit sticker designs visibly adhered to autumn journal spread; reference sticker sheets beside; hand applying a leaf.",
+      "output": "assets/usage-autumn-sticker-pack-v2.png"
+    },
+    {
+      "id": "autumn-tape-set",
+      "reference": "assets/product-autumn-tape.png",
+      "scene": "Four reference autumn washi patterns layered as borders of journal page with a small photo. Actual matching rolls alongside and hand applying botanical strip.",
+      "output": "assets/usage-autumn-tape-set-v2.png"
+    },
+    {
+      "id": "reading-journal",
+      "reference": "assets/product-reading-journal.png",
+      "scene": "Chestnut gold ginkgo reading journal from reference open to handwritten book review spread with rating and favorite quote, matching cover visible, paperback beside.",
+      "output": "assets/usage-reading-journal-v2.png"
+    },
+    {
+      "id": "kuru-toga-ks",
+      "reference": "assets/product-kuru-toga-ks.png",
+      "scene": "Reference sage Kuru Toga mechanical pencil held by hand solving a small geometry diagram in squared notebook; full pencil geometry consistent.",
+      "output": "assets/usage-kuru-toga-ks-v2.png"
+    },
+    {
+      "id": "frixion-zone",
+      "reference": "assets/product-frixion-zone.png",
+      "scene": "Exact reference translucent dark navy Frixion Zone click pen held reversed by adult hand, using its rear white eraser on a handwritten planner note. Full pen barrel and eraser contacting paper visible.",
+      "output": "assets/usage-frixion-zone-v2.png"
+    },
+    {
+      "id": "monami-153",
+      "reference": "assets/product-monami-153.png",
+      "scene": "Reference classic white hexagonal Monami 153 black clip pen held by hand writing black ballpoint notes on paper, red and blue clip versions beside.",
+      "output": "assets/usage-monami-153-v2.png"
+    },
+    {
+      "id": "ticket-memo",
+      "reference": "assets/product-ticket-memo.png",
+      "scene": "Reference mini cinema ticket memo filled with handwritten movie date, seat and star rating tucked into journal, receipt design memo nearby; same printed designs.",
+      "output": "assets/usage-ticket-memo-v2.png"
+    },
+    {
+      "id": "mini-punch",
+      "reference": "assets/product-mini-punch.png",
+      "scene": "Hand pressing the exact reference burgundy lever cream base mini craft punch on cream paper edge. Punched tiny circles and matching circular holes clearly shown; preserve the distinctive two-tone lever and base.",
+      "output": "assets/usage-mini-punch-v2.png"
+    },
+    {
+      "id": "craft-tweezers",
+      "reference": "assets/product-craft-tweezers.png",
+      "scene": "Hand holding reference long fine curved burgundy tweezers precisely placing a tiny cherry sticker onto a diary. Entire tweezers body visible.",
+      "output": "assets/usage-craft-tweezers-v2.png"
+    },
+    {
+      "id": "pocket-scissors",
+      "reference": "assets/product-pocket-scissors.png",
+      "scene": "Hand using reference cream compact scissors to cut a strip of red gingham washi tape; protective cap beside and blades open correctly.",
+      "output": "assets/usage-pocket-scissors-v2.png"
+    },
+    {
+      "id": "date-stamp",
+      "reference": "assets/product-date-stamp.png",
+      "scene": "Hand holding reference burgundy rotating date stamp on a diary; one fresh crisp date impression adjacent and small open ink pad, preserve dial mechanism.",
+      "output": "assets/usage-date-stamp-v2.png"
+    },
+    {
+      "id": "cute-stamp",
+      "reference": "assets/product-cute-stamp.png",
+      "scene": "Reference miniature wood block cat rubber stamp held by hand above a matching stamped cat on journal margin, other wood stamps nearby and ink pad.",
+      "output": "assets/usage-cute-stamp-v2.png"
+    },
+    {
+      "id": "bear-tulip-sticker",
+      "reference": "assets/product-bear-tulip-sticker.png",
+      "scene": "Exact reference watercolor teddy, strawberry cake, pink tulip rabbit stickers adhered to journal pages. Reference sheets beside; hand applying teddy.",
+      "output": "assets/usage-bear-tulip-sticker-v2.png"
+    },
+    {
+      "id": "cottage-sticker",
+      "reference": "assets/product-cottage-sticker.png",
+      "scene": "Exact reference watercolor cottage, cat, tea and chair motifs adhered to journal creating miniature home scene. Partially used reference sheet beside.",
+      "output": "assets/usage-cottage-sticker-v2.png"
+    },
+    {
+      "id": "country-postcard",
+      "reference": "assets/product-country-postcard.png",
+      "scene": "One reference watercolor countryside cottage postcard displayed against small wooden holder on desk; another turned blank back with handwritten message. Matching garden cards beside.",
+      "output": "assets/usage-country-postcard-v2.png"
+    },
+    {
+      "id": "cherry-garden-tape",
+      "reference": "assets/product-cherry-garden-tape.png",
+      "scene": "Reference cherry, sage gingham and pink tulip tapes decorating edges of a journal postcard. Matching three rolls visible; hand applying cherry pattern.",
+      "output": "assets/usage-cherry-garden-tape-v2.png"
+    },
+    {
+      "id": "picnic-memo-set",
+      "reference": "assets/product-picnic-memo-set.png",
+      "scene": "Exact reference cherry border, pink grid and bear memo sheets filled with brief handwritten notes organized inside an open diary; remaining pads beside.",
+      "output": "assets/usage-picnic-memo-set-v2.png"
+    },
+    {
+      "id": "floral-slim-pen",
+      "reference": "assets/product-floral-slim-pen.png",
+      "scene": "Reference blush floral printed slim gold clip pen held by hand writing fine black lines on a cream letter; preserve flower print and full slender barrel.",
+      "output": "assets/usage-floral-slim-pen-v2.png"
+    }
+  ]
+}
