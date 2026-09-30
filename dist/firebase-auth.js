@@ -57,6 +57,8 @@ function closePopover() {
 
 function renderUser(user) {
   currentUser = user;
+  window.moodnoteUser = user ? { uid: user.uid, displayName: user.displayName, email: user.email } : null;
+  window.dispatchEvent(new Event('moodnote-auth-change'));
   button.disabled = false;
   button.classList.remove('loading');
 

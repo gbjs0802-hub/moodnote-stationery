@@ -6,22 +6,27 @@
   <meta name="theme-color" content="#fffaf4" />
   <meta name="description" content="오늘의 취향을 기록하고 모으는 문구 편집숍 무드노트. 다이어리, 스티커, 펜과 파우치를 취향별로 만나보세요." />
   <title>무드노트 | 취향을 기록하는 문구 편집숍</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23b93635'/%3E%3Cpath d='M17 20h30v28H17z' fill='%23fff9ef'/%3E%3Cpath d='M25 18v32M23 30c8-6 11 8 18 1' fill='none' stroke='%23b93635' stroke-width='3'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="assets/moodnote-mark-v2.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=6" />
   <link rel="stylesheet" href="season.css?v=6" />
   <link rel="stylesheet" href="refinement.css?v=8" />
-  <script src="app.js?v=16" defer></script>
-  <script type="module" src="firebase-auth.js?v=1"></script>
+  <link rel="stylesheet" href="brand.css?v=1" />
+  <link rel="stylesheet" href="mypage.css?v=1" />
+  <link rel="stylesheet" href="detail-commerce.css?v=1" />
+  <script src="detail-commerce.js?v=1" defer></script>
+  <script src="app.js?v=18" defer></script>
+  <script src="mypage.js?v=1" defer></script>
+  <script type="module" src="firebase-auth.js?v=2"></script>
 </head>
 <body>
   <div class="promo-bar"><span>첫 장바구니는 10% 가볍게</span><span>·</span><span>30,000원부터 배송비는 저희가</span><a href="#catalog" data-home>문구 구경하기 →</a></div>
   <header class="site-header">
-    <div class="utility container"><span>좋아하는 것을 쓰고, 붙이고, 오래 남기는 곳</span><nav><a href="#creator" data-home>브랜드</a><a href="#footer" data-home>고객센터</a><button data-action="favorites">찜 <b id="favorite-count">0</b></button><button data-action="cart">장바구니 <b id="cart-count">0</b></button></nav></div>
+    <div class="utility container"><span>좋아하는 것을 쓰고, 붙이고, 오래 남기는 곳</span><nav><a href="brand.html">브랜드</a><a href="#mypage" data-mypage>마이페이지</a><a href="#footer" data-home>고객센터</a><button data-action="favorites">찜 <b id="favorite-count">0</b></button><button data-action="cart">장바구니 <b id="cart-count">0</b></button></nav></div>
     <div class="masthead container">
-      <a href="#home" class="brand" data-home><span class="brand-mark">m<span>✳</span></span><span>moodnote<small>MOOD & STATIONERY</small></span></a>
+      <a href="#home" class="brand brand-logo" data-home aria-label="무드노트 홈"><img src="assets/moodnote-logo-v2.png" alt="moodnote 무드노트" width="232" height="77" /><span class="brand-caption">오늘의 기분을 한 장씩</span></a>
       <form id="header-search" class="search-box"><input id="search-input" type="search" placeholder="찾고 싶은 문구를 검색해 보세요" aria-label="상품 검색" /><button aria-label="검색">⌕</button></form>
       <div class="mast-actions">
         <div class="auth-area" id="auth-area">
@@ -30,9 +35,10 @@
           </button>
           <div class="auth-popover" id="auth-popover" hidden>
             <div class="auth-profile"><img id="auth-photo" alt="" hidden/><div><strong id="auth-name"></strong><small id="auth-email"></small></div></div>
-            <button id="auth-logout" type="button">로그아웃</button>
+            <a href="#mypage" data-mypage>마이페이지 →</a><button id="auth-logout" type="button">로그아웃</button>
           </div>
         </div>
+        <a href="#mypage" data-mypage class="mypage-link" aria-label="마이페이지"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/></svg></a>
         <button class="round-action" data-action="favorites" aria-label="취향 보관함">♡</button>
         <button class="round-action" data-action="cart" aria-label="장바구니">▱</button>
       </div>
@@ -71,7 +77,8 @@
 
   <main id="product-page" class="product-page" hidden><div class="container" id="product-detail"></div></main>
   <main id="checkout-page" class="checkout-page" hidden><div class="container" id="checkout-content"></div></main>
-  <footer id="footer"><div class="container footer-main"><div><a href="#home" class="brand" data-home><span class="brand-mark">m<span>✳</span></span><span>moodnote</span></a><p>취향을 발견하고 기록하는 문구 편집숍</p></div><div><b>SHOP</b><a href="#catalog" data-home>전체상품</a><a href="#new" data-home>신상품</a><a href="#hobby" data-home>취미·DIY</a></div><div><b>HELP</b><span>평일 10:00–17:00</span><span>주말·공휴일 휴무</span><a href="#footer" data-home>배송·교환 안내</a></div><div><b>NOTICE</b><span>상품 및 가격은 쇼핑몰 포트폴리오용 예시입니다.</span><span>결제 화면은 데모이며 실제 승인과 배송은 진행되지 않습니다.</span></div></div><div class="container footer-bottom">© 2026 MOODNOTE <span>Instagram · Pinterest</span></div></footer>
+  <main id="mypage-page" class="mypage-page" hidden><div class="container" id="mypage-content"></div></main>
+  <footer id="footer"><div class="container footer-main"><div><a href="#home" class="brand brand-logo" data-home aria-label="무드노트 홈"><img src="assets/moodnote-logo-v2.png" alt="moodnote 무드노트" width="232" height="77" /><span class="brand-caption">오늘의 기분을 한 장씩</span></a><p>취향을 발견하고 기록하는 문구 편집숍</p></div><div><b>SHOP</b><a href="#catalog" data-home>전체상품</a><a href="#new" data-home>신상품</a><a href="#hobby" data-home>취미·DIY</a></div><div><b>HELP</b><span>평일 10:00–17:00</span><span>주말·공휴일 휴무</span><a href="#footer" data-home>배송·교환 안내</a></div><div><b>NOTICE</b><span>상품 및 가격은 쇼핑몰 포트폴리오용 예시입니다.</span><span>결제 화면은 데모이며 실제 승인과 배송은 진행되지 않습니다.</span></div></div><div class="container footer-bottom">© 2026 MOODNOTE <span>Instagram · Pinterest</span></div></footer>
   <div id="overlay" class="overlay" hidden></div><aside id="drawer" class="drawer" aria-hidden="true"><div id="drawer-content"></div></aside><div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

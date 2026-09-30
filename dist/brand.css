@@ -1,0 +1,11 @@
+/* The open notebook / m lockup, with transparent breathing room in the source. */
+.brand.brand-logo { display: flex; flex-direction: column; align-items: flex-start; gap: 0; width: 232px; letter-spacing: 0; }
+.brand-logo img { display: block; width: 232px; height: auto; }
+.brand-logo .brand-caption { display: block; margin: -9px 0 0 64px; color: #756b61; font: 500 10px/1.5 'Noto Sans KR', sans-serif; letter-spacing: .025em; }
+.footer-main .brand-logo { width: 216px; }
+.footer-main .brand-logo img { width: 216px; }
+@media (max-width: 760px) {
+  .brand.brand-logo { width: 178px; }
+  .brand-logo img { width: 178px; }
+  .brand-logo .brand-caption { margin: -6px 0 0 49px; font-size: 8px; }
+}
