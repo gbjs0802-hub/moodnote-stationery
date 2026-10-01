@@ -38,6 +38,14 @@ const products=[
  {id:'picnic-memo-set',name:'피크닉 조각 메모·점착 세트',maker:'소소한 하루',price:5900,category:'deco',mood:'cherry',image:'assets/product-picnic-memo-set.png',badge:'BOX PICK',option:'메모 3종+점착 2종',description:'체리 테두리와 핑크 그리드, 포근베어, 원형 체크와 꽃 리스 메모를 한 번에 담은 다꾸 세트입니다.',detail:'랜덤박스 앞쪽의 서로 다른 모양 메모를 실제 구성으로 묶었습니다. 글을 적는 사각 메모와 작은 책형 메모, 사진 아래에 붙이는 원형 점착 메모를 섞어 한 페이지의 층을 만들 수 있습니다.',spec:{구성:'메모패드 3종 · 점착메모 2종',매수:'디자인별 25매 · 총 125매',크기:'약 65–90 mm',소재:'80g 비도공지',제조국:'대한민국'}},
  {id:'floral-slim-pen',name:'피크닉 플라워 슬림 젤펜 0.38',maker:'무드노트',price:1900,category:'write',mood:'natural',image:'assets/product-floral-slim-pen.png',badge:'BOX PICK',option:'체리 크림 · 0.38mm',description:'체리, 튤립, 꽃가지 패턴을 입힌 가는 0.38mm 슬림 젤펜을 한 자루씩 고르는 상품입니다.',detail:'랜덤박스 사진 속 네 가지 파스텔 펜을 낱개로 판매합니다. 골드 클립과 무광 바디를 사용하고, 작은 다이어리 칸에도 또렷하게 들어가는 검정 젤 잉크 0.38mm 심을 넣었습니다.',spec:{구성:'슬림 젤펜 1자루',심굵기:'0.38 mm',잉크:'검정 수성 젤 잉크',바디:'무광 ABS · 골드 클립',제조국:'대한민국'}}
 ];
+try{
+ const adminOverrides=JSON.parse(localStorage.getItem('moodnote-admin-product-overrides-v1')||'{}');
+ products.forEach(product=>{
+  const change=adminOverrides[product.id];if(!change)return;
+  for(const key of ['name','maker','price','category','badge','detail'])if(change[key]!==undefined)product[key]=change[key];
+  if(change.summary)product.description=change.summary;
+ });
+}catch{}
 const gift={id:'gift-record',name:'새로운 시작 기록 세트',maker:'무드노트',price:16900,image:'assets/product-sage-diary.png'};
 const allItems=[...products,gift];
 const detailExtras={

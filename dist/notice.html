@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="무드노트 배송, 이벤트, 주문 관련 공지사항" />
+  <title>공지사항 | 무드노트</title>
+  <link rel="icon" type="image/svg+xml" href="assets/moodnote-mark-v2.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="notice.css?v=1" />
+  <script src="notice.js?v=1" defer></script>
+</head>
+<body>
+  <header class="notice-header"><div class="notice-container"><a class="notice-logo" href="./#home"><img src="assets/moodnote-logo-v3.png" alt="moodnote" /></a><nav><a href="./#catalog">전체상품</a><a href="./#mypage">마이페이지</a><a class="active" href="notice.html">공지사항</a></nav></div></header>
+  <main class="notice-container notice-main">
+    <div class="notice-heading"><span>MOODNOTE NOTICE</span><h1>공지사항</h1><p>배송 일정과 이벤트, 주문 전에 알아두면 좋은 소식을 전해드려요.</p></div>
+    <div class="notice-tabs" id="notice-tabs"><button class="active" data-type="all">전체</button><button data-type="배송">배송</button><button data-type="이벤트">이벤트</button><button data-type="안내">안내</button></div>
+    <div class="notice-list" id="public-notice-list" aria-live="polite"></div>
+  </main>
+  <footer><div class="notice-container"><span>© 2026 MOODNOTE</span><a href="./#footer">고객센터</a></div></footer>
+</body>
+</html>

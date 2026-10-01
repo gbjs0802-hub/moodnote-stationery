@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#f4f6f8" />
+  <meta name="description" content="무드노트 쇼핑몰 운영 데모 관리자 페이지" />
+  <title>무드노트 판매자센터</title>
+  <link rel="icon" type="image/svg+xml" href="assets/moodnote-mark-v2.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css?v=2" />
+  <script src="admin.js?v=2" defer></script>
+</head>
+<body>
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <a class="admin-brand" href="admin.html" aria-label="무드노트 판매자센터 홈"><img src="assets/moodnote-logo-v3.png" alt="moodnote"/><span>판매자센터</span></a>
+    <div class="store-switch"><span class="store-avatar">M</span><div><strong>무드노트</strong><small>moodnote-stationery</small></div><button type="button" aria-label="스토어 전환">⌄</button></div>
+    <nav class="admin-nav" aria-label="관리자 메뉴">
+      <span class="nav-label">OVERVIEW</span>
+      <button class="active" data-admin-view="dashboard"><i>⌂</i><span>대시보드</span></button>
+      <span class="nav-label">STORE</span>
+      <button data-admin-view="orders"><i>▤</i><span>주문·배송</span><b id="nav-order-count">4</b></button>
+      <button data-admin-view="products"><i>◇</i><span>상품·재고</span></button>
+      <button data-admin-view="qna"><i>?</i><span>상품 Q&amp;A</span><b>2</b></button>
+      <button data-admin-view="reviews"><i>★</i><span>리뷰 관리</span></button>
+      <button data-admin-view="customers"><i>○</i><span>고객 관리</span></button>
+      <button data-admin-view="marketing"><i>％</i><span>혜택·마케팅</span></button>
+      <span class="nav-label">CONTENT</span>
+      <button data-admin-view="notices"><i>!</i><span>공지사항</span></button>
+      <button data-admin-view="popups"><i>▣</i><span>팝업 관리</span></button>
+      <span class="nav-label">SYSTEM</span>
+      <button data-admin-view="settings"><i>⚙</i><span>쇼핑몰 설정</span></button>
+    </nav>
+    <div class="sidebar-help"><small>도움이 필요하신가요?</small><strong>운영 가이드</strong><span>평일 10:00–17:00</span></div>
+  </aside>
+
+  <div class="admin-shell">
+    <header class="admin-topbar">
+      <button class="mobile-menu" id="mobile-menu" type="button" aria-label="관리자 메뉴 열기">☰</button>
+      <form class="global-search" id="global-search"><span>⌕</span><input type="search" placeholder="주문번호, 상품명, 고객명 검색" aria-label="관리자 통합 검색"/><kbd>⌘ K</kbd></form>
+      <div class="top-actions"><a href="index.html" target="_blank">쇼핑몰 보기 ↗</a><button type="button" aria-label="알림" class="notification">♧<b>3</b></button><div class="operator"><span>MN</span><div><strong>무드노트 운영자</strong><small>최고관리자</small></div></div></div>
+    </header>
+
+    <main class="admin-main">
+      <section class="admin-view active" data-view="dashboard">
+        <div class="page-head"><div><p id="today-label"></p><h1>오늘의 운영 현황</h1><span>놓치기 쉬운 주문과 재고부터 확인해 보세요.</span></div><div class="head-actions"><select id="period-select" aria-label="대시보드 조회 기간"><option value="7">최근 7일</option><option value="30" selected>최근 30일</option><option value="90">최근 3개월</option></select><button class="primary" data-go-view="products">상품 등록</button></div></div>
+
+        <div class="action-strip" aria-label="처리할 업무"><button data-go-view="orders"><span>결제 완료</span><strong>3</strong><small>상품 준비가 필요해요</small></button><button data-go-view="orders"><span>배송 준비</span><strong>1</strong><small>오늘 출고 예정</small></button><button data-go-view="orders"><span>취소·반품</span><strong>0</strong><small>처리할 요청 없음</small></button><button data-go-view="products"><span>재고 부족</span><strong>4</strong><small>10개 이하 상품</small></button></div>
+
+        <div class="kpi-grid">
+          <article class="kpi-card"><div><span>총 매출</span><small>지난 기간 대비</small></div><strong id="kpi-sales">2,847,600원</strong><em class="up">↑ 12.8%</em><div class="spark bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="kpi-card"><div><span>주문</span><small>결제 완료 기준</small></div><strong id="kpi-orders">186건</strong><em class="up">↑ 8.4%</em><div class="spark line"><svg viewBox="0 0 120 34"><path d="M2 29 C18 27 20 16 36 21 S56 24 65 13 S88 20 99 8 S112 10 118 3"/></svg></div></article>
+          <article class="kpi-card"><div><span>방문 대비 구매율</span><small>주문 ÷ 방문</small></div><strong id="kpi-rate">3.42%</strong><em class="down">↓ 0.18%p</em><div class="donut"><span>3.4</span></div></article>
+          <article class="kpi-card"><div><span>평균 주문 금액</span><small>배송비 포함</small></div><strong id="kpi-average">15,310원</strong><em class="up">↑ 4.1%</em><div class="spark bars calm"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel sales-panel"><div class="panel-head"><div><h2>매출 분석</h2><p>일별 결제금액과 주문 수</p></div><div class="legend"><span><i class="red"></i>결제금액</span><span><i></i>주문</span></div></div><div class="chart-wrap"><div class="y-axis"><span>40만</span><span>30만</span><span>20만</span><span>10만</span><span>0</span></div><div class="sales-chart" id="sales-chart"></div></div></article>
+          <article class="panel funnel-panel"><div class="panel-head"><div><h2>주문 처리 현황</h2><p>최근 30일 기준</p></div><button data-go-view="orders">전체 보기</button></div><div class="funnel-list"><div><span>결제 완료</span><b>186</b><i style="--w:100%"></i></div><div><span>상품 준비</span><b>42</b><i style="--w:72%"></i></div><div><span>배송 중</span><b>38</b><i style="--w:62%"></i></div><div><span>배송 완료</span><b>104</b><i style="--w:88%"></i></div></div><div class="funnel-note"><strong>97.8%</strong><span>정상 처리율<br/><small>취소·반품 제외</small></span></div></article>
+        </div>
+
+        <div class="dashboard-grid bottom-grid">
+          <article class="panel orders-panel"><div class="panel-head"><div><h2>최근 주문</h2><p>새 주문부터 확인하세요.</p></div><button data-go-view="orders">주문 전체보기 →</button></div><div class="table-scroll"><table><thead><tr><th>주문번호</th><th>상품</th><th>주문자</th><th>결제금액</th><th>상태</th></tr></thead><tbody id="dashboard-orders"></tbody></table></div></article>
+          <article class="panel stock-panel"><div class="panel-head"><div><h2>재고 알림</h2><p>판매 중단 전에 채워주세요.</p></div><button data-go-view="products">재고 관리 →</button></div><div id="stock-alerts" class="stock-alerts"></div></article>
+        </div>
+      </section>
+
+      <section class="admin-view" data-view="orders">
+        <div class="page-head"><div><p>ORDER MANAGEMENT</p><h1>주문·배송 관리</h1><span>결제부터 배송 완료까지 주문 흐름을 관리합니다.</span></div><button class="secondary" id="export-orders">주문 내역 CSV</button></div>
+        <div class="summary-row"><article><span>신규 주문</span><strong>3</strong></article><article><span>배송 준비</span><strong>1</strong></article><article><span>배송 중</span><strong>2</strong></article><article><span>배송 완료</span><strong>5</strong></article></div>
+        <article class="panel management-panel"><div class="management-tools"><div class="tab-buttons" id="order-tabs"><button class="active" data-status="all">전체</button><button data-status="결제 완료">결제 완료</button><button data-status="배송 준비">배송 준비</button><button data-status="배송 중">배송 중</button><button data-status="배송 완료">배송 완료</button></div><label class="table-search"><span>⌕</span><input id="order-search" type="search" placeholder="주문번호 또는 상품명"/></label></div><div class="table-scroll"><table class="data-table"><thead><tr><th><input type="checkbox" aria-label="주문 전체 선택"/></th><th>주문번호·일시</th><th>상품 정보</th><th>주문자</th><th>결제금액</th><th>주문상태</th><th>처리</th></tr></thead><tbody id="order-table"></tbody></table></div><div class="table-footer"><span id="order-result-count"></span><div><button disabled>‹</button><button class="active">1</button><button>2</button><button>›</button></div></div></article>
+      </section>
+
+      <section class="admin-view" data-view="products">
+        <div class="page-head"><div><p>PRODUCT MANAGEMENT</p><h1>상품·재고 관리</h1><span>상품 정보와 판매 상태, 옵션별 재고를 한 번에 관리합니다.</span></div><button class="primary" id="add-product">+ 상품 등록</button></div>
+        <div class="summary-row"><article><span>전체 상품</span><strong id="total-products">38</strong></article><article><span>판매 중</span><strong id="active-products">34</strong></article><article><span>재고 부족</span><strong id="low-products">4</strong></article><article><span>품절</span><strong>0</strong></article></div>
+        <article class="panel management-panel"><div class="management-tools"><div class="tab-buttons" id="product-tabs"><button class="active" data-product-filter="all">전체</button><button data-product-filter="active">판매 중</button><button data-product-filter="low">재고 부족</button></div><label class="table-search"><span>⌕</span><input id="product-search" type="search" placeholder="상품명 또는 브랜드"/></label></div><div class="table-scroll"><table class="data-table product-table"><thead><tr><th><input type="checkbox" aria-label="상품 전체 선택"/></th><th>상품 정보</th><th>판매가</th><th>재고</th><th>판매 상태</th><th>최근 수정</th><th>관리</th></tr></thead><tbody id="product-table"></tbody></table></div><div class="table-footer"><span id="product-result-count"></span><div><button disabled>‹</button><button class="active">1</button><button>2</button><button>3</button><button>›</button></div></div></article>
+      </section>
+
+      <section class="admin-view" data-view="product-edit">
+        <div class="page-head"><div><button class="back-admin" data-go-view="products">← 상품 목록</button><h1>상품 상세페이지 수정</h1><span>고객에게 보이는 상품 정보와 상세 콘텐츠를 편집합니다.</span></div><div class="head-actions"><a class="secondary" id="product-preview-link" href="index.html" target="_blank">상세페이지 미리보기 ↗</a><button class="primary" type="submit" form="product-edit-form">저장하기</button></div></div>
+        <form id="product-edit-form" class="product-edit-layout">
+          <div class="edit-main">
+            <article class="panel edit-panel"><div class="edit-panel-head"><h2>기본 정보</h2><span>필수 항목</span></div><div class="edit-fields"><label class="wide">상품명<input name="name" required maxlength="80"/></label><label>브랜드<input name="maker" required maxlength="40"/></label><label>카테고리<select name="category"><option value="record">다이어리·노트</option><option value="deco">스티커·마테</option><option value="custom">주문제작</option><option value="write">펜·필기</option><option value="hobby">취미·DIY</option><option value="pouch">파우치·소품</option><option value="gift">랜덤박스</option></select></label><label>판매가<input name="price" type="number" min="0" step="100" required/></label><label>재고 수량<input name="stock" type="number" min="0" required/></label><label>판매 상태<select name="saleStatus"><option>판매 중</option><option>판매 중지</option><option>품절</option></select></label><label>배지<input name="badge" maxlength="20" placeholder="NEW, BEST, STEADY"/></label><label class="wide">목록용 한 줄 설명<textarea name="summary" rows="3" maxlength="180" placeholder="상품의 핵심 특징을 한두 문장으로 작성하세요."></textarea></label></div></article>
+            <article class="panel edit-panel"><div class="edit-panel-head"><h2>상세 콘텐츠</h2><span>상품 상세페이지 본문</span></div><div class="editor-toolbar" aria-label="상세 설명 편집 도구"><button type="button" data-editor-command="bold"><b>B</b></button><button type="button" data-editor-command="heading">H2</button><button type="button" data-editor-command="list">목록</button><button type="button" data-editor-command="image">이미지</button><button type="button" data-editor-command="divider">구분선</button></div><label class="detail-editor-label">상품 상세 설명<textarea id="detail-editor" name="detail" rows="12" placeholder="소재, 사용감, 구성과 활용법을 구체적으로 작성하세요."></textarea></label><div class="content-blocks"><div><span>01</span><strong>상품 핵심 특징</strong><small>텍스트 블록</small><button type="button" aria-label="상품 핵심 특징 순서 변경">⋮⋮</button></div><div><span>02</span><strong>상품 및 활용 이미지</strong><small>이미지 갤러리</small><button type="button" aria-label="상품 및 활용 이미지 순서 변경">⋮⋮</button></div><div><span>03</span><strong>크기·구성 안내</strong><small>사양 표</small><button type="button" aria-label="크기 구성 안내 순서 변경">⋮⋮</button></div></div><button class="add-block" type="button" id="add-content-block">+ 상세 콘텐츠 블록 추가</button></article>
+          </div>
+          <aside class="edit-side">
+            <article class="panel edit-panel"><div class="edit-panel-head"><h2>대표 이미지</h2><span>1:1 권장</span></div><div class="edit-image"><img id="edit-product-image" alt="상품 대표 이미지 미리보기"/><button type="button" id="change-product-image">이미지 변경</button></div><p class="field-help">목록과 상세페이지 첫 화면에 표시됩니다. 현재 데모에서는 기존 상품 이미지를 유지합니다.</p></article>
+            <article class="panel edit-panel"><div class="edit-panel-head"><h2>노출 설정</h2></div><label class="switch-row"><span><b>검색 노출</b><small>쇼핑몰 검색 결과에 표시</small></span><input name="searchVisible" type="checkbox" checked/></label><label class="switch-row"><span><b>추천 상품</b><small>메인 추천 영역에 표시</small></span><input name="featured" type="checkbox"/></label><label class="switch-row"><span><b>리뷰 사용</b><small>상품 상세에서 리뷰 노출</small></span><input name="reviewEnabled" type="checkbox" checked/></label><label class="switch-row"><span><b>Q&amp;A 사용</b><small>상품 문의 작성 허용</small></span><input name="qnaEnabled" type="checkbox" checked/></label></article>
+          </aside>
+        </form>
+      </section>
+
+      <section class="admin-view" data-view="qna">
+        <div class="page-head"><div><p>PRODUCT Q&amp;A</p><h1>상품 Q&amp;A</h1><span>구매 전 문의를 확인하고 빠르게 답변합니다.</span></div><button class="secondary" id="qna-template-button">답변 템플릿 관리</button></div>
+        <div class="summary-row"><article><span>답변 대기</span><strong id="qna-waiting-count">2</strong></article><article><span>오늘 등록</span><strong>3</strong></article><article><span>답변 완료</span><strong>18</strong></article><article><span>평균 답변 시간</span><strong>2.4시간</strong></article></div>
+        <article class="panel management-panel"><div class="management-tools"><div class="tab-buttons" id="qna-tabs"><button class="active" data-qna-filter="all">전체</button><button data-qna-filter="waiting">답변 대기</button><button data-qna-filter="done">답변 완료</button><button data-qna-filter="secret">비밀글</button></div><label class="table-search"><span>⌕</span><input id="qna-search" type="search" placeholder="상품명 또는 문의 내용"/></label></div><div class="table-scroll"><table class="data-table qna-table"><thead><tr><th>상태</th><th>문의 내용</th><th>상품</th><th>작성자</th><th>등록일</th><th>관리</th></tr></thead><tbody id="qna-table"></tbody></table></div><div class="table-footer"><span id="qna-result-count"></span><div><button disabled>‹</button><button class="active">1</button><button>2</button><button>›</button></div></div></article>
+      </section>
+
+      <section class="admin-view" data-view="reviews">
+        <div class="page-head"><div><p>REVIEW MANAGEMENT</p><h1>리뷰 관리</h1><span>상품 후기를 확인하고 판매자 답글과 노출 상태를 관리합니다.</span></div><button class="secondary">리뷰 운영 정책</button></div>
+        <div class="review-overview"><article class="panel review-score"><span>최근 30일 평균</span><strong>4.8</strong><div>★★★★★</div><small>총 126개 리뷰</small></article><article class="panel rating-bars"><div><span>5점</span><i><b style="--w:82%"></b></i><em>103</em></div><div><span>4점</span><i><b style="--w:14%"></b></i><em>18</em></div><div><span>3점</span><i><b style="--w:4%"></b></i><em>5</em></div><div><span>2점</span><i><b style="--w:0%"></b></i><em>0</em></div><div><span>1점</span><i><b style="--w:0%"></b></i><em>0</em></div></article><article class="panel review-summary"><div><span>미답변 리뷰</span><strong id="unanswered-review-count">3</strong></div><div><span>사진 리뷰</span><strong>47</strong></div><div><span>숨김 리뷰</span><strong id="hidden-review-count">0</strong></div></article></div>
+        <article class="panel management-panel"><div class="management-tools"><div class="tab-buttons" id="review-tabs"><button class="active" data-review-filter="all">전체 리뷰</button><button data-review-filter="unanswered">미답변</button><button data-review-filter="photo">사진 리뷰</button><button data-review-filter="hidden">숨김</button></div><label class="table-search"><span>⌕</span><input id="review-search" type="search" placeholder="상품명 또는 리뷰 내용"/></label></div><div class="table-scroll"><table class="data-table review-table"><thead><tr><th>평점</th><th>리뷰 내용</th><th>상품</th><th>작성자</th><th>등록일</th><th>노출</th><th>관리</th></tr></thead><tbody id="review-table"></tbody></table></div><div class="table-footer"><span id="review-result-count"></span><div><button disabled>‹</button><button class="active">1</button><button>2</button><button>›</button></div></div></article>
+      </section>
+
+      <section class="admin-view" data-view="customers">
+        <div class="page-head"><div><p>CUSTOMER MANAGEMENT</p><h1>고객 관리</h1><span>구매 행동을 기준으로 고객을 나누고 응대 이력을 확인합니다.</span></div><button class="secondary">고객 목록 다운로드</button></div>
+        <div class="customer-segments"><article><div class="segment-icon red">VIP</div><div><span>단골 고객</span><strong>24명</strong><small>3회 이상 구매</small></div></article><article><div class="segment-icon green">NEW</div><div><span>신규 고객</span><strong>61명</strong><small>최근 30일 가입</small></div></article><article><div class="segment-icon blue">↻</div><div><span>재구매 예상</span><strong>38명</strong><small>마지막 구매 30–60일</small></div></article><article><div class="segment-icon gray">○</div><div><span>휴면 예상</span><strong>12명</strong><small>90일 이상 미구매</small></div></article></div>
+        <article class="panel management-panel"><div class="management-tools"><h2>최근 활동 고객</h2><label class="table-search"><span>⌕</span><input type="search" placeholder="이름 또는 이메일"/></label></div><div class="table-scroll"><table class="data-table"><thead><tr><th>고객</th><th>등급</th><th>누적 주문</th><th>누적 구매액</th><th>최근 주문</th><th>수신 동의</th></tr></thead><tbody id="customer-table"></tbody></table></div></article>
+      </section>
+
+      <section class="admin-view" data-view="marketing">
+        <div class="page-head"><div><p>BENEFIT & MARKETING</p><h1>혜택·마케팅</h1><span>쿠폰과 기획전의 성과를 확인하고 새로운 혜택을 만듭니다.</span></div><button class="primary" id="add-coupon">+ 쿠폰 만들기</button></div>
+        <div class="marketing-grid"><article class="panel coupon-admin"><div class="panel-head"><div><h2>활성 쿠폰</h2><p>현재 주문서에 적용되는 혜택</p></div><span class="status-badge active">진행 중</span></div><div class="coupon-ticket"><div><strong>10%</strong><span>첫 구매 웰컴 할인</span><small>최소 금액 없음 · 배송비 제외</small></div><b>WELCOME10</b></div><dl><div><dt>발급</dt><dd>184건</dd></div><div><dt>사용</dt><dd>73건</dd></div><div><dt>사용률</dt><dd>39.7%</dd></div><div><dt>할인액</dt><dd>112,400원</dd></div></dl></article><article class="panel campaign-card"><div class="panel-head"><div><h2>기획전 성과</h2><p>최근 30일 유입 기준</p></div></div><div class="campaign"><span>AUTUMN COLLECTION</span><strong>가을 저녁은 책상으로</strong><div><b>1,284<small>페이지뷰</small></b><b>86<small>상품 클릭</small></b><b>6.7%<small>클릭률</small></b></div></div><div class="campaign"><span>OPENING SPECIAL</span><strong>오픈 기념 랜덤박스</strong><div><b>932<small>페이지뷰</small></b><b>104<small>상품 클릭</small></b><b>11.2%<small>클릭률</small></b></div></div></article></div>
+      </section>
+
+      <section class="admin-view" data-view="notices">
+        <div class="page-head"><div><p>NOTICE MANAGEMENT</p><h1>공지사항</h1><span>배송, 휴무, 이벤트처럼 고객에게 꼭 필요한 소식을 관리합니다.</span></div><button class="primary" id="new-notice">+ 공지 작성</button></div>
+        <div class="summary-row"><article><span>전체 공지</span><strong id="notice-total">4</strong></article><article><span>공개 중</span><strong id="notice-published">3</strong></article><article><span>상단 고정</span><strong id="notice-pinned">2</strong></article><article><span>임시 저장</span><strong id="notice-draft">1</strong></article></div>
+        <div class="notice-layout"><article class="panel management-panel"><div class="management-tools"><div class="tab-buttons" id="notice-tabs"><button class="active" data-notice-filter="all">전체</button><button data-notice-filter="published">공개</button><button data-notice-filter="draft">임시저장</button><button data-notice-filter="pinned">상단고정</button></div><label class="table-search"><span>⌕</span><input id="notice-search" type="search" placeholder="공지 제목 검색"/></label></div><div class="table-scroll"><table class="data-table notice-table"><thead><tr><th>상태</th><th>공지 제목</th><th>분류</th><th>작성일</th><th>조회</th><th>관리</th></tr></thead><tbody id="notice-table"></tbody></table></div><div class="table-footer"><span id="notice-result-count"></span><div><button disabled>‹</button><button class="active">1</button><button>›</button></div></div></article><form class="panel notice-editor" id="notice-form" hidden><div class="edit-panel-head"><h2 id="notice-editor-title">새 공지 작성</h2><button type="button" id="close-notice-editor" aria-label="공지 편집 닫기">×</button></div><div class="notice-fields"><label>분류<select name="type"><option>안내</option><option>배송</option><option>이벤트</option><option>휴무</option></select></label><label class="wide">제목<input name="title" required maxlength="100" placeholder="공지 제목을 입력하세요"/></label><label class="wide">내용<textarea name="content" required rows="10" placeholder="고객에게 안내할 내용을 작성하세요."></textarea></label><label class="check-line"><input name="pinned" type="checkbox"/> 목록 상단에 고정</label><label class="check-line"><input name="published" type="checkbox" checked/> 고객에게 공개</label></div><footer><button type="button" class="secondary" id="save-notice-draft">임시저장</button><button type="submit" class="primary">공지 저장</button></footer></form></div>
+      </section>
+
+      <section class="admin-view" data-view="popups">
+        <div class="page-head"><div><p>POPUP MANAGEMENT</p><h1>팝업 관리</h1><span>이벤트와 중요한 안내를 쇼핑몰 첫 화면에 노출합니다.</span></div><button class="primary" type="submit" form="popup-form">팝업 저장</button></div>
+        <div class="popup-layout"><form class="panel popup-form" id="popup-form"><div class="edit-panel-head"><h2>팝업 내용</h2><span>실시간 미리보기</span></div><div class="popup-fields"><label class="wide">관리용 이름<input name="adminName" value="오픈 기념 웰컴 혜택" required/></label><label class="wide">팝업 제목<input name="title" value="첫 장바구니는 10% 가볍게" maxlength="60" required/></label><label class="wide">안내 문구<textarea name="message" rows="4" maxlength="180" required>무드노트에 처음 오셨다면 첫 주문 10% 할인으로 좋아하는 문구를 가볍게 만나보세요.</textarea></label><label>버튼 문구<input name="buttonLabel" value="문구 구경하기" maxlength="24"/></label><label>버튼 링크<input name="buttonLink" value="#catalog" placeholder="#catalog 또는 https://"/></label><label>노출 시작<input name="startDate" type="date" value="2026-10-01"/></label><label>노출 종료<input name="endDate" type="date" value="2026-10-31"/></label><label>팝업 유형<select name="theme"><option value="cherry">체리 레드</option><option value="butter">버터 옐로</option><option value="sage">세이지 그린</option></select></label><label>노출 위치<select name="position"><option value="center">화면 중앙</option><option value="bottom-right">오른쪽 아래</option></select></label><label class="check-line wide"><input name="enabled" type="checkbox"/> 저장 후 고객 화면에 바로 노출</label></div><footer><button type="button" class="secondary" id="preview-popup">미리보기</button><button type="submit" class="primary">팝업 저장</button></footer></form><aside class="popup-preview-area"><div><span>SHOP PREVIEW</span><p>고객 화면에서 보이는 크기와 분위기를 확인하세요.</p></div><div class="store-preview"><div class="preview-header"><img src="assets/moodnote-logo-v3.png" alt="moodnote"/><i></i><i></i></div><div class="preview-page"><div class="preview-popup cherry" id="popup-preview"><button type="button" aria-label="미리보기 팝업 닫기">×</button><small>WELCOME TO MOODNOTE</small><h2 id="preview-popup-title">첫 장바구니는 10% 가볍게</h2><p id="preview-popup-message">무드노트에 처음 오셨다면 첫 주문 10% 할인으로 좋아하는 문구를 가볍게 만나보세요.</p><a id="preview-popup-button">문구 구경하기</a><label><input type="checkbox"/> 오늘 하루 보지 않기</label></div></div></div><article class="panel popup-status-card"><div><span>현재 상태</span><strong id="popup-current-status">노출 안 함</strong></div><div><span>노출 기간</span><strong id="popup-current-period">2026.10.01 – 2026.10.31</strong></div><button type="button" id="disable-popup">노출 중지</button></article></aside></div>
+      </section>
+
+      <section class="admin-view" data-view="settings">
+        <div class="page-head"><div><p>STORE SETTINGS</p><h1>쇼핑몰 설정</h1><span>기본 정보와 배송·운영 정책을 관리합니다.</span></div><button class="primary" id="save-settings">변경사항 저장</button></div>
+        <div class="settings-grid"><article class="panel settings-panel"><h2>쇼핑몰 기본 정보</h2><div class="settings-form"><label>쇼핑몰명<input value="무드노트"/></label><label>대표 이메일<input type="email" value="hello@moodnote.kr"/></label><label>고객센터 연락처<input value="02-1234-5678"/></label><label>운영 시간<input value="평일 10:00–17:00"/></label><label class="wide">쇼핑몰 소개<textarea>취향을 발견하고 기록하는 문구 편집숍</textarea></label></div></article><article class="panel settings-panel"><h2>배송 정책</h2><div class="settings-form"><label>기본 배송비<input value="3,000원"/></label><label>무료배송 기준<input value="30,000원"/></label><label>평균 출고일<input value="결제 후 1–2영업일"/></label><label>택배사<select><option>CJ대한통운</option><option>한진택배</option><option>롯데택배</option></select></label></div><p class="settings-note">이 페이지는 쇼핑몰 포트폴리오용 운영 데모입니다. 설정 저장은 이 브라우저에만 반영됩니다.</p></article></div>
+      </section>
+    </main>
+  </div>
+  <div class="admin-overlay" id="admin-overlay" hidden></div>
+  <dialog class="admin-dialog" id="admin-dialog"><form method="dialog"><header><div><span id="dialog-eyebrow">CUSTOMER CARE</span><h2 id="dialog-title">답변 작성</h2></div><button value="cancel" aria-label="닫기">×</button></header><div class="dialog-context" id="dialog-context"></div><label>판매자 답변<textarea id="dialog-reply" rows="6" placeholder="고객에게 전달할 답변을 작성하세요."></textarea></label><footer><button value="cancel" class="secondary">취소</button><button value="default" class="primary" id="dialog-save">답변 저장</button></footer></form></dialog>
+  <div class="admin-toast" id="admin-toast" role="status" aria-live="polite"></div>
+</body>
+</html>
