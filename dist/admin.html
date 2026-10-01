@@ -4,25 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#f4f6f8" />
-  <meta name="description" content="무드노트 쇼핑몰 운영 데모 관리자 페이지" />
+  <meta name="description" content="무드노트 쇼핑몰 판매자센터" />
   <title>무드노트 판매자센터</title>
   <link rel="icon" type="image/svg+xml" href="assets/moodnote-mark-v2.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="admin.css?v=2" />
-  <script src="admin.js?v=2" defer></script>
+  <link rel="stylesheet" href="live.css?v=1" />
+  <script type="module" src="admin.js?v=3"></script>
 </head>
 <body>
   <aside class="admin-sidebar" id="admin-sidebar">
     <a class="admin-brand" href="admin.html" aria-label="무드노트 판매자센터 홈"><img src="assets/moodnote-logo-v3.png" alt="moodnote"/><span>판매자센터</span></a>
-    <div class="store-switch"><span class="store-avatar">M</span><div><strong>무드노트</strong><small>moodnote-stationery</small></div><button type="button" aria-label="스토어 전환">⌄</button></div>
+    <div class="store-switch"><span class="store-avatar">M</span><div><strong>무드노트</strong><small>moodnote-shop</small></div><button type="button" aria-label="스토어 전환">⌄</button></div>
     <nav class="admin-nav" aria-label="관리자 메뉴">
       <span class="nav-label">OVERVIEW</span>
       <button class="active" data-admin-view="dashboard"><i>⌂</i><span>대시보드</span></button>
       <span class="nav-label">STORE</span>
       <button data-admin-view="orders"><i>▤</i><span>주문·배송</span><b id="nav-order-count">4</b></button>
       <button data-admin-view="products"><i>◇</i><span>상품·재고</span></button>
+      <button data-admin-view="product-create"><i>＋</i><span>상품 등록</span></button>
       <button data-admin-view="qna"><i>?</i><span>상품 Q&amp;A</span><b>2</b></button>
       <button data-admin-view="reviews"><i>★</i><span>리뷰 관리</span></button>
       <button data-admin-view="customers"><i>○</i><span>고객 관리</span></button>
@@ -87,9 +89,20 @@
             <article class="panel edit-panel"><div class="edit-panel-head"><h2>상세 콘텐츠</h2><span>상품 상세페이지 본문</span></div><div class="editor-toolbar" aria-label="상세 설명 편집 도구"><button type="button" data-editor-command="bold"><b>B</b></button><button type="button" data-editor-command="heading">H2</button><button type="button" data-editor-command="list">목록</button><button type="button" data-editor-command="image">이미지</button><button type="button" data-editor-command="divider">구분선</button></div><label class="detail-editor-label">상품 상세 설명<textarea id="detail-editor" name="detail" rows="12" placeholder="소재, 사용감, 구성과 활용법을 구체적으로 작성하세요."></textarea></label><div class="content-blocks"><div><span>01</span><strong>상품 핵심 특징</strong><small>텍스트 블록</small><button type="button" aria-label="상품 핵심 특징 순서 변경">⋮⋮</button></div><div><span>02</span><strong>상품 및 활용 이미지</strong><small>이미지 갤러리</small><button type="button" aria-label="상품 및 활용 이미지 순서 변경">⋮⋮</button></div><div><span>03</span><strong>크기·구성 안내</strong><small>사양 표</small><button type="button" aria-label="크기 구성 안내 순서 변경">⋮⋮</button></div></div><button class="add-block" type="button" id="add-content-block">+ 상세 콘텐츠 블록 추가</button></article>
           </div>
           <aside class="edit-side">
-            <article class="panel edit-panel"><div class="edit-panel-head"><h2>대표 이미지</h2><span>1:1 권장</span></div><div class="edit-image"><img id="edit-product-image" alt="상품 대표 이미지 미리보기"/><button type="button" id="change-product-image">이미지 변경</button></div><p class="field-help">목록과 상세페이지 첫 화면에 표시됩니다. 현재 데모에서는 기존 상품 이미지를 유지합니다.</p></article>
+            <article class="panel edit-panel"><div class="edit-panel-head"><h2>대표 이미지</h2><span>1:1 권장</span></div><div class="edit-image"><img id="edit-product-image" alt="상품 대표 이미지 미리보기"/></div><p class="field-help">목록과 상세페이지 첫 화면에 표시되는 현재 대표 이미지입니다.</p></article>
             <article class="panel edit-panel"><div class="edit-panel-head"><h2>노출 설정</h2></div><label class="switch-row"><span><b>검색 노출</b><small>쇼핑몰 검색 결과에 표시</small></span><input name="searchVisible" type="checkbox" checked/></label><label class="switch-row"><span><b>추천 상품</b><small>메인 추천 영역에 표시</small></span><input name="featured" type="checkbox"/></label><label class="switch-row"><span><b>리뷰 사용</b><small>상품 상세에서 리뷰 노출</small></span><input name="reviewEnabled" type="checkbox" checked/></label><label class="switch-row"><span><b>Q&amp;A 사용</b><small>상품 문의 작성 허용</small></span><input name="qnaEnabled" type="checkbox" checked/></label></article>
           </aside>
+        </form>
+      </section>
+
+      <section class="admin-view" data-view="product-create">
+        <div class="page-head"><div><p>NEW PRODUCT</p><h1>상품 등록</h1><span>상품 정보와 옵션을 저장하면 고객 쇼핑몰에 바로 반영됩니다.</span></div><div class="head-actions"><button class="secondary" type="reset" form="product-create-form">입력 초기화</button><button class="primary" type="submit" form="product-create-form">상품 등록하기</button></div></div>
+        <form id="product-create-form" class="product-edit-layout">
+          <div class="edit-main">
+            <article class="panel edit-panel"><div class="edit-panel-head"><h2>기본 정보</h2><span>필수 항목</span></div><div class="edit-fields"><label class="wide">상품명<input name="name" required maxlength="80" placeholder="고객에게 보일 상품명"/></label><label>브랜드<input name="maker" required maxlength="40" placeholder="브랜드 또는 제작자"/></label><label>상품 코드<input name="slug" required maxlength="60" pattern="[a-z0-9-]+" placeholder="lowercase-product-id"/></label><label>카테고리<select name="category"><option value="record">다이어리·노트</option><option value="deco">스티커·마테</option><option value="custom">주문제작</option><option value="write">펜·필기</option><option value="hobby">취미·DIY</option><option value="pouch">파우치·소품</option><option value="gift">랜덤박스</option></select></label><label>판매가<input name="price" type="number" min="0" step="100" required/></label><label>정가<input name="originalPrice" type="number" min="0" step="100"/></label><label>재고 수량<input name="stock" type="number" min="0" required/></label><label>판매 상태<select name="saleStatus"><option>판매 중</option><option>판매 중지</option><option>품절</option></select></label><label>배지<input name="badge" maxlength="20" placeholder="NEW, BEST, STEADY"/></label><label class="wide">대표 이미지 경로<input name="image" required placeholder="assets/product-name.png 또는 https://..."/></label><label class="wide">상품 옵션<input name="options" placeholder="체리 레드, 크림, 버건디 (쉼표로 구분)"/></label><label class="wide">목록용 한 줄 설명<textarea name="summary" rows="3" maxlength="180" required placeholder="상품의 핵심 특징을 한두 문장으로 작성하세요."></textarea></label></div></article>
+            <article class="panel edit-panel"><div class="edit-panel-head"><h2>상세 콘텐츠</h2><span>상품 상세페이지 본문</span></div><label class="detail-editor-label">상품 상세 설명<textarea name="detail" rows="14" required placeholder="소재, 크기, 구성, 사용감과 활용법을 구체적으로 작성하세요."></textarea></label><div class="edit-fields"><label class="wide">상품 사양<textarea name="spec" rows="5" placeholder="크기: A5&#10;구성: 1개&#10;소재: 종이"></textarea></label></div></article>
+          </div>
+          <aside class="edit-side"><article class="panel edit-panel"><div class="edit-panel-head"><h2>등록 체크</h2></div><ul class="publish-checklist"><li>상품명과 가격 확인</li><li>대표 이미지 1:1 권장</li><li>옵션·재고 수량 확인</li><li>상세 설명과 사양 확인</li></ul></article><article class="panel edit-panel"><div class="edit-panel-head"><h2>노출 설정</h2></div><label class="switch-row"><span><b>검색 노출</b><small>쇼핑몰 검색 결과에 표시</small></span><input name="searchVisible" type="checkbox" checked/></label><label class="switch-row"><span><b>추천 상품</b><small>메인 추천 영역에 표시</small></span><input name="featured" type="checkbox"/></label><label class="switch-row"><span><b>리뷰 사용</b><small>상품 상세에서 리뷰 노출</small></span><input name="reviewEnabled" type="checkbox" checked/></label><label class="switch-row"><span><b>Q&amp;A 사용</b><small>상품 문의 작성 허용</small></span><input name="qnaEnabled" type="checkbox" checked/></label></article></aside>
         </form>
       </section>
 
@@ -129,7 +142,7 @@
 
       <section class="admin-view" data-view="settings">
         <div class="page-head"><div><p>STORE SETTINGS</p><h1>쇼핑몰 설정</h1><span>기본 정보와 배송·운영 정책을 관리합니다.</span></div><button class="primary" id="save-settings">변경사항 저장</button></div>
-        <div class="settings-grid"><article class="panel settings-panel"><h2>쇼핑몰 기본 정보</h2><div class="settings-form"><label>쇼핑몰명<input value="무드노트"/></label><label>대표 이메일<input type="email" value="hello@moodnote.kr"/></label><label>고객센터 연락처<input value="02-1234-5678"/></label><label>운영 시간<input value="평일 10:00–17:00"/></label><label class="wide">쇼핑몰 소개<textarea>취향을 발견하고 기록하는 문구 편집숍</textarea></label></div></article><article class="panel settings-panel"><h2>배송 정책</h2><div class="settings-form"><label>기본 배송비<input value="3,000원"/></label><label>무료배송 기준<input value="30,000원"/></label><label>평균 출고일<input value="결제 후 1–2영업일"/></label><label>택배사<select><option>CJ대한통운</option><option>한진택배</option><option>롯데택배</option></select></label></div><p class="settings-note">이 페이지는 쇼핑몰 포트폴리오용 운영 데모입니다. 설정 저장은 이 브라우저에만 반영됩니다.</p></article></div>
+        <div class="settings-grid"><article class="panel settings-panel"><h2>쇼핑몰 기본 정보</h2><div class="settings-form"><label>쇼핑몰명<input value="무드노트"/></label><label>대표 이메일<input type="email" placeholder="운영 이메일 입력"/></label><label>고객센터 연락처<input placeholder="고객센터 번호 입력"/></label><label>운영 시간<input value="평일 10:00–17:00"/></label><label class="wide">쇼핑몰 소개<textarea>취향을 발견하고 기록하는 문구 편집숍</textarea></label></div></article><article class="panel settings-panel"><h2>배송 정책</h2><div class="settings-form"><label>기본 배송비<input value="3,000원"/></label><label>무료배송 기준<input value="30,000원"/></label><label>평균 출고일<input value="결제 후 1–2영업일"/></label><label>택배사<select><option>CJ대한통운</option><option>한진택배</option><option>롯데택배</option></select></label></div><p class="settings-note">저장한 운영 정보는 Firestore 설정 데이터로 관리됩니다.</p></article></div>
       </section>
     </main>
   </div>

@@ -1,0 +1,84 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.token.email_verified == true && request.auth.token.email == 'gogogen98@gmail.com'; }
+    function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+    function shortText(value, max) { return value is string && value.size() > 0 && value.size() <= max; }
+    function optionalText(data, field, max) { return !(field in data) || (data[field] is string && data[field].size() <= max); }
+    function nonNegative(value) { return value is number && value >= 0; }
+
+    function validProduct(data) {
+      return data.keys().hasAll(['id','name','maker','price','category','image','stock','saleStatus','searchVisible','featured','reviewEnabled','qnaEnabled','createdAt','updatedAt'])
+        && data.keys().hasOnly(['id','name','maker','price','originalPrice','category','image','badge','description','detail','options','spec','stock','saleStatus','searchVisible','featured','reviewEnabled','qnaEnabled','createdAt','updatedAt','mood','rating','reviews','featuredRank'])
+        && shortText(data.id,60) && shortText(data.name,80) && shortText(data.maker,40)
+        && nonNegative(data.price) && nonNegative(data.stock)
+        && data.category in ['record','deco','custom','write','hobby','pouch','gift']
+        && shortText(data.image,500) && data.saleStatus in ['판매 중','판매 중지','품절']
+        && data.searchVisible is bool && data.featured is bool && data.reviewEnabled is bool && data.qnaEnabled is bool
+        && optionalText(data,'badge',20) && optionalText(data,'description',180) && optionalText(data,'detail',5000)
+        && (!('options' in data) || (data.options is list && data.options.size() <= 30))
+        && (!('spec' in data) || data.spec is map)
+        && data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+
+    function validUser(data, uid) {
+      return data.keys().hasAll(['uid','displayName','email','createdAt','updatedAt'])
+        && data.keys().hasOnly(['uid','displayName','email','phone','news','address','createdAt','updatedAt'])
+        && data.uid == uid && data.email == request.auth.token.email
+        && shortText(data.displayName,80) && shortText(data.email,160) && optionalText(data,'phone',30)
+        && (!('news' in data) || data.news is bool) && (!('address' in data) || data.address is map)
+        && data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+
+    function validNotice(data) {
+      return data.keys().hasAll(['id','type','title','content','published','pinned','views','createdAt','updatedAt'])
+        && data.keys().hasOnly(['id','type','title','content','published','pinned','views','createdAt','updatedAt'])
+        && shortText(data.id,40) && shortText(data.type,20) && shortText(data.title,100) && shortText(data.content,5000)
+        && data.published is bool && data.pinned is bool && nonNegative(data.views)
+        && data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+
+    match /products/{productId} {
+      allow read: if (resource.data.saleStatus == '판매 중' && resource.data.searchVisible == true) || isAdmin();
+      allow create, update: if isAdmin() && request.resource.data.id == productId && validProduct(request.resource.data);
+      allow delete: if isAdmin();
+    }
+    match /orders/{orderId} {
+      // Orders are created by the trusted Cloud Function after server-side price checks.
+      allow create: if false;
+      allow read: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid);
+      allow update: if isAdmin() && request.resource.data.userId == resource.data.userId && request.resource.data.id == resource.data.id;
+      allow delete: if false;
+    }
+    match /users/{uid} {
+      allow read: if isAdmin() || isOwner(uid);
+      allow create: if isOwner(uid) && validUser(request.resource.data,uid);
+      allow update: if (isOwner(uid) && validUser(request.resource.data,uid) && request.resource.data.uid == resource.data.uid && request.resource.data.email == resource.data.email) || isAdmin();
+      allow delete: if isOwner(uid);
+    }
+    match /qna/{qnaId} {
+      allow read: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid) || resource.data.secret == false;
+      allow create: if signedIn() && request.resource.data.keys().hasOnly(['id','userId','productId','product','title','content','secret','customer','status','answer','createdAt','updatedAt']) && request.resource.data.userId == request.auth.uid && request.resource.data.id == qnaId && shortText(request.resource.data.title,120) && shortText(request.resource.data.content,2000) && request.resource.data.secret is bool && request.resource.data.status == 'waiting' && request.resource.data.answer == '';
+      allow update: if isAdmin();
+      allow delete: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid && resource.data.status == 'waiting');
+    }
+    match /reviews/{reviewId} {
+      allow read: if isAdmin() || resource.data.hidden == false;
+      allow create: if signedIn() && request.resource.data.keys().hasOnly(['id','userId','productId','product','rating','text','customer','photo','image','reply','hidden','createdAt','updatedAt']) && request.resource.data.userId == request.auth.uid && request.resource.data.id == reviewId && request.resource.data.rating is int && request.resource.data.rating >= 1 && request.resource.data.rating <= 5 && shortText(request.resource.data.text,2000) && request.resource.data.hidden == false && request.resource.data.reply == '';
+      allow update: if isAdmin();
+      allow delete: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid);
+    }
+    match /notices/{noticeId} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow create, update: if isAdmin() && request.resource.data.id == noticeId && validNotice(request.resource.data);
+      allow delete: if isAdmin();
+    }
+    match /storefront/{documentId} {
+      allow read: if isAdmin() || (documentId == 'popup' && resource.data.enabled == true);
+      allow create, update, delete: if isAdmin();
+    }
+    match /settings/{documentId} { allow read, write: if isAdmin(); }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

@@ -3,28 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#fffaf4" />
+  <meta name="theme-color" content="#b73b38" />
+  <meta name="application-name" content="무드노트" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="무드노트" />
   <meta name="description" content="오늘의 취향을 기록하고 모으는 문구 편집숍 무드노트. 다이어리, 스티커, 펜과 파우치를 취향별로 만나보세요." />
   <title>무드노트 | 취향을 기록하는 문구 편집숍</title>
-  <link rel="icon" type="image/svg+xml" href="assets/moodnote-mark-v2.svg" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
   <link rel="stylesheet" href="styles.css?v=6" />
   <link rel="stylesheet" href="season.css?v=6" />
   <link rel="stylesheet" href="refinement.css?v=8" />
   <link rel="stylesheet" href="brand.css?v=1" />
   <link rel="stylesheet" href="mypage.css?v=3" />
   <link rel="stylesheet" href="detail-commerce.css?v=1" />
+  <link rel="stylesheet" href="mobile.css?v=3" />
+  <link rel="stylesheet" href="live.css?v=1" />
+  <link rel="stylesheet" href="pwa.css?v=1" />
+  <script src="pwa.js?v=1" defer></script>
   <script src="detail-commerce.js?v=1" defer></script>
   <link rel="stylesheet" href="popup.css?v=1" />
   <script src="popup.js?v=1" defer></script>
   <link rel="stylesheet" href="address.css?v=1" />
   <script src="address.js?v=3" defer></script>
   <script src="app.js?v=22" defer></script>
-  <script src="account-extra.js?v=2" defer></script>
-  <script src="mypage.js?v=4" defer></script>
+  <script src="account-extra.js?v=3" defer></script>
+  <script src="mypage.js?v=5" defer></script>
+  <script src="mobile-nav.js?v=2" defer></script>
   <script type="module" src="firebase-auth.js?v=2"></script>
+  <script type="module" src="firebase-store.js?v=1"></script>
+  <script src="https://js.tosspayments.com/v2/standard"></script>
+  <script type="module" src="toss-payments.js?v=1"></script>
 </head>
 <body>
   <div class="promo-bar"><span>첫 장바구니는 10% 가볍게</span><span>·</span><span>30,000원부터 배송비는 저희가</span><a href="#catalog" data-home>문구 구경하기 →</a></div>
@@ -83,7 +98,34 @@
   <main id="product-page" class="product-page" hidden><div class="container" id="product-detail"></div></main>
   <main id="checkout-page" class="checkout-page" hidden><div class="container" id="checkout-content"></div></main>
   <main id="mypage-page" class="mypage-page" hidden><div class="container" id="mypage-content"></div></main>
-  <footer id="footer"><div class="container footer-main"><div><a href="#home" class="brand brand-logo" data-home aria-label="무드노트 홈"><img src="assets/moodnote-logo-v3.png" alt="웃는 노트 캐릭터와 moodnote 글자가 담긴 무드노트 로고" width="232" height="77" /><span class="brand-caption">오늘의 기분을 한 장씩</span></a><p>취향을 발견하고 기록하는 문구 편집숍</p></div><div><b>SHOP</b><a href="#catalog" data-home>전체상품</a><a href="#new" data-home>신상품</a><a href="#hobby" data-home>취미·DIY</a></div><div><b>HELP</b><span>평일 10:00–17:00</span><span>주말·공휴일 휴무</span><a href="notice.html">공지사항</a><a href="#footer" data-home>배송·교환 안내</a></div><div><b>NOTICE</b><span>상품 및 가격은 쇼핑몰 포트폴리오용 예시입니다.</span><span>결제 화면은 데모이며 실제 승인과 배송은 진행되지 않습니다.</span></div></div><div class="container footer-bottom">© 2026 MOODNOTE <span>Instagram · Pinterest</span></div></footer>
+  <footer id="footer"><div class="container footer-main"><div><a href="#home" class="brand brand-logo" data-home aria-label="무드노트 홈"><img src="assets/moodnote-logo-v3.png" alt="웃는 노트 캐릭터와 moodnote 글자가 담긴 무드노트 로고" width="232" height="77" /><span class="brand-caption">오늘의 기분을 한 장씩</span></a><p>취향을 발견하고 기록하는 문구 편집숍</p></div><div><b>SHOP</b><a href="#catalog" data-home>전체상품</a><a href="#new" data-home>신상품</a><a href="#hobby" data-home>취미·DIY</a></div><div><b>HELP</b><span>평일 10:00–17:00</span><span>주말·공휴일 휴무</span><a href="notice.html">공지사항</a><a href="#footer" data-home>배송·교환 안내</a><a href="admin.html" class="seller-center-link">판매자센터</a></div><div><b>PAYMENT</b><span>토스페이먼츠 안전결제</span><span>30,000원 이상 무료배송</span></div></div><div class="container footer-bottom">© 2026 MOODNOTE <span>Instagram · Pinterest</span></div></footer>
+
+  <nav class="mobile-bottom-nav" aria-label="모바일 주요 메뉴">
+    <a href="#home" data-home data-mobile-tab="home" class="active"><img src="assets/nav-home.svg" alt="" aria-hidden="true"/><span>홈</span></a>
+    <button type="button" data-mobile-panel="categories" data-mobile-tab="categories"><img src="assets/nav-category.svg" alt="" aria-hidden="true"/><span>카테고리</span></button>
+    <button type="button" data-mobile-panel="search" data-mobile-tab="search"><img src="assets/nav-search.svg" alt="" aria-hidden="true"/><span>검색</span></button>
+    <button type="button" data-action="cart" data-mobile-tab="cart"><img src="assets/nav-cart.svg" alt="" aria-hidden="true"/><span>장바구니</span><b id="cart-count">0</b></button>
+    <a href="#mypage" data-mypage data-mobile-tab="mypage"><img src="assets/nav-my.svg" alt="" aria-hidden="true"/><span>마이</span></a>
+  </nav>
+  <div class="mobile-nav-scrim" id="mobile-nav-scrim" hidden></div>
+  <section class="mobile-nav-sheet" id="mobile-category-sheet" aria-hidden="true" aria-labelledby="mobile-category-title">
+    <header><div><small>SHOP BY CATEGORY</small><h2 id="mobile-category-title">뭘 찾으세요?</h2></div><button type="button" data-mobile-close aria-label="카테고리 닫기"><i class="ph ph-x"></i></button></header>
+    <div class="mobile-category-grid">
+      <button data-filter="all"><i class="ph ph-storefront"></i><span>전체상품</span><small>38</small></button>
+      <button data-filter="record"><i class="ph ph-notebook"></i><span>다이어리·노트</span><small>4</small></button>
+      <button data-filter="deco"><i class="ph ph-sticker"></i><span>스티커·마테</span><small>16</small></button>
+      <button data-filter="write"><i class="ph ph-pencil-simple-line"></i><span>펜·필기</span><small>10</small></button>
+      <button data-filter="custom"><i class="ph ph-image-square"></i><span>나만의 스티커</span><small>3</small></button>
+      <button data-filter="hobby"><i class="ph ph-paint-brush"></i><span>취미·DIY</span><small>3</small></button>
+      <button data-filter="pouch"><i class="ph ph-briefcase"></i><span>파우치·소품</span><small>1</small></button>
+      <button data-filter="gift"><i class="ph ph-gift"></i><span>랜덤박스</span><small>1</small></button>
+    </div>
+  </section>
+  <section class="mobile-nav-sheet mobile-search-sheet" id="mobile-search-sheet" aria-hidden="true" aria-labelledby="mobile-search-title">
+    <header><div><small>SEARCH MOODNOTE</small><h2 id="mobile-search-title">찾고 싶은 문구가 있나요?</h2></div><button type="button" data-mobile-close aria-label="검색 닫기"><i class="ph ph-x"></i></button></header>
+    <form id="mobile-search-form"><label><i class="ph ph-magnifying-glass" aria-hidden="true"></i><input id="mobile-search-input" type="search" placeholder="상품명이나 브랜드를 검색하세요" autocomplete="off" /></label><button type="submit">검색</button></form>
+    <div class="mobile-search-suggestions"><span>많이 찾는 검색어</span><button type="button" data-mobile-query="다이어리">다이어리</button><button type="button" data-mobile-query="스티커">스티커</button><button type="button" data-mobile-query="모나미">모나미</button><button type="button" data-mobile-query="가을">가을</button></div>
+  </section>
   <div id="overlay" class="overlay" hidden></div><aside id="drawer" class="drawer" aria-hidden="true"><div id="drawer-content"></div></aside><div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

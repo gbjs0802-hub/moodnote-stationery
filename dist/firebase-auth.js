@@ -8,12 +8,12 @@ import {
 } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyC6lDHybaJOsRl6ObOzr6y5jeWZzKDYv7U',
-  authDomain: 'moodnote-stationery.firebaseapp.com',
-  projectId: 'moodnote-stationery',
-  storageBucket: 'moodnote-stationery.firebasestorage.app',
-  messagingSenderId: '742047211938',
-  appId: '1:742047211938:web:7dd10b04862d3bce7ad2fb'
+  apiKey: 'AIzaSyAs5ccEVy3TDJFSrVhLXPRQThrazTvQ1r4',
+  authDomain: 'moodnote-shop.firebaseapp.com',
+  projectId: 'moodnote-shop',
+  storageBucket: 'moodnote-shop.firebasestorage.app',
+  messagingSenderId: '1053244872680',
+  appId: '1:1053244872680:web:fbe52ffd5d9d1f4717f65d'
 };
 
 const app = initializeApp(firebaseConfig);
