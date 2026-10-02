@@ -1,0 +1,9 @@
+.summer-section{background:#f2f7f7;padding:58px 0}
+.summer-section .section-title{align-items:center}
+.summer-section .section-title h2{font-family:inherit;font-size:30px;font-weight:600;letter-spacing:-.045em}
+.summer-section .section-title p{line-height:1.8;font-size:14px}
+.summer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;max-width:1060px;margin-inline:auto}
+.summer-grid .product-media{aspect-ratio:1}.summer-grid .product-media img{object-fit:contain;width:100%;height:100%}
+.summer-grid .product-info{padding:16px 2px}.summer-grid .product-name{font-size:15px;line-height:1.6}
+.purchase-row button:disabled{cursor:not-allowed;opacity:.55}
+@media(max-width:760px){.summer-section{padding:36px 0}.summer-section .section-title{display:block}.summer-section .section-title h2{font-size:24px}.summer-section .section-title p{font-size:13px;margin-top:14px}.summer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 14px}.summer-grid .product-name{font-size:13px}.summer-grid .product-info{padding:12px 0}}

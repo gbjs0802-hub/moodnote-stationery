@@ -27,18 +27,22 @@
   <link rel="stylesheet" href="live.css?v=1" />
   <link rel="stylesheet" href="pwa.css?v=1" />
   <link rel="stylesheet" href="ai-chat.css?v=2" />
+  <link rel="stylesheet" href="account-layout.css?v=1" />
+  <link rel="stylesheet" href="summer.css?v=1" />
   <script src="pwa.js?v=1" defer></script>
   <script src="detail-commerce.js?v=2" defer></script>
-  <link rel="stylesheet" href="popup.css?v=1" />
-  <script src="popup.js?v=1" defer></script>
+  <link rel="stylesheet" href="popup.css?v=2" />
+  <script src="popup.js?v=2" defer></script>
   <link rel="stylesheet" href="address.css?v=1" />
   <script src="address.js?v=3" defer></script>
-  <script src="app.js?v=24" defer></script>
-  <script src="account-extra.js?v=3" defer></script>
-  <script src="mypage.js?v=5" defer></script>
+  <script src="shopping-state.js?v=1" defer></script>
+  <script src="app.js?v=27" defer></script>
+  <script src="account-inquiries.js?v=1" defer></script>
+  <script src="account-extra.js?v=4" defer></script>
+  <script src="mypage.js?v=6" defer></script>
   <script src="mobile-nav.js?v=2" defer></script>
-  <script type="module" src="firebase-auth.js?v=2"></script>
-  <script type="module" src="firebase-store.js?v=1"></script>
+  <script type="module" src="firebase-auth.js?v=3"></script>
+  <script type="module" src="firebase-store.js?v=2"></script>
   <script src="https://js.tosspayments.com/v2/standard"></script>
   <script type="module" src="toss-payments.js?v=2"></script>
   <script type="module" src="ai-chat.js?v=4"></script>
@@ -70,25 +74,28 @@
 
   <main id="home-page">
     <section class="hero-shell" id="home"><div class="hero container" aria-roledescription="carousel" aria-label="무드노트 기획전">
-      <article class="hero-slide cherry active" data-hero-slide="0" aria-hidden="false"><img src="assets/cherry-hero.png" alt="체리 문구로 꾸민 다이어리와 체크 파우치가 놓인 책상" /><div class="hero-shade"></div><div class="hero-copy"><span class="eyebrow">CUTE THINGS CLUB · CHERRY DROP</span><h1>필요해서 샀냐고?<br/>귀여워서 샀지!</h1><p>체리 하나 붙였을 뿐인데 페이지가 갑자기 주인공.<br/>오늘도 귀여움은 장바구니로 직행!</p><a href="#catalog" class="solid-button" data-mood="cherry">귀여운 거 다 보기 <span>→</span></a></div></article>
-      <article class="hero-slide autumn" data-hero-slide="1" aria-hidden="true"><img src="assets/product-reading-journal.png" alt="밤색 독서 저널과 가을빛 문구가 놓인 책상" /><div class="hero-shade"></div><div class="hero-copy"><span class="eyebrow">AUTUMN CURATION · SLOW MOMENTS</span><h1>해가 빨리 지는 날엔<br/>책상으로</h1><p>읽고, 붙이고, 손으로 만드는 동안<br/>긴 저녁이 제법 좋아집니다.</p><a href="#autumn" class="solid-button" data-home>가을 책상 구경하기 <span>→</span></a></div></article>
+      <article class="hero-slide autumn active" data-hero-slide="0" aria-hidden="false"><img src="assets/product-reading-journal.png" alt="밤색 독서 저널과 가을빛 문구가 놓인 책상" /><div class="hero-shade"></div><div class="hero-copy"><span class="eyebrow">AUTUMN CURATION · SLOW MOMENTS</span><h1>해가 빨리 지는 날엔<br/>책상으로</h1><p>읽고, 붙이고, 손으로 만드는 동안<br/>긴 저녁이 제법 좋아집니다.</p><a href="#autumn" class="solid-button" data-home>가을 책상 구경하기 <span>→</span></a></div></article>
+      <article class="hero-slide cherry" data-hero-slide="1" aria-hidden="true"><img src="assets/cherry-hero.png" alt="체리 문구로 꾸민 다이어리와 체크 파우치가 놓인 책상" /><div class="hero-shade"></div><div class="hero-copy"><span class="eyebrow">CUTE THINGS CLUB · CHERRY DROP</span><h1>필요해서 샀냐고?<br/>귀여워서 샀지!</h1><p>체리 하나 붙였을 뿐인데 페이지가 갑자기 주인공.<br/>오늘도 귀여움은 장바구니로 직행!</p><a href="#catalog" class="solid-button" data-mood="cherry">귀여운 거 다 보기 <span>→</span></a></div></article>
       <article class="hero-slide lucky" data-hero-slide="2" aria-hidden="true"><img src="assets/product-opening-box.png" alt="다양한 문구가 담긴 오픈 기념 럭키박스" /><div class="hero-shade"></div><div class="hero-copy"><span class="eyebrow">OPENING LUCKY BOX · 100 ONLY</span><h1>취향은 랜덤,<br/>실패는 없게</h1><p>다이어리 1권부터 다꾸 소품까지 12–15종.<br/>판매가의 세 배 이상을 꽉 채웠어요.</p><a href="#product/random-box" class="solid-button" data-product="random-box">내 상자 먼저 보기 <span>→</span></a></div></article>
       <div class="hero-index"><button type="button" data-hero-prev aria-label="이전 기획전">←</button><strong id="hero-current">01</strong><span aria-hidden="true"><i id="hero-progress"></i></span><em>03</em><button type="button" data-hero-next aria-label="다음 기획전">→</button></div>
     </div></section>
 
     <section class="category-strip container" aria-label="카테고리 바로가기"><a href="#catalog" data-filter="record"><span>01</span><b>다이어리 · 노트</b><small>쓸 곳부터 고르기</small></a><a href="#catalog" data-filter="deco"><span>02</span><b>스티커 · 마테</b><small>빈칸에 한 조각</small></a><a href="#catalog" data-filter="write"><span>03</span><b>펜 · 필기</b><small>잘 써지는 기분</small></a><a href="#catalog" data-filter="hobby"><span>04</span><b>취미 · DIY</b><small>손이 바빠지는 밤</small></a><a href="#catalog" data-filter="gift"><span>05</span><b>랜덤박스</b><small>열기 전이 제일 좋을 때</small></a></section>
 
+    <section class="autumn-showcase section" id="autumn"><div class="container"><div class="autumn-lead"><div><span class="eyebrow">AUTUMN SLOW MOMENTS</span><h2>가을 저녁은<br/>손을 좀 쓰고 싶어져서</h2><p>독서 기록 한 줄, 단풍 스티커 한 장, 천천히 굳어가는 레진. 서두르지 않아도 되는 것들만 모았습니다.</p><button class="outline-button" data-mood="autumn">가을 책상 차려보기 →</button></div><img src="assets/product-reading-journal.png" alt="밤색 패브릭 커버의 가을 독서 저널"/></div><div id="autumn-grid" class="product-grid autumn-grid"></div></div></section>
+
     <section class="season-launch container" aria-label="2027 다이어리 출시"><div class="season-copy"><span class="eyebrow">2027 PLANNER COLLECTION</span><h2>내년의 나는<br/>조금 더 잘 기억해두기</h2><p>큰 약속은 월간에, 사소하지만 좋았던 일은 주간에. 2027년의 열두 달을 한 권에 차분히 모았습니다.</p><strong>9,900원 <del>12,900원</del></strong><a href="#product/diary-2027" class="solid-button" data-product="diary-2027">표지 색과 내지 보기 <span>→</span></a></div><img src="assets/product-2027-diary.png" alt="버건디 패브릭 커버의 2027 위클리 다이어리" /></section>
 
     <section class="weekly container section" id="new"><div class="section-title"><div><span class="eyebrow">NEW & CURATED</span><h2>이번 주, 자꾸 손이 가는 것들</h2></div><p>써보고 붙여보고, 결국 책상 위에 남겨둔 여섯 가지예요.</p></div><div id="featured-grid" class="featured-grid"></div></section>
 
-    <section class="autumn-showcase section" id="autumn"><div class="container"><div class="autumn-lead"><div><span class="eyebrow">AUTUMN SLOW MOMENTS</span><h2>가을 저녁은<br/>손을 좀 쓰고 싶어져서</h2><p>독서 기록 한 줄, 단풍 스티커 한 장, 천천히 굳어가는 레진. 서두르지 않아도 되는 것들만 모았습니다.</p><button class="outline-button" data-mood="autumn">가을 책상 차려보기 →</button></div><img src="assets/product-reading-journal.png" alt="밤색 패브릭 커버의 가을 독서 저널"/></div><div id="autumn-grid" class="product-grid autumn-grid"></div></div></section>
+
 
     <section class="hobby-showcase container section" id="hobby"><div class="section-title"><div><span class="eyebrow">PLAY & MAKE</span><h2>멍하니 만지고, 천천히 만들고</h2></div><p>잘해야 한다는 생각 없이 시작해도 되는 작은 취미들이에요.</p></div><div id="hobby-grid" class="hobby-grid"></div></section>
 
     <section class="steady-showcase section" id="steady"><div class="container"><div class="section-title"><div><span class="eyebrow">FOREVER FAVORITES</span><h2>결국 또 찾게 되는 펜들</h2></div><p>새 펜을 사도 서랍 속 이 이름들로 돌아오는 데는 이유가 있죠.</p></div><div id="steady-grid" class="product-grid steady-grid"></div></div></section>
 
-    <section class="catalog-section section" id="catalog"><div class="container catalog-heading"><div><span class="eyebrow">ALL STATIONERY & HOBBY</span><h2>오늘은 뭘 써볼까요?</h2></div><div class="catalog-tools"><span id="result-count"></span><select id="sort-select" aria-label="상품 정렬"><option value="featured">추천순</option><option value="low">낮은 가격순</option><option value="high">높은 가격순</option><option value="new">신상품순</option></select></div></div><div class="container catalog-layout"><aside class="filters"><div><h3>카테고리</h3><button class="active" data-filter="all">전체상품 <span>38</span></button><button data-filter="record">다이어리·노트 <span>4</span></button><button data-filter="deco">스티커·마테 <span>16</span></button><button data-filter="custom">나만의 스티커 <span>3</span></button><button data-filter="write">펜·필기 <span>10</span></button><button data-filter="hobby">취미·DIY <span>3</span></button><button data-filter="pouch">파우치·소품 <span>1</span></button><button data-filter="gift">랜덤박스 <span>1</span></button></div><div><h3>가격</h3><label><input type="radio" name="price" value="all" checked /> 전체 가격</label><label><input type="radio" name="price" value="5000" /> 5,000원 이하</label><label><input type="radio" name="price" value="10000" /> 10,000원 이하</label><label><input type="radio" name="price" value="20000" /> 20,000원 이하</label></div><div><h3>분위기</h3><label><input type="checkbox" name="mood" value="cherry" /> 체리 레드</label><label><input type="checkbox" name="mood" value="natural" /> 내추럴</label><label><input type="checkbox" name="mood" value="autumn" /> 가을 브라운</label></div></aside><div><div id="active-filter" class="active-filter">전체상품</div><div id="product-grid" class="product-grid"></div><p id="empty-products" class="empty-state" hidden>조건에 맞는 상품이 없어요.</p></div></div></section>
+    <section class="section summer-section" id="summer"><div class="container"><div class="section-title"><div><span class="eyebrow">A LITTLE SEA, EVERY DAY</span><h2>바다는 책상 위에도 있어</h2></div><p>사진 옆에 조개 하나, 메모 아래 파도 한 줄.<br>여름날의 기분을 꺼내 쓰는 문구 3종.</p></div><div id="summer-grid" class="summer-grid"></div></div></section>
+    <section class="catalog-section section" id="catalog"><div class="container catalog-heading"><div><span class="eyebrow">ALL STATIONERY & HOBBY</span><h2>오늘은 뭘 써볼까요?</h2></div><div class="catalog-tools"><span id="result-count"></span><select id="sort-select" aria-label="상품 정렬"><option value="featured">추천순</option><option value="low">낮은 가격순</option><option value="high">높은 가격순</option><option value="new">신상품순</option></select></div></div><div class="container catalog-layout"><aside class="filters"><div><h3>카테고리</h3><button class="active" data-filter="all">전체상품 <span>38</span></button><button data-filter="record">다이어리·노트 <span>4</span></button><button data-filter="deco">스티커·마테 <span>16</span></button><button data-filter="custom">나만의 스티커 <span>3</span></button><button data-filter="write">펜·필기 <span>10</span></button><button data-filter="hobby">취미·DIY <span>3</span></button><button data-filter="pouch">파우치·소품 <span>1</span></button><button data-filter="gift">랜덤박스 <span>1</span></button></div><div><h3>가격</h3><label><input type="radio" name="price" value="all" checked /> 전체 가격</label><label><input type="radio" name="price" value="5000" /> 5,000원 이하</label><label><input type="radio" name="price" value="10000" /> 10,000원 이하</label><label><input type="radio" name="price" value="20000" /> 20,000원 이하</label></div><div><h3>분위기</h3><label><input type="checkbox" name="mood" value="cherry" /> 체리 레드</label><label><input type="checkbox" name="mood" value="natural" /> 내추럴</label><label><input type="checkbox" name="mood" value="autumn" /> 가을 브라운</label><label><input type="checkbox" name="mood" value="summer" /> 여름 바다</label></div></aside><div><div id="active-filter" class="active-filter">전체상품</div><div id="product-grid" class="product-grid"></div><p id="empty-products" class="empty-state" hidden>조건에 맞는 상품이 없어요.</p></div></div></section>
 
     <section class="editorial section" id="recipe"><div class="container editorial-grid"><div class="editorial-photo"><img src="assets/cherry-hero.png" alt="체리 문구로 완성한 다꾸 페이지" /></div><div class="editorial-copy"><span class="eyebrow">DECO RECIPE 01</span><h2>체리 세 개면<br/>페이지가 살아나요</h2><p>스티커는 모서리에, 체크 테이프는 사진 밑에. 정답 없이 붙여도 체리빛이 페이지를 자연스럽게 이어줘요.</p><ul><li><span>01</span>체리 데이 스티커</li><li><span>02</span>레드 체크 마스킹테이프</li><li><span>03</span>소프트 젤펜 체리 레드</li></ul><div><strong>함께 담으면 6,200원</strong><button class="outline-button" data-action="add-recipe">레시피 한 번에 담기 →</button></div></div></div></section>
 

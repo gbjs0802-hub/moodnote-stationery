@@ -56,7 +56,9 @@ function closePopover() {
 }
 
 function renderUser(user) {
+  if(currentUser?.uid!==user?.uid){window.moodnoteOrders=[];window.moodnoteProfile=null;window.moodnoteInquiries=[];}
   currentUser = user;
+  window.moodnoteAuthReady = true;
   window.moodnoteUser = user ? { uid: user.uid, displayName: user.displayName, email: user.email } : null;
   window.dispatchEvent(new Event('moodnote-auth-change'));
   button.disabled = false;
@@ -104,12 +106,15 @@ button.addEventListener('click', async () => {
 
 logout.addEventListener('click', async () => {
   try {
+    logout.disabled=true;
+    try { await Promise.race([window.moodnoteShopping?.flush(),new Promise((_,reject)=>setTimeout(()=>reject(new Error('sync-timeout')),4000))]); }
+    catch(error){ console.warn('Shopping state remains saved on this device',error.code||error.message); }
     await signOut(auth);
     notify('로그아웃되었습니다.');
   } catch (error) {
     console.error('Sign-out failed', error);
     notify('로그아웃에 실패했습니다. 다시 시도해주세요.');
-  }
+  } finally { logout.disabled=false; }
 });
 
 document.addEventListener('click', event => {

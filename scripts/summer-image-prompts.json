@@ -1,0 +1,32 @@
+{
+  "tool": "built-in image_gen",
+  "prompts": [
+    {
+      "id": "sea-glass-sticker",
+      "thumbnail": "Use case: product-mockup. Asset type: square ecommerce catalog photograph for Moodnote summer sea stationery. Subject: A single A6 matte die-cut sticker sheet, ivory backing with 18 tiny watercolor ocean motifs: cobalt and seafoam waves, scallop shells, orange starfish, striped beach umbrella, sailboat, sun and tiny fish. Only this sheet, centered top-down filling 70 percent of square, coherent cute Korean stationery illustration printed on physical paper. Scene: clean pale ivory tabletop, soft daylight from upper left, subtle natural shadow. Style: realistic physical stationery product photograph, crisp paper texture, restrained playful illustration. Composition: consistent square thumbnail with balanced margins, no unrelated props. No price badges, text, logos, labels, watermarks or collage.",
+      "usage": "Use case: product-mockup. Reference image defines exact product design; preserve its colors, printed motifs and material. Create a NEW square lifestyle usage photograph for this stationery product. An open travel journal, with a small beach photograph taped to its left page and exactly these ocean die-cut stickers peeled and arranged around the photograph: wave, shell, orange starfish, sailboat. Sticker sheet with several empty peeled spaces visible to the right. A hand placing a shell sticker with tweezers. Warm ivory desk, soft natural daylight, realistic scale, detailed paper texture. No digital overlays, no labels or watermarks. Clearly a different camera angle and scene from the catalog image.",
+      "assets": [
+        "dist/assets/product-sea-glass-sticker.png",
+        "dist/assets/usage-sea-glass-sticker.png"
+      ]
+    },
+    {
+      "id": "wave-memo",
+      "thumbnail": "Use case: product-mockup. Asset type: square ecommerce catalog photograph for Moodnote summer sea stationery. Subject: A single small rectangular 80 x 100 mm tear-off memo pad, 50 sheets with visible paper thickness, ivory writing center, tiny cobalt rolling waves along the bottom, tiny orange sun and seafoam shell in opposite corners. Mostly clear writable area. Three-quarter top down, one loose sheet alongside, filling 70 percent of square. Scene: clean pale ivory tabletop, soft daylight from upper left, subtle natural shadow. Style: realistic physical stationery product photograph, crisp paper texture, restrained playful illustration. Composition: consistent square thumbnail with balanced margins, no unrelated props. No price badges, text, logos, labels, watermarks or collage.",
+      "usage": "Use case: product-mockup. Reference image defines exact product design; preserve its colors, printed motifs and material. Create a NEW square lifestyle usage photograph for this stationery product. A sea-themed travel journal. A loose sheet of exactly this memo pad with blue waves along bottom and orange sun and seafoam shell in top corners is tucked over the journal page. A hand uses a blue pen to write a tiny simple packing checklist. The same memo pad nearby. Readable paper size and real pen proportions. Warm ivory desk, soft natural daylight, realistic scale, detailed paper texture. No digital overlays, no labels or watermarks. Clearly a different camera angle and scene from the catalog image.",
+      "assets": [
+        "dist/assets/product-wave-memo.png",
+        "dist/assets/usage-wave-memo.png"
+      ]
+    },
+    {
+      "id": "ocean-washi",
+      "thumbnail": "Use case: product-mockup. Asset type: square ecommerce catalog photograph for Moodnote summer sea stationery. Subject: One roll of 15mm washi paper tape printed with repeating deep blue and seafoam hand-drawn waves, a few tiny white sailboats and mustard suns. Short 12cm unfurled tape tail displaying pattern on the tabletop. Central product fills 70 percent of square; realistic 40mm diameter roll. Scene: clean pale ivory tabletop, soft daylight from upper left, subtle natural shadow. Style: realistic physical stationery product photograph, crisp paper texture, restrained playful illustration. Composition: consistent square thumbnail with balanced margins, no unrelated props. No price badges, text, logos, labels, watermarks or collage.",
+      "usage": "Use case: product-mockup. Reference image defines exact product design; preserve its colors, printed motifs and material. Create a NEW square lifestyle usage photograph for this stationery product. An open blank travel journal with a small beach photograph secured at two corners using torn strips of exactly this wave-and-sailboat washi tape. The same roll nearby at realistic 40mm size. A hand pressing a short strip flat. Restrained composition centered on the journal and tape application. Warm ivory desk, soft natural daylight, realistic scale, detailed paper texture. No digital overlays, no labels or watermarks. Clearly a different camera angle and scene from the catalog image.",
+      "assets": [
+        "dist/assets/product-ocean-washi.png",
+        "dist/assets/usage-ocean-washi.png"
+      ]
+    }
+  ]
+}

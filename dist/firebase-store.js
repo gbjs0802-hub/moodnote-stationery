@@ -1,11 +1,13 @@
 import { getApp, getApps, initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
-import { addDoc, collection, doc, getDoc, getFirestore, onSnapshot, query, serverTimestamp, setDoc, where } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+import { addDoc, collection, doc, getDoc, getDocFromServer, getFirestore, onSnapshot, query, runTransaction, serverTimestamp, setDoc, where } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-storage.js';
 
+import { getFunctions, httpsCallable } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-functions.js';
 const config={apiKey:'AIzaSyAs5ccEVy3TDJFSrVhLXPRQThrazTvQ1r4',authDomain:'moodnote-shop.firebaseapp.com',projectId:'moodnote-shop',storageBucket:'moodnote-shop.firebasestorage.app',messagingSenderId:'1053244872680',appId:'1:1053244872680:web:fbe52ffd5d9d1f4717f65d'};
 const app=getApps().length?getApp():initializeApp(config),auth=getAuth(app),db=getFirestore(app),storage=getStorage(app);
-let userUnsubs=[];
+let userUnsubs=[],authGeneration=0;
+const supportInquiry=httpsCallable(getFunctions(app,'asia-northeast3'),'prepareTossOrder');
 window.moodnoteOrders=[];window.moodnoteProfile=null;
 const emit=(name,detail)=>window.dispatchEvent(new CustomEvent(name,{detail}));
 const clean=value=>Object.fromEntries(Object.entries(value).filter(([,item])=>item!==undefined));
@@ -15,10 +17,26 @@ onSnapshot(query(collection(db,'notices'),where('published','==',true)),snapshot
 onSnapshot(doc(db,'storefront','popup'),snapshot=>emit('moodnote-popup',{popup:snapshot.exists()?snapshot.data():null}),()=>emit('moodnote-popup',{popup:null}));
 
 async function ensureProfile(user){const ref=doc(db,'users',user.uid),snapshot=await getDoc(ref),now=serverTimestamp();if(!snapshot.exists())await setDoc(ref,{uid:user.uid,displayName:user.displayName||'무드노트 회원',email:user.email||'',phone:'',news:false,createdAt:now,updatedAt:now});else await setDoc(ref,{displayName:user.displayName||snapshot.data().displayName,email:user.email||snapshot.data().email,updatedAt:now},{merge:true})}
-onAuthStateChanged(auth,async user=>{userUnsubs.forEach(stop=>stop());userUnsubs=[];window.moodnoteOrders=[];window.moodnoteProfile=null;if(!user){emit('moodnote-orders',{orders:[]});emit('moodnote-profile',{profile:null});return}try{await ensureProfile(user);userUnsubs.push(onSnapshot(doc(db,'users',user.uid),snapshot=>{window.moodnoteProfile=snapshot.exists()?snapshot.data():null;emit('moodnote-profile',{profile:window.moodnoteProfile})}));userUnsubs.push(onSnapshot(query(collection(db,'orders'),where('userId','==',user.uid)),snapshot=>{window.moodnoteOrders=snapshot.docs.map(row=>({id:row.id,...row.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));emit('moodnote-orders',{orders:window.moodnoteOrders})}))}catch(error){console.error('Account sync failed',error)}});
+onAuthStateChanged(auth,async user=>{
+ const generation=++authGeneration,active=()=>generation===authGeneration&&auth.currentUser?.uid===user?.uid;
+ userUnsubs.forEach(stop=>stop());userUnsubs=[];window.moodnoteOrders=[];window.moodnoteProfile=null;window.moodnoteInquiries=[];
+ emit('moodnote-orders',{orders:[]});emit('moodnote-profile',{profile:null});emit('moodnote-inquiries',{inquiries:[]});
+ if(!user)return;
+ try{
+  await ensureProfile(user);if(!active())return;
+  userUnsubs.push(onSnapshot(doc(db,'users',user.uid),snapshot=>{if(!active())return;window.moodnoteProfile=snapshot.exists()?snapshot.data():null;emit('moodnote-profile',{profile:window.moodnoteProfile})}));
+  userUnsubs.push(onSnapshot(query(collection(db,'orders'),where('userId','==',user.uid)),snapshot=>{if(!active())return;window.moodnoteOrders=snapshot.docs.map(row=>({id:row.id,...row.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));emit('moodnote-orders',{orders:window.moodnoteOrders})}));
+  userUnsubs.push(onSnapshot(query(collection(db,'qna'),where('userId','==',user.uid)),snapshot=>{if(!active())return;window.moodnoteInquiries=snapshot.docs.map(row=>({id:row.id,...row.data()})).filter(row=>row.productId==='support').sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));emit('moodnote-inquiries',{inquiries:window.moodnoteInquiries})},error=>{if(active())emit('moodnote-inquiries',{error:true});console.warn('Inquiry sync failed',error.code)}));
+ }catch(error){console.error('Account sync failed',error)}
+});
 
 window.moodnoteData={
  auth,db,
+ shopping:{
+  async load(uid){if(auth.currentUser?.uid!==uid)throw new Error('account-changed');const snapshot=await getDocFromServer(doc(db,'users',uid,'shopping','state'));return snapshot.exists()?snapshot.data():null;},
+  async apply(uid,patch){if(auth.currentUser?.uid!==uid)throw new Error('account-changed');return runTransaction(db,async transaction=>{if(auth.currentUser?.uid!==uid)throw new Error('account-changed');const target=doc(db,'users',uid,'shopping','state'),snapshot=await transaction.get(target),state=window.MoodnoteShopping.apply(snapshot.exists()?snapshot.data():{},patch);transaction.set(target,{...state,updatedAt:serverTimestamp()});return state;});}
+ },
+ async createSupportInquiry(data){if(!auth.currentUser)throw new Error('로그인 후 문의를 등록해주세요.');return (await supportInquiry({...data,action:'createSupportInquiry'})).data;},
  async saveProfile(data){if(!auth.currentUser)throw new Error('login-required');await setDoc(doc(db,'users',auth.currentUser.uid),clean({...data,uid:auth.currentUser.uid,email:auth.currentUser.email,updatedAt:serverTimestamp()}),{merge:true})},
  async saveAddress(address){if(!auth.currentUser)throw new Error('login-required');await setDoc(doc(db,'users',auth.currentUser.uid),{address:clean(address),updatedAt:serverTimestamp()},{merge:true})},
  async removeAddress(){if(!auth.currentUser)throw new Error('login-required');await setDoc(doc(db,'users',auth.currentUser.uid),{address:{},updatedAt:serverTimestamp()},{merge:true})},

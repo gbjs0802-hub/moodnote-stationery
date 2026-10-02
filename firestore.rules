@@ -57,6 +57,19 @@ service cloud.firestore {
       allow update: if (isOwner(uid) && validUser(request.resource.data,uid) && request.resource.data.uid == resource.data.uid && request.resource.data.email == resource.data.email) || isAdmin();
       allow delete: if isOwner(uid);
     }
+    // Shopping lists contain product IDs/options only. Prices and orders remain server-authoritative.
+    function validShopping(data) {
+      return data.keys().hasAll(['cart','selections','favorites','updatedAt'])
+        && data.keys().hasOnly(['cart','selections','favorites','updatedAt'])
+        && data.cart is map && data.cart.size() <= 200
+        && data.selections is map && data.selections.size() <= 200
+        && data.favorites is list && data.favorites.size() <= 200
+        && data.updatedAt == request.time;
+    }
+    match /users/{uid}/shopping/{stateId} {
+      allow get: if isOwner(uid) && stateId == 'state';
+      allow create, update: if isOwner(uid) && stateId == 'state' && validShopping(request.resource.data);
+    }
     match /qna/{qnaId} {
       allow read: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid) || resource.data.secret == false;
       allow create: if signedIn() && request.resource.data.keys().hasOnly(['id','userId','productId','product','title','content','secret','customer','status','answer','createdAt','updatedAt']) && request.resource.data.userId == request.auth.uid && request.resource.data.id == qnaId && shortText(request.resource.data.title,120) && shortText(request.resource.data.content,2000) && request.resource.data.secret is bool && request.resource.data.status == 'waiting' && request.resource.data.answer == '';
