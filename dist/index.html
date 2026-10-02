@@ -16,7 +16,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
   <link rel="stylesheet" href="styles.css?v=6" />
   <link rel="stylesheet" href="season.css?v=6" />
   <link rel="stylesheet" href="refinement.css?v=8" />
@@ -32,11 +31,13 @@
   <script src="pwa.js?v=1" defer></script>
   <script src="detail-commerce.js?v=2" defer></script>
   <link rel="stylesheet" href="popup.css?v=2" />
-  <script src="popup.js?v=2" defer></script>
+  <script src="popup.js?v=3" defer></script>
   <link rel="stylesheet" href="address.css?v=1" />
   <script src="address.js?v=3" defer></script>
   <script src="shopping-state.js?v=1" defer></script>
-  <script src="app.js?v=27" defer></script>
+  <link rel="stylesheet" href="navigation-icons.css?v=1" />
+  <script src="navigation-icons.js?v=1" defer></script>
+  <script src="app.js?v=28" defer></script>
   <script src="account-inquiries.js?v=1" defer></script>
   <script src="account-extra.js?v=4" defer></script>
   <script src="mypage.js?v=6" defer></script>
@@ -53,7 +54,7 @@
     <div class="utility container"><span>좋아하는 것을 쓰고, 붙이고, 오래 남기는 곳</span><nav><a href="brand.html">브랜드</a><a href="#mypage" data-mypage>마이페이지</a><a href="support.html">고객센터</a><button data-action="favorites">찜 <b id="favorite-count">0</b></button><button data-action="cart">장바구니 <b id="cart-count">0</b></button></nav></div>
     <div class="masthead container">
       <a href="#home" class="brand brand-logo" data-home aria-label="무드노트 홈"><img src="assets/moodnote-logo-v4.png" alt="웃는 노트 캐릭터와 moodnote 글자가 담긴 무드노트 로고" width="232" height="77" /><span class="brand-caption">오늘의 기분을 한 장씩</span></a>
-      <form id="header-search" class="search-box"><input id="search-input" type="search" placeholder="찾고 싶은 문구를 검색해 보세요" aria-label="상품 검색" /><button aria-label="검색">⌕</button></form>
+      <form id="header-search" class="search-box"><input id="search-input" type="search" placeholder="찾고 싶은 문구를 검색해 보세요" aria-label="상품 검색" /><button aria-label="검색"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#search"></use></svg></button></form>
       <div class="mast-actions">
         <div class="auth-area" id="auth-area">
           <button class="auth-button" id="auth-button" type="button" aria-haspopup="true" aria-expanded="false">
@@ -64,9 +65,9 @@
             <a href="#mypage" data-mypage>마이페이지 →</a><button id="auth-logout" type="button">로그아웃</button>
           </div>
         </div>
-        <a href="#mypage" data-mypage class="mypage-link" aria-label="마이페이지"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/></svg></a>
-        <button class="round-action" data-action="favorites" aria-label="취향 보관함">♡</button>
-        <button class="round-action" data-action="cart" aria-label="장바구니">▱</button>
+        <a href="#mypage" data-mypage class="mypage-link" aria-label="마이페이지"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#user"></use></svg></a>
+        <button class="round-action" data-action="favorites" aria-label="찜한 상품" title="찜한 상품"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#heart"></use></svg></button>
+        <button class="round-action" data-action="cart" aria-label="장바구니" title="장바구니"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#cart"></use></svg></button>
       </div>
     </div>
     <nav class="main-nav container" aria-label="주요 메뉴"><a href="#catalog" data-filter="all"><strong>전체상품</strong></a><a href="#autumn" data-home>가을 컬렉션</a><a href="#hobby" data-home>취미·DIY</a><a href="#product/diary-2027" class="nav-feature" data-product="diary-2027"><small>NEW</small><span>2027 DIARY</span></a><a href="#catalog" data-filter="record">다이어리·노트</a><a href="#catalog" data-filter="deco">스티커·마테</a><a href="#catalog" data-filter="write">펜·필기</a><a href="#steady" data-home>스테디셀러</a><a href="#catalog" data-filter="custom">나만의 스티커</a></nav>
@@ -110,29 +111,29 @@
   <footer id="footer"><div class="container footer-main"><div><a href="#home" class="brand brand-logo" data-home aria-label="무드노트 홈"><img src="assets/moodnote-logo-v4.png" alt="웃는 노트 캐릭터와 moodnote 글자가 담긴 무드노트 로고" width="232" height="77" /><span class="brand-caption">오늘의 기분을 한 장씩</span></a><p>취향을 발견하고 기록하는 문구 편집숍</p></div><div><b>SHOP</b><a href="#catalog" data-home>전체상품</a><a href="#new" data-home>신상품</a><a href="#hobby" data-home>취미·DIY</a></div><div><b>HELP</b><span>평일 10:00–17:00</span><span>주말·공휴일 휴무</span><a href="notice.html">공지사항</a><a href="support.html">자주 묻는 질문</a><a href="support.html#inquiry">1:1 문의</a><a href="admin.html" class="seller-center-link">판매자센터</a></div><div><b>PAYMENT</b><span>토스페이먼츠 안전결제</span><span>30,000원 이상 구매 시 무료 배송</span></div></div><div class="container footer-bottom">© 2026 MOODNOTE <span>Instagram · Pinterest</span></div></footer>
 
   <nav class="mobile-bottom-nav" aria-label="모바일 주요 메뉴">
-    <a href="#home" data-home data-mobile-tab="home" class="active"><img src="assets/nav-home.svg" alt="" aria-hidden="true"/><span>홈</span></a>
-    <button type="button" data-mobile-panel="categories" data-mobile-tab="categories"><img src="assets/nav-category.svg" alt="" aria-hidden="true"/><span>카테고리</span></button>
-    <button type="button" data-mobile-panel="search" data-mobile-tab="search"><img src="assets/nav-search.svg" alt="" aria-hidden="true"/><span>검색</span></button>
-    <button type="button" data-action="cart" data-mobile-tab="cart"><img src="assets/nav-cart.svg" alt="" aria-hidden="true"/><span>장바구니</span><b id="cart-count">0</b></button>
-    <a href="#mypage" data-mypage data-mobile-tab="mypage"><img src="assets/nav-my.svg" alt="" aria-hidden="true"/><span>마이</span></a>
+    <a href="#home" data-home data-mobile-tab="home" class="active"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#home"></use></svg><span>홈</span></a>
+    <button type="button" data-mobile-panel="categories" data-mobile-tab="categories"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#category"></use></svg><span>카테고리</span></button>
+    <button type="button" data-mobile-panel="search" data-mobile-tab="search"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#search"></use></svg><span>검색</span></button>
+    <button type="button" data-action="cart" data-mobile-tab="cart"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#cart"></use></svg><span>장바구니</span><b id="cart-count">0</b></button>
+    <a href="#mypage" data-mypage data-mobile-tab="mypage"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#user"></use></svg><span>마이</span></a>
   </nav>
   <div class="mobile-nav-scrim" id="mobile-nav-scrim" hidden></div>
   <section class="mobile-nav-sheet" id="mobile-category-sheet" aria-hidden="true" aria-labelledby="mobile-category-title">
-    <header><div><small>SHOP BY CATEGORY</small><h2 id="mobile-category-title">뭘 찾으세요?</h2></div><button type="button" data-mobile-close aria-label="카테고리 닫기"><i class="ph ph-x"></i></button></header>
+    <header><div><small>SHOP BY CATEGORY</small><h2 id="mobile-category-title">뭘 찾으세요?</h2></div><button type="button" data-mobile-close aria-label="카테고리 닫기"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#close"></use></svg></button></header>
     <div class="mobile-category-grid">
-      <button data-filter="all"><i class="ph ph-storefront"></i><span>전체상품</span><small>38</small></button>
-      <button data-filter="record"><i class="ph ph-notebook"></i><span>다이어리·노트</span><small>4</small></button>
-      <button data-filter="deco"><i class="ph ph-sticker"></i><span>스티커·마테</span><small>16</small></button>
-      <button data-filter="write"><i class="ph ph-pencil-simple-line"></i><span>펜·필기</span><small>10</small></button>
-      <button data-filter="custom"><i class="ph ph-image-square"></i><span>나만의 스티커</span><small>3</small></button>
-      <button data-filter="hobby"><i class="ph ph-paint-brush"></i><span>취미·DIY</span><small>3</small></button>
-      <button data-filter="pouch"><i class="ph ph-briefcase"></i><span>파우치·소품</span><small>1</small></button>
-      <button data-filter="gift"><i class="ph ph-gift"></i><span>랜덤박스</span><small>1</small></button>
+      <button data-filter="all"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#store"></use></svg><span>전체상품</span><small>38</small></button>
+      <button data-filter="record"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#notebook"></use></svg><span>다이어리·노트</span><small>4</small></button>
+      <button data-filter="deco"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#sticker"></use></svg><span>스티커·마테</span><small>16</small></button>
+      <button data-filter="write"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#pen"></use></svg><span>펜·필기</span><small>10</small></button>
+      <button data-filter="custom"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#photo"></use></svg><span>나만의 스티커</span><small>3</small></button>
+      <button data-filter="hobby"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#brush"></use></svg><span>취미·DIY</span><small>3</small></button>
+      <button data-filter="pouch"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#pouch"></use></svg><span>파우치·소품</span><small>1</small></button>
+      <button data-filter="gift"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#gift"></use></svg><span>랜덤박스</span><small>1</small></button>
     </div>
   </section>
   <section class="mobile-nav-sheet mobile-search-sheet" id="mobile-search-sheet" aria-hidden="true" aria-labelledby="mobile-search-title">
-    <header><div><small>SEARCH MOODNOTE</small><h2 id="mobile-search-title">찾고 싶은 문구가 있나요?</h2></div><button type="button" data-mobile-close aria-label="검색 닫기"><i class="ph ph-x"></i></button></header>
-    <form id="mobile-search-form"><label><i class="ph ph-magnifying-glass" aria-hidden="true"></i><input id="mobile-search-input" type="search" placeholder="상품명이나 브랜드를 검색하세요" autocomplete="off" /></label><button type="submit">검색</button></form>
+    <header><div><small>SEARCH MOODNOTE</small><h2 id="mobile-search-title">찾고 싶은 문구가 있나요?</h2></div><button type="button" data-mobile-close aria-label="검색 닫기"><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#close"></use></svg></button></header>
+    <form id="mobile-search-form"><label><svg class="mn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="assets/navigation-icons-v2.svg#search"></use></svg><input id="mobile-search-input" type="search" placeholder="상품명이나 브랜드를 검색하세요" autocomplete="off" /></label><button type="submit">검색</button></form>
     <div class="mobile-search-suggestions"><span>많이 찾는 검색어</span><button type="button" data-mobile-query="다이어리">다이어리</button><button type="button" data-mobile-query="스티커">스티커</button><button type="button" data-mobile-query="모나미">모나미</button><button type="button" data-mobile-query="가을">가을</button></div>
   </section>
   <dialog id="favorite-login-dialog" class="moodnote-dialog" aria-labelledby="favorite-login-title">

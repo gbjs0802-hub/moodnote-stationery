@@ -1,0 +1,20 @@
+/* One optical size and stroke system for store navigation and favorite controls. */
+.mn-icon{display:block;width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.mast-actions{align-items:center}
+.mast-actions>.mypage-link,.mast-actions>.round-action{display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px;padding:0;line-height:1;border:1px solid var(--line);border-radius:50%;color:var(--ink);background:#fff}
+.mast-actions>.mypage-link .mn-icon,.mast-actions>.round-action .mn-icon{width:24px;height:24px}
+.mast-actions>.mypage-link:hover,.mast-actions>.round-action:hover{color:var(--red);border-color:#d8aaa4;background:#fff8f5}
+.search-box{border-radius:999px;overflow:hidden}
+.search-box:focus-within{outline:2px solid var(--red);outline-offset:3px}
+.search-box input{min-width:0;padding-inline:22px 8px;border-radius:999px}
+.search-box button{display:grid;place-items:center;flex:0 0 44px;width:44px;height:42px;padding:0;margin-right:4px;border-radius:50%;line-height:1}
+.search-box .mn-icon{width:22px;height:22px}
+.heart,.save-detail{display:grid;place-items:center;padding:0;line-height:1}
+.heart .mn-icon{width:20px;height:20px}
+.heart.saved .mn-icon,.save-detail.saved .mn-icon{fill:currentColor}
+.mobile-bottom-nav>a>.mn-icon,.mobile-bottom-nav>button>.mn-icon{width:25px;height:25px;margin:0;transform:none}
+.mobile-category-grid .mn-icon{color:var(--red);width:24px;height:24px;justify-self:center}
+.mobile-nav-sheet header>button{display:grid;place-items:center;padding:0}
+.mobile-search-sheet label>.mn-icon{width:22px;height:22px}
+.mobile-search-sheet form label,.mobile-search-sheet form>button{border-radius:999px}
+.mast-actions>a:focus-visible,.mast-actions>.round-action:focus-visible,.mobile-bottom-nav>a:focus-visible,.mobile-bottom-nav>button:focus-visible{outline:2px solid var(--red);outline-offset:3px}

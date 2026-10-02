@@ -1,5 +1,5 @@
-const CACHE_NAME='moodnote-pwa-v11';
-const APP_SHELL=['/','/index.html','/support.html','/offline.html','/manifest.webmanifest','/styles.css?v=6','/mobile.css?v=3','/live.css?v=1','/ai-chat.css?v=2','/detail-commerce.css?v=3','/app.js?v=27','/shopping-state.js?v=1','/account-inquiries.js?v=1','/account-extra.js?v=4','/mypage.js?v=6','/account-layout.css?v=1','/summer.css?v=1','/pwa.js?v=1','/assets/pwa-192.png','/assets/pwa-512.png','/assets/moodnote-logo-v4.png'];
+const CACHE_NAME='moodnote-pwa-v12';
+const APP_SHELL=['/navigation-icons.js?v=1','/navigation-icons.css?v=1','/assets/navigation-icons-v2.svg','/popup.js?v=3','/popup.css?v=2','/','/index.html','/support.html','/offline.html','/manifest.webmanifest','/styles.css?v=6','/mobile.css?v=3','/live.css?v=1','/ai-chat.css?v=2','/detail-commerce.css?v=3','/app.js?v=28','/shopping-state.js?v=1','/account-inquiries.js?v=1','/account-extra.js?v=4','/mypage.js?v=6','/account-layout.css?v=1','/summer.css?v=1','/pwa.js?v=1','/assets/pwa-192.png','/assets/pwa-512.png','/assets/moodnote-logo-v4.png'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
