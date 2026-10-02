@@ -1,4 +1,4 @@
-const CACHE_NAME='moodnote-pwa-v4';
+const CACHE_NAME='moodnote-pwa-v5';
 const APP_SHELL=['/','/index.html','/support.html','/offline.html','/manifest.webmanifest','/styles.css?v=6','/mobile.css?v=3','/live.css?v=1','/ai-chat.css?v=1','/app.js?v=23','/pwa.js?v=1','/assets/pwa-192.png','/assets/pwa-512.png','/assets/moodnote-logo-v4.png'];
 
 self.addEventListener('install',event=>{
