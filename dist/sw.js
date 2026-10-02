@@ -1,5 +1,5 @@
-const CACHE_NAME='moodnote-pwa-v1';
-const APP_SHELL=['/','/index.html','/offline.html','/manifest.webmanifest','/styles.css?v=6','/mobile.css?v=3','/live.css?v=1','/app.js?v=22','/pwa.js?v=1','/assets/pwa-192.png','/assets/pwa-512.png','/assets/moodnote-logo-v3.png'];
+const CACHE_NAME='moodnote-pwa-v4';
+const APP_SHELL=['/','/index.html','/support.html','/offline.html','/manifest.webmanifest','/styles.css?v=6','/mobile.css?v=3','/live.css?v=1','/ai-chat.css?v=1','/app.js?v=23','/pwa.js?v=1','/assets/pwa-192.png','/assets/pwa-512.png','/assets/moodnote-logo-v4.png'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));

@@ -1,0 +1,35 @@
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.moodnote-dialog{width:min(420px,calc(100vw - 32px));padding:34px 30px 26px;border:0;border-radius:22px;background:#fffdf9;color:#28221f;box-shadow:0 24px 80px rgba(46,31,25,.25);text-align:center}
+.moodnote-dialog::backdrop{background:rgba(35,28,25,.46);backdrop-filter:blur(3px)}
+.moodnote-dialog .dialog-close{position:absolute;top:12px;right:14px;width:34px;height:34px;border:0;background:transparent;color:#6f635d;font-size:25px;cursor:pointer}
+.moodnote-dialog .dialog-symbol{display:grid;place-items:center;width:54px;height:54px;margin:0 auto 16px;border-radius:18px;background:#f8e8e4;color:#b73b38;font:800 27px/1 "Nunito",sans-serif}
+.moodnote-dialog h2{margin:0 0 10px;font-size:24px;letter-spacing:-.04em}
+.moodnote-dialog p{margin:0 0 22px;color:#6f635d;font-size:14px;line-height:1.75}
+.moodnote-dialog p strong{color:#3d302b}
+.moodnote-dialog .full{width:100%;justify-content:center;margin-top:8px}
+.dialog-text-button{margin-top:12px;border:0;background:transparent;color:#80736d;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.guest-payment-dialog .dialog-symbol{background:#fff0c6;color:#9c6710}
+
+.ai-chat-launcher{position:fixed;right:24px;bottom:24px;z-index:80;display:flex;align-items:center;gap:8px;height:54px;padding:0 20px;border:0;border-radius:999px;background:#b73b38;color:#fff;box-shadow:0 12px 34px rgba(126,45,42,.3);font:700 14px/1 "Noto Sans KR",sans-serif;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
+.ai-chat-launcher:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(126,45,42,.36)}
+.ai-chat-launcher span{font-size:19px;color:#ffd86d}
+.ai-chat-panel{position:fixed;right:24px;bottom:90px;z-index:81;width:min(380px,calc(100vw - 32px));height:min(610px,calc(100vh - 130px));overflow:hidden;border:1px solid #eadfd8;border-radius:22px;background:#fffdf9;box-shadow:0 24px 70px rgba(48,34,28,.24)}
+.ai-chat-panel[hidden]{display:none}
+.ai-chat-panel>header{height:76px;padding:0 18px 0 20px;display:flex;align-items:center;justify-content:space-between;background:#fff7ef;border-bottom:1px solid #eee2d9}
+.ai-chat-panel>header>div{display:flex;align-items:center;gap:11px}
+.ai-chat-panel>header>div>span{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:#b73b38;color:#ffd86d}
+.ai-chat-panel header strong,.ai-chat-panel header small{display:block}
+.ai-chat-panel header strong{font-size:15px}.ai-chat-panel header small{margin-top:3px;color:#8a7770;font-size:11px}
+.ai-chat-panel header button{border:0;background:transparent;color:#6f625d;font-size:25px;cursor:pointer}
+.ai-chat-messages{height:calc(100% - 219px);padding:20px 16px;overflow:auto;scroll-behavior:smooth}
+.ai-message{display:flex;margin-bottom:12px}.ai-message p{max-width:82%;margin:0;padding:11px 13px;border-radius:16px;font-size:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
+.ai-message.assistant p{background:#f3eee9;color:#3b312d;border-bottom-left-radius:5px}.ai-message.user{justify-content:flex-end}.ai-message.user p{background:#b73b38;color:#fff;border-bottom-right-radius:5px}
+.ai-message.loading p{display:flex;gap:4px;padding:15px}.ai-message.loading i{width:5px;height:5px;border-radius:50%;background:#9e8e87;animation:chat-dot 1s infinite alternate}.ai-message.loading i:nth-child(2){animation-delay:.2s}.ai-message.loading i:nth-child(3){animation-delay:.4s}
+@keyframes chat-dot{to{opacity:.25;transform:translateY(-2px)}}
+.ai-chat-quick{display:flex;gap:6px;padding:0 14px 10px;overflow-x:auto}.ai-chat-quick button{flex:none;padding:7px 10px;border:1px solid #e5d7cf;border-radius:999px;background:#fff;color:#665750;font-size:11px;cursor:pointer}
+#ai-chat-form{display:grid;grid-template-columns:1fr 42px;gap:8px;margin:0 14px;padding:9px;border:1px solid #dfd4cc;border-radius:15px;background:#fff}
+#ai-chat-input{min-height:24px;max-height:72px;padding:4px;border:0;outline:0;resize:none;background:transparent;font:13px/1.5 "Noto Sans KR",sans-serif;color:#332a26}
+#ai-chat-form button{width:38px;height:38px;border:0;border-radius:12px;background:#b73b38;color:#fff;font-size:20px;cursor:pointer}
+#ai-chat-form button:disabled{opacity:.45;cursor:wait}
+.ai-chat-notice{margin:8px 16px 0;color:#998982;font-size:10px;text-align:center}
+@media(max-width:720px){.ai-chat-launcher{right:14px;bottom:82px;height:48px;padding:0 16px}.ai-chat-panel{right:10px;bottom:76px;width:calc(100vw - 20px);height:min(620px,calc(100vh - 96px));border-radius:18px}.ai-chat-messages{height:calc(100% - 219px)}}

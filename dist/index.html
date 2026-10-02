@@ -26,27 +26,29 @@
   <link rel="stylesheet" href="mobile.css?v=3" />
   <link rel="stylesheet" href="live.css?v=1" />
   <link rel="stylesheet" href="pwa.css?v=1" />
+  <link rel="stylesheet" href="ai-chat.css?v=1" />
   <script src="pwa.js?v=1" defer></script>
   <script src="detail-commerce.js?v=1" defer></script>
   <link rel="stylesheet" href="popup.css?v=1" />
   <script src="popup.js?v=1" defer></script>
   <link rel="stylesheet" href="address.css?v=1" />
   <script src="address.js?v=3" defer></script>
-  <script src="app.js?v=22" defer></script>
+  <script src="app.js?v=23" defer></script>
   <script src="account-extra.js?v=3" defer></script>
   <script src="mypage.js?v=5" defer></script>
   <script src="mobile-nav.js?v=2" defer></script>
   <script type="module" src="firebase-auth.js?v=2"></script>
   <script type="module" src="firebase-store.js?v=1"></script>
   <script src="https://js.tosspayments.com/v2/standard"></script>
-  <script type="module" src="toss-payments.js?v=1"></script>
+  <script type="module" src="toss-payments.js?v=2"></script>
+  <script type="module" src="ai-chat.js?v=2"></script>
 </head>
 <body>
-  <div class="promo-bar"><span>첫 장바구니는 10% 가볍게</span><span>·</span><span>30,000원부터 배송비는 저희가</span><a href="#catalog" data-home>문구 구경하기 →</a></div>
+  <div class="promo-bar"><span>첫 주문 시 10% 할인 쿠폰 제공</span><span>·</span><span>30,000원 이상 구매 시 무료 배송</span><a href="#catalog" data-home>문구 구경하기 →</a></div>
   <header class="site-header">
-    <div class="utility container"><span>좋아하는 것을 쓰고, 붙이고, 오래 남기는 곳</span><nav><a href="brand.html">브랜드</a><a href="#mypage" data-mypage>마이페이지</a><a href="#footer" data-home>고객센터</a><button data-action="favorites">찜 <b id="favorite-count">0</b></button><button data-action="cart">장바구니 <b id="cart-count">0</b></button></nav></div>
+    <div class="utility container"><span>좋아하는 것을 쓰고, 붙이고, 오래 남기는 곳</span><nav><a href="brand.html">브랜드</a><a href="#mypage" data-mypage>마이페이지</a><a href="support.html">고객센터</a><button data-action="favorites">찜 <b id="favorite-count">0</b></button><button data-action="cart">장바구니 <b id="cart-count">0</b></button></nav></div>
     <div class="masthead container">
-      <a href="#home" class="brand brand-logo" data-home aria-label="무드노트 홈"><img src="assets/moodnote-logo-v3.png" alt="웃는 노트 캐릭터와 moodnote 글자가 담긴 무드노트 로고" width="232" height="77" /><span class="brand-caption">오늘의 기분을 한 장씩</span></a>
+      <a href="#home" class="brand brand-logo" data-home aria-label="무드노트 홈"><img src="assets/moodnote-logo-v4.png" alt="웃는 노트 캐릭터와 moodnote 글자가 담긴 무드노트 로고" width="232" height="77" /><span class="brand-caption">오늘의 기분을 한 장씩</span></a>
       <form id="header-search" class="search-box"><input id="search-input" type="search" placeholder="찾고 싶은 문구를 검색해 보세요" aria-label="상품 검색" /><button aria-label="검색">⌕</button></form>
       <div class="mast-actions">
         <div class="auth-area" id="auth-area">
@@ -98,7 +100,7 @@
   <main id="product-page" class="product-page" hidden><div class="container" id="product-detail"></div></main>
   <main id="checkout-page" class="checkout-page" hidden><div class="container" id="checkout-content"></div></main>
   <main id="mypage-page" class="mypage-page" hidden><div class="container" id="mypage-content"></div></main>
-  <footer id="footer"><div class="container footer-main"><div><a href="#home" class="brand brand-logo" data-home aria-label="무드노트 홈"><img src="assets/moodnote-logo-v3.png" alt="웃는 노트 캐릭터와 moodnote 글자가 담긴 무드노트 로고" width="232" height="77" /><span class="brand-caption">오늘의 기분을 한 장씩</span></a><p>취향을 발견하고 기록하는 문구 편집숍</p></div><div><b>SHOP</b><a href="#catalog" data-home>전체상품</a><a href="#new" data-home>신상품</a><a href="#hobby" data-home>취미·DIY</a></div><div><b>HELP</b><span>평일 10:00–17:00</span><span>주말·공휴일 휴무</span><a href="notice.html">공지사항</a><a href="#footer" data-home>배송·교환 안내</a><a href="admin.html" class="seller-center-link">판매자센터</a></div><div><b>PAYMENT</b><span>토스페이먼츠 안전결제</span><span>30,000원 이상 무료배송</span></div></div><div class="container footer-bottom">© 2026 MOODNOTE <span>Instagram · Pinterest</span></div></footer>
+  <footer id="footer"><div class="container footer-main"><div><a href="#home" class="brand brand-logo" data-home aria-label="무드노트 홈"><img src="assets/moodnote-logo-v4.png" alt="웃는 노트 캐릭터와 moodnote 글자가 담긴 무드노트 로고" width="232" height="77" /><span class="brand-caption">오늘의 기분을 한 장씩</span></a><p>취향을 발견하고 기록하는 문구 편집숍</p></div><div><b>SHOP</b><a href="#catalog" data-home>전체상품</a><a href="#new" data-home>신상품</a><a href="#hobby" data-home>취미·DIY</a></div><div><b>HELP</b><span>평일 10:00–17:00</span><span>주말·공휴일 휴무</span><a href="notice.html">공지사항</a><a href="support.html">자주 묻는 질문</a><a href="support.html#inquiry">1:1 문의</a><a href="admin.html" class="seller-center-link">판매자센터</a></div><div><b>PAYMENT</b><span>토스페이먼츠 안전결제</span><span>30,000원 이상 구매 시 무료 배송</span></div></div><div class="container footer-bottom">© 2026 MOODNOTE <span>Instagram · Pinterest</span></div></footer>
 
   <nav class="mobile-bottom-nav" aria-label="모바일 주요 메뉴">
     <a href="#home" data-home data-mobile-tab="home" class="active"><img src="assets/nav-home.svg" alt="" aria-hidden="true"/><span>홈</span></a>
@@ -126,6 +128,35 @@
     <form id="mobile-search-form"><label><i class="ph ph-magnifying-glass" aria-hidden="true"></i><input id="mobile-search-input" type="search" placeholder="상품명이나 브랜드를 검색하세요" autocomplete="off" /></label><button type="submit">검색</button></form>
     <div class="mobile-search-suggestions"><span>많이 찾는 검색어</span><button type="button" data-mobile-query="다이어리">다이어리</button><button type="button" data-mobile-query="스티커">스티커</button><button type="button" data-mobile-query="모나미">모나미</button><button type="button" data-mobile-query="가을">가을</button></div>
   </section>
+  <dialog id="favorite-login-dialog" class="moodnote-dialog" aria-labelledby="favorite-login-title">
+    <button type="button" class="dialog-close" data-login-required-action="close" aria-label="닫기">×</button>
+    <span class="dialog-symbol" aria-hidden="true">♡</span>
+    <h2 id="favorite-login-title">로그인을 해주세요</h2>
+    <p>찜한 상품은 로그인 후 저장하고 다시 볼 수 있어요.</p>
+    <button type="button" class="solid-button full" data-login-required-action="login">Google 로그인</button>
+    <button type="button" class="dialog-text-button" data-login-required-action="close">다음에 할게요</button>
+  </dialog>
+
+  <dialog id="guest-payment-dialog" class="moodnote-dialog guest-payment-dialog" aria-labelledby="guest-payment-title">
+    <button type="button" class="dialog-close" data-guest-payment="cancel" aria-label="닫기">×</button>
+    <span class="dialog-symbol" aria-hidden="true">!</span>
+    <h2 id="guest-payment-title">비회원으로 결제할까요?</h2>
+    <p><strong>비회원 결제로 구매 시 구매내역 확인이 어렵습니다.</strong><br/>결제 완료 화면의 주문번호와 영수증을 꼭 보관해주세요.</p>
+    <button type="button" class="solid-button full" data-guest-payment="continue">비회원으로 계속 결제</button>
+    <button type="button" class="outline-button full" data-guest-payment="login">로그인 후 결제</button>
+  </dialog>
+
+  <button type="button" class="ai-chat-launcher" id="ai-chat-launcher" aria-controls="ai-chat-panel" aria-expanded="false">
+    <span aria-hidden="true">✦</span><b>상담하기</b>
+  </button>
+  <section class="ai-chat-panel" id="ai-chat-panel" hidden aria-label="무드노트 AI 상담">
+    <header><div><span>✦</span><div><strong>무드노트 상담</strong><small>Gemini 3.8 Flash</small></div></div><button type="button" id="ai-chat-close" aria-label="상담창 닫기">×</button></header>
+    <div class="ai-chat-messages" id="ai-chat-messages" aria-live="polite"><div class="ai-message assistant"><p>안녕하세요! 상품 추천, 배송, 주문 방법을 도와드릴게요.</p></div></div>
+    <div class="ai-chat-quick" id="ai-chat-quick"><button type="button">다이어리 추천해줘</button><button type="button">배송비가 궁금해</button><button type="button">비회원 주문 방법</button></div>
+    <form id="ai-chat-form"><label for="ai-chat-input" class="sr-only">상담 내용</label><textarea id="ai-chat-input" rows="1" maxlength="500" placeholder="궁금한 내용을 입력해주세요" required></textarea><button type="submit" aria-label="메시지 보내기">↑</button></form>
+    <p class="ai-chat-notice">AI 답변은 참고용이며 주문·결제 내역은 마이페이지에서 확인해주세요.</p>
+  </section>
+
   <div id="overlay" class="overlay" hidden></div><aside id="drawer" class="drawer" aria-hidden="true"><div id="drawer-content"></div></aside><div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

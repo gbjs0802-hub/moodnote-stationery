@@ -2,7 +2,7 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
     function signedIn() { return request.auth != null; }
-    function isAdmin() { return signedIn() && request.auth.token.email_verified == true && request.auth.token.email == 'gbjs0802@gmail.com'; }
+    function isAdmin() { return signedIn() && request.auth.token.email_verified == true && request.auth.token.email == 'gogogen98@gmail.com'; }
     match /custom-orders/{uid}/{draftId}/{fileName} {
       allow read: if isAdmin() || (signedIn() && request.auth.uid == uid);
       allow create: if signedIn() && request.auth.uid == uid && request.resource.size < 10 * 1024 * 1024 && request.resource.contentType.matches('image/(jpeg|png|webp)');
