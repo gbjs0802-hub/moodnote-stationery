@@ -8,7 +8,7 @@ const config={apiKey:'AIzaSyAs5ccEVy3TDJFSrVhLXPRQThrazTvQ1r4',authDomain:'moodn
 const app=getApps().length?getApp():initializeApp(config),auth=getAuth(app),db=getFirestore(app),storage=getStorage(app);
 let userUnsubs=[],authGeneration=0;
 const supportInquiry=httpsCallable(getFunctions(app,'asia-northeast3'),'prepareTossOrder');
-window.moodnoteOrders=[];window.moodnoteProfile=null;
+window.moodnoteOrders=[];window.moodnoteProfile=null;window.moodnoteCoupons=[];window.moodnoteCouponUsage=[];
 const emit=(name,detail)=>window.dispatchEvent(new CustomEvent(name,{detail}));
 const clean=value=>Object.fromEntries(Object.entries(value).filter(([,item])=>item!==undefined));
 
@@ -16,14 +16,18 @@ onSnapshot(query(collection(db,'products'),where('saleStatus','==','판매 중')
 onSnapshot(query(collection(db,'notices'),where('published','==',true)),snapshot=>emit('moodnote-notices',{notices:snapshot.docs.map(row=>({id:row.id,...row.data()}))}),error=>console.error('Notice sync failed',error));
 onSnapshot(doc(db,'storefront','popup'),snapshot=>emit('moodnote-popup',{popup:snapshot.exists()?snapshot.data():null}),()=>emit('moodnote-popup',{popup:null}));
 
+onSnapshot(doc(db,'storefront','public'),snapshot=>emit('moodnote-settings',{settings:snapshot.data()||{}}),()=>{});
+
 async function ensureProfile(user){const ref=doc(db,'users',user.uid),snapshot=await getDoc(ref),now=serverTimestamp();if(!snapshot.exists())await setDoc(ref,{uid:user.uid,displayName:user.displayName||'무드노트 회원',email:user.email||'',phone:'',news:false,createdAt:now,updatedAt:now});else await setDoc(ref,{displayName:user.displayName||snapshot.data().displayName,email:user.email||snapshot.data().email,updatedAt:now},{merge:true})}
 onAuthStateChanged(auth,async user=>{
  const generation=++authGeneration,active=()=>generation===authGeneration&&auth.currentUser?.uid===user?.uid;
  userUnsubs.forEach(stop=>stop());userUnsubs=[];window.moodnoteOrders=[];window.moodnoteProfile=null;window.moodnoteInquiries=[];
- emit('moodnote-orders',{orders:[]});emit('moodnote-profile',{profile:null});emit('moodnote-inquiries',{inquiries:[]});
+ window.moodnoteCoupons=[];window.moodnoteCouponUsage=[];emit('moodnote-coupons',{});emit('moodnote-orders',{orders:[]});emit('moodnote-profile',{profile:null});emit('moodnote-inquiries',{inquiries:[]});
  if(!user)return;
  try{
   await ensureProfile(user);if(!active())return;
+  userUnsubs.push(onSnapshot(query(collection(db,'coupons'),where('enabled','==',true)),snapshot=>{if(!active())return;window.moodnoteCoupons=snapshot.docs.map(d=>d.data());emit('moodnote-coupons',{})}));
+  userUnsubs.push(onSnapshot(query(collection(db,'couponUsage'),where('uid','==',user.uid)),snapshot=>{if(!active())return;window.moodnoteCouponUsage=snapshot.docs.map(d=>d.data());emit('moodnote-coupons',{})}));
   userUnsubs.push(onSnapshot(doc(db,'users',user.uid),snapshot=>{if(!active())return;window.moodnoteProfile=snapshot.exists()?snapshot.data():null;emit('moodnote-profile',{profile:window.moodnoteProfile})}));
   userUnsubs.push(onSnapshot(query(collection(db,'orders'),where('userId','==',user.uid)),snapshot=>{if(!active())return;window.moodnoteOrders=snapshot.docs.map(row=>({id:row.id,...row.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));emit('moodnote-orders',{orders:window.moodnoteOrders})}));
   userUnsubs.push(onSnapshot(query(collection(db,'qna'),where('userId','==',user.uid)),snapshot=>{if(!active())return;window.moodnoteInquiries=snapshot.docs.map(row=>({id:row.id,...row.data()})).filter(row=>row.productId==='support').sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));emit('moodnote-inquiries',{inquiries:window.moodnoteInquiries})},error=>{if(active())emit('moodnote-inquiries',{error:true});console.warn('Inquiry sync failed',error.code)}));
@@ -41,7 +45,9 @@ window.moodnoteData={
  async saveAddress(address){if(!auth.currentUser)throw new Error('login-required');await setDoc(doc(db,'users',auth.currentUser.uid),{address:clean(address),updatedAt:serverTimestamp()},{merge:true})},
  async removeAddress(){if(!auth.currentUser)throw new Error('login-required');await setDoc(doc(db,'users',auth.currentUser.uid),{address:{},updatedAt:serverTimestamp()},{merge:true})},
  async createQna(data){if(!auth.currentUser)throw new Error('login-required');const ref=doc(collection(db,'qna'));await setDoc(ref,{id:ref.id,userId:auth.currentUser.uid,productId:data.productId,product:data.product,title:data.title,content:data.content,secret:Boolean(data.secret),customer:auth.currentUser.displayName||'회원',status:'waiting',answer:'',createdAt:serverTimestamp(),updatedAt:serverTimestamp()});return ref.id},
- async createReview(data){if(!auth.currentUser)throw new Error('login-required');const ref=doc(collection(db,'reviews'));await setDoc(ref,{id:ref.id,userId:auth.currentUser.uid,productId:data.productId,product:data.product,rating:Number(data.rating),text:data.text,customer:auth.currentUser.displayName||'회원',photo:false,image:'',reply:'',hidden:false,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});return ref.id}
+ async createReview(data){return (await supportInquiry({...data,action:'submitReview'})).data;},
+ watchProductCare(productId,callback){let allReviews=[],publicQna=[],ownQna=[];const send=()=>callback({reviews:allReviews,qna:[...new Map([...publicQna,...ownQna].map(q=>[q.id,q])).values()]});const stops=[onSnapshot(query(collection(db,'reviews'),where('productId','==',productId),where('hidden','==',false)),s=>{allReviews=s.docs.map(d=>({id:d.id,...d.data()}));send()},()=>callback({error:true})),onSnapshot(query(collection(db,'qna'),where('productId','==',productId),where('secret','==',false)),s=>{publicQna=s.docs.map(d=>({id:d.id,...d.data()}));send()},()=>callback({error:true}))];if(auth.currentUser)stops.push(onSnapshot(query(collection(db,'qna'),where('productId','==',productId),where('userId','==',auth.currentUser.uid)),s=>{ownQna=s.docs.map(d=>({id:d.id,...d.data()}));send()},()=>callback({error:true})));return ()=>stops.forEach(stop=>stop());}
+
  ,async uploadCustomFiles(files){if(!auth.currentUser)throw new Error('login-required');const batchId=crypto.randomUUID(),uploads=[];for(const file of [...files].slice(0,5)){if(file.size>10*1024*1024)throw new Error('이미지는 장당 10MB 이하만 업로드할 수 있습니다.');const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,'_'),target=ref(storage,`custom-orders/${auth.currentUser.uid}/${batchId}/${crypto.randomUUID()}-${safe}`);await uploadBytes(target,file,{contentType:file.type});uploads.push({name:file.name,url:await getDownloadURL(target),contentType:file.type,size:file.size})}return uploads}
 };
 emit('moodnote-data-ready',{auth,db});

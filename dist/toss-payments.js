@@ -29,7 +29,7 @@ async function start(form){
   if(guest&&customInput?.files?.length)throw new Error('사진을 올리는 커스텀 상품은 파일 보호를 위해 로그인 후 결제해주세요.');
   const customUploads=customInput?.files?.length?await window.moodnoteData.uploadCustomFiles(customInput.files):[];
   const customText=document.querySelector('[data-pet-name]')?.value.trim()||'';
-  const payload={items:lineItems(),customer:form.elements.name.value.trim(),phone:form.elements.phone.value.trim(),email:form.elements.email.value.trim(),address,customUploads,customText};
+  const payload={items:lineItems(),customer:form.elements.name.value.trim(),phone:form.elements.phone.value.trim(),email:form.elements.email.value.trim(),address,customUploads,customText,couponCode:window.currentCoupon||''};
   const result=(await prepareOrder(payload)).data;
   if(result.guestAccessToken)saveGuestAccess(result.orderId,result.guestAccessToken);
   if(typeof window.TossPayments!=='function')throw new Error('토스 결제 모듈을 불러오지 못했습니다. 페이지를 새로고침해주세요.');

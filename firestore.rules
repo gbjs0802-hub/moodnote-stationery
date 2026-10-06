@@ -10,11 +10,11 @@ service cloud.firestore {
 
     function validProduct(data) {
       return data.keys().hasAll(['id','name','maker','price','category','image','stock','saleStatus','searchVisible','featured','reviewEnabled','qnaEnabled','createdAt','updatedAt'])
-        && data.keys().hasOnly(['id','name','maker','price','originalPrice','category','image','badge','description','detail','options','spec','stock','saleStatus','searchVisible','featured','reviewEnabled','qnaEnabled','createdAt','updatedAt','mood','rating','reviews','featuredRank'])
+        && data.keys().hasOnly(['id','name','maker','price','originalPrice','category','image','badge','description','detail','options','spec','stock','saleStatus','searchVisible','featured','reviewEnabled','qnaEnabled','createdAt','updatedAt','mood','rating','reviews','featuredRank','gallery','variantStock'])
         && shortText(data.id,60) && shortText(data.name,80) && shortText(data.maker,40)
         && nonNegative(data.price) && nonNegative(data.stock)
         && data.category in ['record','deco','custom','write','hobby','pouch','gift']
-        && shortText(data.image,500) && data.saleStatus in ['판매 중','판매 중지','품절']
+        && shortText(data.image,2000) && data.saleStatus in ['판매 중','판매 중지','품절']
         && data.searchVisible is bool && data.featured is bool && data.reviewEnabled is bool && data.qnaEnabled is bool
         && optionalText(data,'badge',20) && optionalText(data,'description',180) && optionalText(data,'detail',5000)
         && (!('options' in data) || (data.options is list && data.options.size() <= 30))
@@ -48,7 +48,7 @@ service cloud.firestore {
       // Orders are created by the trusted Cloud Function after server-side price checks.
       allow create: if false;
       allow read: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid);
-      allow update: if isAdmin() && request.resource.data.userId == resource.data.userId && request.resource.data.id == resource.data.id;
+      allow update: if false; // Payment, inventory, shipping and refunds use the audited server callable.
       allow delete: if false;
     }
     match /users/{uid} {
@@ -72,13 +72,13 @@ service cloud.firestore {
     }
     match /qna/{qnaId} {
       allow read: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid) || resource.data.secret == false;
-      allow create: if signedIn() && request.resource.data.keys().hasOnly(['id','userId','productId','product','title','content','secret','customer','status','answer','createdAt','updatedAt']) && request.resource.data.userId == request.auth.uid && request.resource.data.id == qnaId && shortText(request.resource.data.title,120) && shortText(request.resource.data.content,2000) && request.resource.data.secret is bool && request.resource.data.status == 'waiting' && request.resource.data.answer == '';
+      allow create: if signedIn() && request.resource.data.keys().hasOnly(['id','userId','productId','product','title','content','secret','customer','status','answer','createdAt','updatedAt']) && request.resource.data.userId == request.auth.uid && request.resource.data.id == qnaId && shortText(request.resource.data.title,120) && shortText(request.resource.data.content,2000) && request.resource.data.secret is bool && request.resource.data.status == 'waiting' && request.resource.data.answer == '' && get(/databases/$(database)/documents/products/$(request.resource.data.productId)).data.qnaEnabled == true;
       allow update: if isAdmin();
       allow delete: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid && resource.data.status == 'waiting');
     }
     match /reviews/{reviewId} {
       allow read: if isAdmin() || resource.data.hidden == false;
-      allow create: if signedIn() && request.resource.data.keys().hasOnly(['id','userId','productId','product','rating','text','customer','photo','image','reply','hidden','createdAt','updatedAt']) && request.resource.data.userId == request.auth.uid && request.resource.data.id == reviewId && request.resource.data.rating is int && request.resource.data.rating >= 1 && request.resource.data.rating <= 5 && shortText(request.resource.data.text,2000) && request.resource.data.hidden == false && request.resource.data.reply == '';
+      allow create: if false; // Verified-purchase reviews are created by the server.
       allow update: if isAdmin();
       allow delete: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid);
     }
@@ -88,9 +88,12 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
     match /storefront/{documentId} {
-      allow read: if isAdmin() || (documentId == 'popup' && resource.data.enabled == true);
+      allow read: if isAdmin() || documentId == 'public' || (documentId == 'popup' && resource.data.enabled == true);
       allow create, update, delete: if isAdmin();
     }
+    match /coupons/{code} { allow read: if signedIn(); allow write: if false; }
+    match /couponUsage/{usageId} { allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid); allow write: if false; }
+    match /adminAudit/{eventId} { allow read: if isAdmin(); allow write: if false; }
     match /settings/{documentId} { allow read, write: if isAdmin(); }
     match /{document=**} { allow read, write: if false; }
   }
